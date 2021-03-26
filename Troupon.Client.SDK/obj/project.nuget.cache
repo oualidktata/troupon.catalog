@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "e/e8R8sHvYf4ukTxcsMJQ/wpd+2E2aNhmNM3v2UypiX+9wjw9jJeyteWSqhwLb4R1YlWBCQB0rF1y+HO9MQs+Q==",
+  "success": true,
+  "projectFilePath": "C:\\_gitRepos\\ARAI\\Troupon\\Troupon.Services\\Troupon.Catalog.Capability\\Troupon.Client.SDK\\Troupon.Catalog.Client.SDK.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\pw192269\\.nuget\\packages\\microsoft.extensions.apidescription.client\\0.3.0-preview7.19365.7\\microsoft.extensions.apidescription.client.0.3.0-preview7.19365.7.nupkg.sha512",
+    "C:\\Users\\pw192269\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\pw192269\\.nuget\\packages\\nswag.apidescription.client\\13.0.5\\nswag.apidescription.client.13.0.5.nupkg.sha512",
+    "C:\\Users\\pw192269\\.nuget\\packages\\nswag.msbuild\\13.0.5\\nswag.msbuild.13.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}

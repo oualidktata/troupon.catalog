@@ -1,0 +1,582 @@
+03/26/2021 15:18:57App starting
+03/26/2021 15:18:58Initializing UI Database
+03/26/2021 15:18:59Saving healthchecks configuration to database
+03/26/2021 15:19:00Executing HealthCheck collector HostedService.
+03/26/2021 15:19:00Health check "Identity server" completed after 1.6027ms with status Degraded and description '"Not going well!"'
+03/26/2021 15:19:00Health check "Errors KPI" completed after 1.5976ms with status Unhealthy and description '"There were 280 in the last 24H, you need investigate this!"'
+03/26/2021 15:19:00Health check "Database" completed after 255.7309ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:7f2d4d0b-e1a1-4026-ae7d-24951a54cc12
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:00HTTP "GET" "/index.html" responded 200 in 60.3399 ms
+03/26/2021 15:19:01HTTP "GET" "/swagger/v1/swagger.json" responded 200 in 104.1703 ms
+03/26/2021 15:19:01HTTP "GET" "/health" responded 503 in 1592.4598 ms
+03/26/2021 15:19:02HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:02Creating a new HealthReport history.
+03/26/2021 15:19:02Health check "Database" completed after 3.4605ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:7f2d4d0b-e1a1-4026-ae7d-24951a54cc12
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:02HTTP "GET" "/health/db" responded 503 in 15.4412 ms
+03/26/2021 15:19:02HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:02Creating a new HealthReport history.
+03/26/2021 15:19:03HTTP "GET" "/health/uri" responded 200 in 891.9130 ms
+03/26/2021 15:19:03HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:03Creating a new HealthReport history.
+03/26/2021 15:19:03Health check "Identity server" completed after 0.0886ms with status Degraded and description '"Not going well!"'
+03/26/2021 15:19:03HTTP "GET" "/health/external" responded 200 in 3.4310 ms
+03/26/2021 15:19:03HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:03Creating a new HealthReport history.
+03/26/2021 15:19:03Health check "Errors KPI" completed after 0.2349ms with status Unhealthy and description '"There were 214 in the last 24H, you need investigate this!"'
+03/26/2021 15:19:03Health check "Database" completed after 1.5126ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:7f2d4d0b-e1a1-4026-ae7d-24951a54cc12
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:03HTTP "GET" "/health/internal" responded 503 in 10.7841 ms
+03/26/2021 15:19:03HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:03Creating a new HealthReport history.
+03/26/2021 15:19:03HealthReportCollector has completed.
+03/26/2021 15:19:03HealthCheck collector HostedService executed successfully.
+03/26/2021 15:19:08Executing HealthCheck collector HostedService.
+03/26/2021 15:19:08Health check "Identity server" completed after 0.0084ms with status Degraded and description '"Not going well!"'
+03/26/2021 15:19:08Health check "Errors KPI" completed after 0.0613ms with status Unhealthy and description '"There were 55 in the last 24H, you need investigate this!"'
+03/26/2021 15:19:08Health check "Database" completed after 13.0048ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:d743901a-475f-46db-b9b6-c3c70e93eb1d
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:08HTTP "GET" "/health" responded 503 in 825.3390 ms
+03/26/2021 15:19:08Notification is sent on same window time.
+03/26/2021 15:19:08HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:08HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:08Health check "Database" completed after 1.1196ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:d743901a-475f-46db-b9b6-c3c70e93eb1d
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:08HTTP "GET" "/health/db" responded 503 in 6.2697 ms
+03/26/2021 15:19:08Notification is sent on same window time.
+03/26/2021 15:19:08HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:08HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:09HTTP "GET" "/health/uri" responded 200 in 155.1192 ms
+03/26/2021 15:19:09HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:09HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:09Health check "Identity server" completed after 0.0033ms with status Degraded and description '"Not going well!"'
+03/26/2021 15:19:09HTTP "GET" "/health/external" responded 200 in 2.5300 ms
+03/26/2021 15:19:09Notification is sent on same window time.
+03/26/2021 15:19:09HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:09HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:09Health check "Errors KPI" completed after 0.0099ms with status Unhealthy and description '"There were 270 in the last 24H, you need investigate this!"'
+03/26/2021 15:19:09Health check "Database" completed after 1.4848ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:d743901a-475f-46db-b9b6-c3c70e93eb1d
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:09HTTP "GET" "/health/internal" responded 503 in 8.0417 ms
+03/26/2021 15:19:09Notification is sent on same window time.
+03/26/2021 15:19:09HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:09HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:09HealthReportCollector has completed.
+03/26/2021 15:19:09HealthCheck collector HostedService executed successfully.
+03/26/2021 15:19:14Executing HealthCheck collector HostedService.
+03/26/2021 15:19:14Health check "Errors KPI" completed after 0.0288ms with status Unhealthy and description '"There were 179 in the last 24H, you need investigate this!"'
+03/26/2021 15:19:14Health check "Identity server" completed after 0.0236ms with status Degraded and description '"Not going well!"'
+03/26/2021 15:19:14Health check "Database" completed after 1.9882ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:d743901a-475f-46db-b9b6-c3c70e93eb1d
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:15HTTP "GET" "/health" responded 503 in 926.9125 ms
+03/26/2021 15:19:15Notification is sent on same window time.
+03/26/2021 15:19:15HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:15HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:15Health check "Database" completed after 1.8248ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:d743901a-475f-46db-b9b6-c3c70e93eb1d
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:15HTTP "GET" "/health/db" responded 503 in 6.8257 ms
+03/26/2021 15:19:15Notification is sent on same window time.
+03/26/2021 15:19:15HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:15HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:15HTTP "GET" "/health/uri" responded 200 in 318.6698 ms
+03/26/2021 15:19:15HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:15HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:15Health check "Identity server" completed after 0.002ms with status Degraded and description '"Not going well!"'
+03/26/2021 15:19:15HTTP "GET" "/health/external" responded 200 in 2.3586 ms
+03/26/2021 15:19:15Notification is sent on same window time.
+03/26/2021 15:19:15HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:15HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:15Health check "Errors KPI" completed after 0.059ms with status Unhealthy and description '"There were 257 in the last 24H, you need investigate this!"'
+03/26/2021 15:19:15Health check "Database" completed after 1.4047ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:d743901a-475f-46db-b9b6-c3c70e93eb1d
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:15HTTP "GET" "/health/internal" responded 503 in 8.6911 ms
+03/26/2021 15:19:15Notification is sent on same window time.
+03/26/2021 15:19:15HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:15HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:15HealthReportCollector has completed.
+03/26/2021 15:19:15HealthCheck collector HostedService executed successfully.
+03/26/2021 15:19:20Executing HealthCheck collector HostedService.
+03/26/2021 15:19:20Health check "Identity server" completed after 0.0018ms with status Degraded and description '"Not going well!"'
+03/26/2021 15:19:20Health check "Errors KPI" completed after 0.01ms with status Unhealthy and description '"There were 121 in the last 24H, you need investigate this!"'
+03/26/2021 15:19:20Health check "Database" completed after 12.7254ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:b482caa6-e0e7-4881-affe-fb78e5e74a00
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:21HTTP "GET" "/health" responded 503 in 889.9006 ms
+03/26/2021 15:19:21Notification is sent on same window time.
+03/26/2021 15:19:21HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:21HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:21Health check "Database" completed after 1.9908ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:b482caa6-e0e7-4881-affe-fb78e5e74a00
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:21HTTP "GET" "/health/db" responded 503 in 7.7288 ms
+03/26/2021 15:19:21Notification is sent on same window time.
+03/26/2021 15:19:21HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:21HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:21HTTP "GET" "/health/uri" responded 200 in 314.6810 ms
+03/26/2021 15:19:21HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:21HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:21Health check "Identity server" completed after 0.0551ms with status Degraded and description '"Not going well!"'
+03/26/2021 15:19:21HTTP "GET" "/health/external" responded 200 in 2.4093 ms
+03/26/2021 15:19:21Notification is sent on same window time.
+03/26/2021 15:19:21HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:21HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:21Health check "Errors KPI" completed after 0.0791ms with status Degraded and description '"There were 49 in the last 24H,you may need to look at the logs ;)"'
+03/26/2021 15:19:21Health check "Database" completed after 1.3577ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:b482caa6-e0e7-4881-affe-fb78e5e74a00
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:21HTTP "GET" "/health/internal" responded 503 in 8.9210 ms
+03/26/2021 15:19:21Notification is sent on same window time.
+03/26/2021 15:19:21HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:21HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:21HealthReportCollector has completed.
+03/26/2021 15:19:21HealthCheck collector HostedService executed successfully.
+03/26/2021 15:19:26Executing HealthCheck collector HostedService.
+03/26/2021 15:19:26Health check "Errors KPI" completed after 0.0118ms with status Unhealthy and description '"There were 145 in the last 24H, you need investigate this!"'
+03/26/2021 15:19:26Health check "Identity server" completed after 0.0038ms with status Degraded and description '"Not going well!"'
+03/26/2021 15:19:26Health check "Database" completed after 2.3576ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:b482caa6-e0e7-4881-affe-fb78e5e74a00
+Error Number:4060,State:1,Class:11
+03/26/2021 15:19:27HTTP "GET" "/health" responded 503 in 904.1406 ms
+03/26/2021 15:19:27Notification is sent on same window time.
+03/26/2021 15:19:27HealthReportCollector - health report execution history saved.
+03/26/2021 15:19:27HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 15:19:27Health check "Database" completed after 1.6995ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource03/26/2021 17:00:06App starting
+03/26/2021 17:00:07Initializing UI Database
+03/26/2021 17:00:08Saving healthchecks configuration to database
+03/26/2021 17:00:08Executing HealthCheck collector HostedService.
+03/26/2021 17:00:09Health check "Identity server" completed after 1.5042ms with status Degraded and description '"Not going well!"'
+03/26/2021 17:00:09Health check "Errors KPI" completed after 1.5051ms with status Unhealthy and description '"There were 208 in the last 24H, you need investigate this!"'
+03/26/2021 17:00:09Health check "Database" completed after 298.7813ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:f8845877-3e83-4970-b6ba-418a8c45a7f7
+Error Number:4060,State:1,Class:11
+03/26/2021 17:00:09HTTP "GET" "/index.html" responded 200 in 66.7775 ms
+03/26/2021 17:00:10HTTP "GET" "/health" responded 503 in 1043.9768 ms
+03/26/2021 17:00:10HTTP "GET" "/swagger/v1/swagger.json" responded 200 in 87.8311 ms
+03/26/2021 17:00:10HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:10Creating a new HealthReport history.
+03/26/2021 17:00:10Health check "Database" completed after 3.4263ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:f8845877-3e83-4970-b6ba-418a8c45a7f7
+Error Number:4060,State:1,Class:11
+03/26/2021 17:00:10HTTP "GET" "/health/db" responded 503 in 10.3088 ms
+03/26/2021 17:00:10HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:10Creating a new HealthReport history.
+03/26/2021 17:00:11HTTP "GET" "/health/uri" responded 200 in 874.7310 ms
+03/26/2021 17:00:11HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:11Creating a new HealthReport history.
+03/26/2021 17:00:11Health check "Identity server" completed after 0.1163ms with status Degraded and description '"Not going well!"'
+03/26/2021 17:00:11HTTP "GET" "/health/external" responded 200 in 3.2259 ms
+03/26/2021 17:00:11HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:11Creating a new HealthReport history.
+03/26/2021 17:00:11Health check "Errors KPI" completed after 0.0866ms with status Unhealthy and description '"There were 146 in the last 24H, you need investigate this!"'
+03/26/2021 17:00:11Health check "Database" completed after 1.4806ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:f8845877-3e83-4970-b6ba-418a8c45a7f7
+Error Number:4060,State:1,Class:11
+03/26/2021 17:00:11HTTP "GET" "/health/internal" responded 503 in 7.8098 ms
+03/26/2021 17:00:11HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:11Creating a new HealthReport history.
+03/26/2021 17:00:11HealthReportCollector has completed.
+03/26/2021 17:00:11HealthCheck collector HostedService executed successfully.
+03/26/2021 17:00:16Executing HealthCheck collector HostedService.
+03/26/2021 17:00:16Health check "Identity server" completed after 0.0028ms with status Degraded and description '"Not going well!"'
+03/26/2021 17:00:16Health check "Errors KPI" completed after 0.2889ms with status Unhealthy and description '"There were 98 in the last 24H, you need investigate this!"'
+03/26/2021 17:00:16Health check "Database" completed after 13.6132ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:5ea71833-e03e-4bb0-96ab-7daf4d1d6b33
+Error Number:4060,State:1,Class:11
+03/26/2021 17:00:17HTTP "GET" "/health" responded 503 in 883.4422 ms
+03/26/2021 17:00:17Notification is sent on same window time.
+03/26/2021 17:00:17HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:17HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 17:00:17Health check "Database" completed after 1.327ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:5ea71833-e03e-4bb0-96ab-7daf4d1d6b33
+Error Number:4060,State:1,Class:11
+03/26/2021 17:00:17HTTP "GET" "/health/db" responded 503 in 11.5632 ms
+03/26/2021 17:00:17Notification is sent on same window time.
+03/26/2021 17:00:17HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:17HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 17:00:17HTTP "GET" "/health/uri" responded 200 in 158.1270 ms
+03/26/2021 17:00:17HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:17HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 17:00:17Health check "Identity server" completed after 0.0657ms with status Degraded and description '"Not going well!"'
+03/26/2021 17:00:17HTTP "GET" "/health/external" responded 200 in 2.4496 ms
+03/26/2021 17:00:17Notification is sent on same window time.
+03/26/2021 17:00:17HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:17HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 17:00:17Health check "Errors KPI" completed after 0.0136ms with status Degraded and description '"There were 37 in the last 24H,you may need to look at the logs ;)"'
+03/26/2021 17:00:17Health check "Database" completed after 1.4455ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:5ea71833-e03e-4bb0-96ab-7daf4d1d6b33
+Error Number:4060,State:1,Class:11
+03/26/2021 17:00:17HTTP "GET" "/health/internal" responded 503 in 8.3384 ms
+03/26/2021 17:00:17Notification is sent on same window time.
+03/26/2021 17:00:17HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:17HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 17:00:17HealthReportCollector has completed.
+03/26/2021 17:00:17HealthCheck collector HostedService executed successfully.
+03/26/2021 17:00:22Executing HealthCheck collector HostedService.
+03/26/2021 17:00:22Health check "Identity server" completed after 0.1106ms with status Degraded and description '"Not going well!"'
+03/26/2021 17:00:22Health check "Database" completed after 1.7488ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:5ea71833-e03e-4bb0-96ab-7daf4d1d6b33
+Error Number:4060,State:1,Class:11
+03/26/2021 17:00:22Health check "Errors KPI" completed after 0.2939ms with status Unhealthy and description '"There were 94 in the last 24H, you need investigate this!"'
+03/26/2021 17:00:23HTTP "GET" "/health" responded 503 in 882.7689 ms
+03/26/2021 17:00:23Notification is sent on same window time.
+03/26/2021 17:00:23HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:23HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 17:00:23Health check "Database" completed after 1.4538ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:5ea71833-e03e-4bb0-96ab-7daf4d1d6b33
+Error Number:4060,State:1,Class:11
+03/26/2021 17:00:23HTTP "GET" "/health/db" responded 503 in 9.6046 ms
+03/26/2021 17:00:23Notification is sent on same window time.
+03/26/2021 17:00:23HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:23HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 17:00:23HTTP "GET" "/health/uri" responded 200 in 169.7184 ms
+03/26/2021 17:00:23HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:23HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 17:00:23Health check "Identity server" completed after 0.0024ms with status Degraded and description '"Not going well!"'
+03/26/2021 17:00:23HTTP "GET" "/health/external" responded 200 in 2.5828 ms
+03/26/2021 17:00:23Notification is sent on same window time.
+03/26/2021 17:00:23HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:23HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 17:00:23Health check "Errors KPI" completed after 0.0092ms with status Unhealthy and description '"There were 282 in the last 24H, you need investigate this!"'
+03/26/2021 17:00:23Health check "Database" completed after 1.4958ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.OpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:5ea71833-e03e-4bb0-96ab-7daf4d1d6b33
+Error Number:4060,State:1,Class:11
+03/26/2021 17:00:23HTTP "GET" "/health/internal" responded 503 in 9.5593 ms
+03/26/2021 17:00:23Notification is sent on same window time.
+03/26/2021 17:00:23HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:23HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 17:00:23HealthReportCollector has completed.
+03/26/2021 17:00:23HealthCheck collector HostedService executed successfully.
+03/26/2021 17:00:28Executing HealthCheck collector HostedService.
+03/26/2021 17:00:28Health check "Identity server" completed after 0.2948ms with status Degraded and description '"Not going well!"'
+03/26/2021 17:00:28Health check "Errors KPI" completed after 0.3013ms with status Unhealthy and description '"There were 139 in the last 24H, you need investigate this!"'
+03/26/2021 17:00:28Health check "Database" completed after 11.7268ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at HealthChecks.SqlServer.SqlServerHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken)
+ClientConnectionId:a589b598-32f6-4251-8993-76e9d50262e7
+Error Number:4060,State:1,Class:11
+03/26/2021 17:00:29HTTP "GET" "/health" responded 503 in 939.6569 ms
+03/26/2021 17:00:29Notification is sent on same window time.
+03/26/2021 17:00:29HealthReportCollector - health report execution history saved.
+03/26/2021 17:00:29HealthReport history already exists and is in the same state, updating the values.
+03/26/2021 17:00:29Health check "Database" completed after 1.3435ms with status Unhealthy and description 'null'
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "TrouponExpress" requested by the login. The login failed.
+Login failed for user 'PWCCA\pw192269'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1

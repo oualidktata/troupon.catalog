@@ -1,0 +1,42 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:53420",
+      "sslPort": 44343
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    //"IIS Express": {
+    //  "commandName": "IISExpress",
+    //  "workingDirectory": "C:\\_gitrepos\\admin-console\\release-mgt-service",
+    //  "launchBrowser": true,
+    //  "launchUrl": "index.html",
+    //  "environmentVariables": {
+    //    "ASPNETCORE_ENVIRONMENT": "Development"
+    //  },
+    
+    "Troupon.Catalog.Service.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "index.html",
+      "environmentVariables": {
+        "connectionStrings:mainDatabaseConnStr": "Data Source=.\\SQLEXPRESS;Initial Catalog=TrouponExpress;Integrated Security=True",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MachineName": "Oualid Machine",
+        "COMPUTERNAME": "COMPUTER Oualid",
+        "HOSTNAME": "HOST"
+      },
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/weatherforecast",
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  }
+}

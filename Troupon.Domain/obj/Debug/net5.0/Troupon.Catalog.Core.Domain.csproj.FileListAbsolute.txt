@@ -1,0 +1,15 @@
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\bin\Debug\net5.0\Troupon.Catalog.Core.Domain.deps.json
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\bin\Debug\net5.0\Troupon.Catalog.Core.Domain.dll
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\bin\Debug\net5.0\ref\Troupon.Catalog.Core.Domain.dll
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\bin\Debug\net5.0\Troupon.Catalog.Core.Domain.pdb
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\bin\Debug\net5.0\Infra.Common.Models.dll
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\bin\Debug\net5.0\Infra.Common.Models.pdb
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\obj\Debug\net5.0\Troupon.Catalog.Core.Domain.csprojAssemblyReference.cache
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\obj\Debug\net5.0\Troupon.Catalog.Core.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\obj\Debug\net5.0\Troupon.Catalog.Core.Domain.AssemblyInfoInputs.cache
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\obj\Debug\net5.0\Troupon.Catalog.Core.Domain.AssemblyInfo.cs
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\obj\Debug\net5.0\Troupon.Catalog.Core.Domain.csproj.CoreCompileInputs.cache
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\obj\Debug\net5.0\Troupon.Catalog.Core.Domain.csproj.CopyComplete
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\obj\Debug\net5.0\Troupon.Catalog.Core.Domain.dll
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\obj\Debug\net5.0\ref\Troupon.Catalog.Core.Domain.dll
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Domain\obj\Debug\net5.0\Troupon.Catalog.Core.Domain.pdb

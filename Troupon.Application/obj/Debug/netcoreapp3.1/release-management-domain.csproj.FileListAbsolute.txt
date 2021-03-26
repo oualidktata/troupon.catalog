@@ -1,0 +1,9 @@
+C:\_gitRepos\admin-console\release-management-domain\bin\Debug\netcoreapp3.1\release-management-domain.deps.json
+C:\_gitRepos\admin-console\release-management-domain\bin\Debug\netcoreapp3.1\release-management-domain.dll
+C:\_gitRepos\admin-console\release-management-domain\bin\Debug\netcoreapp3.1\release-management-domain.pdb
+C:\_gitRepos\admin-console\release-management-domain\obj\Debug\netcoreapp3.1\release-management-domain.AssemblyInfoInputs.cache
+C:\_gitRepos\admin-console\release-management-domain\obj\Debug\netcoreapp3.1\release-management-domain.AssemblyInfo.cs
+C:\_gitRepos\admin-console\release-management-domain\obj\Debug\netcoreapp3.1\release-management-domain.csproj.CoreCompileInputs.cache
+C:\_gitRepos\admin-console\release-management-domain\obj\Debug\netcoreapp3.1\release-management-domain.dll
+C:\_gitRepos\admin-console\release-management-domain\obj\Debug\netcoreapp3.1\release-management-domain.pdb
+C:\_gitRepos\admin-console\release-management-domain\obj\Debug\netcoreapp3.1\release-management-domain.csprojAssemblyReference.cache

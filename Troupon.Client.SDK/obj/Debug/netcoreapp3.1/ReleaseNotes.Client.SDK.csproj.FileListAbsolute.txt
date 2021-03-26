@@ -1,0 +1,9 @@
+C:\_gitrepos\admin-console\ReleaseNotes.Client.SDK\bin\Debug\netcoreapp3.1\ReleaseNotes.Client.SDK.deps.json
+C:\_gitrepos\admin-console\ReleaseNotes.Client.SDK\bin\Debug\netcoreapp3.1\ReleaseNotes.Client.SDK.dll
+C:\_gitrepos\admin-console\ReleaseNotes.Client.SDK\obj\Debug\netcoreapp3.1\ReleaseNotes.Client.SDK.AssemblyInfoInputs.cache
+C:\_gitrepos\admin-console\ReleaseNotes.Client.SDK\obj\Debug\netcoreapp3.1\ReleaseNotes.Client.SDK.AssemblyInfo.cs
+C:\_gitrepos\admin-console\ReleaseNotes.Client.SDK\bin\Debug\netcoreapp3.1\ReleaseNotes.Client.SDK.pdb
+C:\_gitrepos\admin-console\ReleaseNotes.Client.SDK\obj\Debug\netcoreapp3.1\ReleaseNotes.Client.SDK.csproj.CoreCompileInputs.cache
+C:\_gitrepos\admin-console\ReleaseNotes.Client.SDK\obj\Debug\netcoreapp3.1\ReleaseNotes.Client.SDK.dll
+C:\_gitrepos\admin-console\ReleaseNotes.Client.SDK\obj\Debug\netcoreapp3.1\ReleaseNotes.Client.SDK.pdb
+C:\_gitRepos\admin-console\ReleaseNotes.Client.SDK\obj\Debug\netcoreapp3.1\ReleaseNotes.Client.SDK.csprojAssemblyReference.cache

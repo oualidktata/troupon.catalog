@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Troupon.Catalog.Service.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Troupon.Catalog.Service.Api.Controllers.TrouponController.Get(System.Threading.CancellationToken)">
+            <summary>
+            Gets all active Deals
+            </summary>
+            <returns>List of Deal Dtos</returns>
+        </member>
+        <member name="M:Troupon.Catalog.Service.Api.Controllers.TrouponController.Get(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Gets a specific Deal
+            </summary>
+            <returns>Returns a Deal Dto</returns>
+        </member>
+        <member name="M:Troupon.Catalog.Service.Api.Controllers.TrouponController.Post(Troupon.Catalog.Core.Domain.InputModels.CreateDealModel,System.Threading.CancellationToken)">
+            <summary>
+            Create a new Deal
+            </summary>
+            <returns>Returns the Deal created</returns>
+            <response code="201">Returned if the Deal was Created</response>
+            <response code="400">Returned if the model couldn't be parsed or the customer couldn't be found</response>
+            <response code="406">Returned if no response found with an acceptable format</response>
+            <response code="422">Returned when the validation failed</response>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{BDA43883-8A14-4D71-9D70-804DF6C48581}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{39726FEE-8958-4115-B0A0-1F711D4EEE8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{5E048544-2A5B-43D5-9231-052403F0DD60}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{2AAC66A3-6D24-43DB-9E0F-23A8FDB05DFC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other services", "Other services", "{1C0C6CC5-B56F-49D8-B2FC-B46EDC64A096}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Troupon.Catalog.Service.Api", "Troupon.Api\Troupon.Catalog.Service.Api.csproj", "{5B2F40DA-73EC-440D-8665-F8C6B750FD27}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Troupon.Catalog.Service.Api.Test", "Troupon.Api.Test\Troupon.Catalog.Service.Api.Test.csproj", "{B3293FA1-9831-4B40-AE03-C7127124F381}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Troupon.Catalog.Infra.Persistence", "Troupon.Persistance\Troupon.Catalog.Infra.Persistence.csproj", "{F561D3DF-AB18-46AD-B3CB-F7EEB138CD07}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Troupon.Catalog.Core.Application", "Troupon.Application\Troupon.Catalog.Core.Application.csproj", "{9041E0E8-1058-4993-8914-DC62A515003C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Troupon.Catalog.Core.Domain", "Troupon.Domain\Troupon.Catalog.Core.Domain.csproj", "{99DA8CF5-9EB6-46A3-B385-8CD22F65F15A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Common.Models", "..\..\..\Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj", "{39B71B84-DAFC-4690-8A7E-E94437AB626B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.oAuthService", "..\..\..\Infrastructure\Infra.Authentication.Service\Infra.OAuthService\Infra.oAuthService.csproj", "{6719E7EA-7058-4CAC-B0EA-8DECD76AAE1D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Troupon.Catalog.Client.SDK", "Troupon.Client.SDK\Troupon.Catalog.Client.SDK.csproj", "{BC3AE319-CEF0-475A-99F3-2CB2CD99AAC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B2F40DA-73EC-440D-8665-F8C6B750FD27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B2F40DA-73EC-440D-8665-F8C6B750FD27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B2F40DA-73EC-440D-8665-F8C6B750FD27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B2F40DA-73EC-440D-8665-F8C6B750FD27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3293FA1-9831-4B40-AE03-C7127124F381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3293FA1-9831-4B40-AE03-C7127124F381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3293FA1-9831-4B40-AE03-C7127124F381}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3293FA1-9831-4B40-AE03-C7127124F381}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F561D3DF-AB18-46AD-B3CB-F7EEB138CD07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F561D3DF-AB18-46AD-B3CB-F7EEB138CD07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F561D3DF-AB18-46AD-B3CB-F7EEB138CD07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F561D3DF-AB18-46AD-B3CB-F7EEB138CD07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9041E0E8-1058-4993-8914-DC62A515003C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9041E0E8-1058-4993-8914-DC62A515003C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9041E0E8-1058-4993-8914-DC62A515003C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9041E0E8-1058-4993-8914-DC62A515003C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99DA8CF5-9EB6-46A3-B385-8CD22F65F15A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99DA8CF5-9EB6-46A3-B385-8CD22F65F15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99DA8CF5-9EB6-46A3-B385-8CD22F65F15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99DA8CF5-9EB6-46A3-B385-8CD22F65F15A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39B71B84-DAFC-4690-8A7E-E94437AB626B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39B71B84-DAFC-4690-8A7E-E94437AB626B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39B71B84-DAFC-4690-8A7E-E94437AB626B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39B71B84-DAFC-4690-8A7E-E94437AB626B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6719E7EA-7058-4CAC-B0EA-8DECD76AAE1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6719E7EA-7058-4CAC-B0EA-8DECD76AAE1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6719E7EA-7058-4CAC-B0EA-8DECD76AAE1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6719E7EA-7058-4CAC-B0EA-8DECD76AAE1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC3AE319-CEF0-475A-99F3-2CB2CD99AAC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC3AE319-CEF0-475A-99F3-2CB2CD99AAC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC3AE319-CEF0-475A-99F3-2CB2CD99AAC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC3AE319-CEF0-475A-99F3-2CB2CD99AAC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1C0C6CC5-B56F-49D8-B2FC-B46EDC64A096} = {39726FEE-8958-4115-B0A0-1F711D4EEE8C}
+		{5B2F40DA-73EC-440D-8665-F8C6B750FD27} = {5E048544-2A5B-43D5-9231-052403F0DD60}
+		{B3293FA1-9831-4B40-AE03-C7127124F381} = {5E048544-2A5B-43D5-9231-052403F0DD60}
+		{F561D3DF-AB18-46AD-B3CB-F7EEB138CD07} = {39726FEE-8958-4115-B0A0-1F711D4EEE8C}
+		{9041E0E8-1058-4993-8914-DC62A515003C} = {BDA43883-8A14-4D71-9D70-804DF6C48581}
+		{99DA8CF5-9EB6-46A3-B385-8CD22F65F15A} = {BDA43883-8A14-4D71-9D70-804DF6C48581}
+		{39B71B84-DAFC-4690-8A7E-E94437AB626B} = {2AAC66A3-6D24-43DB-9E0F-23A8FDB05DFC}
+		{6719E7EA-7058-4CAC-B0EA-8DECD76AAE1D} = {2AAC66A3-6D24-43DB-9E0F-23A8FDB05DFC}
+		{BC3AE319-CEF0-475A-99F3-2CB2CD99AAC8} = {5E048544-2A5B-43D5-9231-052403F0DD60}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63F4EA02-B9BA-404B-9773-D9585A8D5964}
+	EndGlobalSection
+EndGlobal
