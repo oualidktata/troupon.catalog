@@ -1,12 +1,5 @@
-C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.csprojAssemblyReference.cache
-C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.GeneratedMSBuildEditorConfig.editorconfig
-C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.AssemblyInfoInputs.cache
-C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.AssemblyInfo.cs
-C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.csproj.CoreCompileInputs.cache
-C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.MvcApplicationPartsAssemblyInfo.cache
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\bin\Debug\net5.0\appsettings.Development.json
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\bin\Debug\net5.0\appsettings.json
-C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\bin\Debug\net5.0\path\to\logJson.json
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\bin\Debug\net5.0\Troupon.Catalog.Service.Api.exe
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\bin\Debug\net5.0\Troupon.Catalog.Service.Api.deps.json
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\bin\Debug\net5.0\Troupon.Catalog.Service.Api.runtimeconfig.json
@@ -164,7 +157,13 @@ C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Ap
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\bin\Debug\net5.0\Infra.Common.Models.pdb
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\bin\Debug\net5.0\Troupon.Catalog.Core.Domain.pdb
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\bin\Debug\net5.0\Troupon.Catalog.Infra.Persistence.pdb
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.csprojAssemblyReference.cache
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.AssemblyInfoInputs.cache
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.AssemblyInfo.cs
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.csproj.CoreCompileInputs.cache
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.MvcApplicationPartsAssemblyInfo.cs
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.MvcApplicationPartsAssemblyInfo.cache
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\staticwebassets\Troupon.Catalog.Service.Api.StaticWebAssets.Manifest.cache
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\staticwebassets\Troupon.Catalog.Service.Api.StaticWebAssets.xml
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\scopedcss\bundle\Troupon.Catalog.Service.Api.styles.css
@@ -175,3 +174,4 @@ C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Ap
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.xml
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.pdb
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\obj\Debug\net5.0\Troupon.Catalog.Service.Api.genruntimeconfig.cache
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Api\bin\Debug\net5.0\path\to\logJson.json

@@ -11,7 +11,7 @@ namespace Troupon.Catalog.Service.Api.DependencyInjectionExtensions
             services.AddGraphQLServer()
                     //.AddQueryType(desc => desc.Name("Query"))
                     //.AddType<DealQueries>()
-                    .AddQueryType<ApplicationQueries>()
+                    .AddQueryType<MerchantQueries>()
                     .AddFiltering()
                     .AddProjections()
                     .AddSorting();

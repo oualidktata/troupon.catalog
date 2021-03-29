@@ -8,12 +8,11 @@ namespace Troupon.Catalog.Infra.Persistence
         public AutomapperProfile()
         {
             //Producer
-            CreateMap<DealEntity, DealDto>();
-            //consumer
-            // CreateMap<DealDto, VersionViewModel>();
-            // CreateMap<DealDto, VersionViewModel>();
-            CreateMap<Application, ApplicationDto>();
-
+            CreateMap<DealEntity, DealDto>()
+                .ForMember(x=>x.MerchantName,opt=>opt.MapFrom(src=>src.Merchant.Name));
+            CreateMap<MerchantEntity, MerchantDto>()
+                .ForMember(x => x.NumberOfDeals, opt => opt.MapFrom(src => src.Deals.Count));
+                
         }
     }
 }

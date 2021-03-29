@@ -23,7 +23,7 @@
       "launchBrowser": true,
       "launchUrl": "index.html",
       "environmentVariables": {
-        "connectionStrings:mainDatabaseConnStr": "Data Source=.\\SQLEXPRESS;Initial Catalog=TrouponExpress;Integrated Security=True",
+        //"connectionStrings:mainDatabaseConnStr": "Data Source=.\\SQLEXPRESS;Initial Catalog=TrouponCatalog;Integrated Security=True",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "MachineName": "Oualid Machine",
         "COMPUTERNAME": "COMPUTER Oualid",

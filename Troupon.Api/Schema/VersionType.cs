@@ -1,15 +1,15 @@
 ﻿//using HotChocolate;
 //using HotChocolate.Resolvers;
 //using HotChocolate.Types;
-//using relese_notes_server_dot_net.Dtos;
+//using TR.Catalog.Dtos;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Security.Cryptography.X509Certificates;
 //using System.Threading.Tasks;
-//using DealDto = relese_notes_server_dot_net.Dtos.DealDto;
+//using DealDto = TR.Catalog.Dtos.DealDto;
 
-//namespace relese_notes_server_dot_net.Schema
+//namespace TR.Catalog.Schema
 //{
 //    public class DealType:ObjectType<DealDto>
 //    {

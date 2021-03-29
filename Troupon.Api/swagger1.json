@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Troupon Catalog API",
-    "description": "A simple API to manage release notes",
+    "description": "A simple API to manage Catalog",
     "termsOfService": "https://example.com/terms",
     "contact": {
       "name": "Oualid Ktata",

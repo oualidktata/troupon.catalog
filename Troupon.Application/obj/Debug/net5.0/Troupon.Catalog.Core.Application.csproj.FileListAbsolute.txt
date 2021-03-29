@@ -1,8 +1,3 @@
-C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\Troupon.Catalog.Core.Application.csprojAssemblyReference.cache
-C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\Troupon.Catalog.Core.Application.GeneratedMSBuildEditorConfig.editorconfig
-C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\Troupon.Catalog.Core.Application.AssemblyInfoInputs.cache
-C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\Troupon.Catalog.Core.Application.AssemblyInfo.cs
-C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\Troupon.Catalog.Core.Application.csproj.CoreCompileInputs.cache
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\bin\Debug\net5.0\Troupon.Catalog.Core.Application.deps.json
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\bin\Debug\net5.0\Troupon.Catalog.Core.Application.dll
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\bin\Debug\net5.0\ref\Troupon.Catalog.Core.Application.dll
@@ -13,6 +8,11 @@ C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Ap
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\bin\Debug\net5.0\Infra.Common.Models.pdb
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\bin\Debug\net5.0\Troupon.Catalog.Core.Domain.pdb
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\bin\Debug\net5.0\Troupon.Catalog.Infra.Persistence.pdb
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\Troupon.Catalog.Core.Application.csprojAssemblyReference.cache
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\Troupon.Catalog.Core.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\Troupon.Catalog.Core.Application.AssemblyInfoInputs.cache
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\Troupon.Catalog.Core.Application.AssemblyInfo.cs
+C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\Troupon.Catalog.Core.Application.csproj.CoreCompileInputs.cache
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\Troupon.Catalog.Core.Application.csproj.CopyComplete
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\Troupon.Catalog.Core.Application.dll
 C:\_gitRepos\ARAI\Troupon\Troupon.Services\Troupon.Catalog.Capability\Troupon.Application\obj\Debug\net5.0\ref\Troupon.Catalog.Core.Application.dll

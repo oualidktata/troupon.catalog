@@ -1,4 +1,4 @@
-﻿namespace relese_notes_server_dot_net.Schema
+﻿namespace TR.Catalog.Schema
 {
     public class TenantType
     {

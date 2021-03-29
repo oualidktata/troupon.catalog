@@ -73,7 +73,7 @@ namespace Troupon.Catalog.Service.Api
 
             app.UseSwagger();
             app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json","release management v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","Troupon Catalog");
                 c.RoutePrefix = string.Empty;
             });
             app.UseRouting();
