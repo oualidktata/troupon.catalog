@@ -1,9 +1,0 @@
-C:\_gitRepos\admin-console\release-management-contracts\bin\Debug\netcoreapp3.1\release-management-contracts.deps.json
-C:\_gitRepos\admin-console\release-management-contracts\bin\Debug\netcoreapp3.1\release-management-contracts.dll
-C:\_gitRepos\admin-console\release-management-contracts\bin\Debug\netcoreapp3.1\release-management-contracts.pdb
-C:\_gitRepos\admin-console\release-management-contracts\obj\Debug\netcoreapp3.1\release-management-contracts.csprojAssemblyReference.cache
-C:\_gitRepos\admin-console\release-management-contracts\obj\Debug\netcoreapp3.1\release-management-contracts.AssemblyInfoInputs.cache
-C:\_gitRepos\admin-console\release-management-contracts\obj\Debug\netcoreapp3.1\release-management-contracts.AssemblyInfo.cs
-C:\_gitRepos\admin-console\release-management-contracts\obj\Debug\netcoreapp3.1\release-management-contracts.csproj.CoreCompileInputs.cache
-C:\_gitRepos\admin-console\release-management-contracts\obj\Debug\netcoreapp3.1\release-management-contracts.dll
-C:\_gitRepos\admin-console\release-management-contracts\obj\Debug\netcoreapp3.1\release-management-contracts.pdb
