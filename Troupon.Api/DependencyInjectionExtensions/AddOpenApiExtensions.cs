@@ -1,24 +1,35 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Infra.oAuthService;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Interfaces;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Troupon.Catalog.Service.Api.Authentication;
 
 namespace Troupon.Catalog.Service.Api.DependencyInjectionExtensions
 {
     public static class AddOpenApiExtensions
     {
-        public static IServiceCollection AddOpenApiToApplication(this IServiceCollection services)
+        public static IServiceCollection AddOpenApiToApplication(this IServiceCollection services,IConfiguration configuration)
         {
-            services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new OpenApiInfo
+
+            var apiKeySettings = new APIKeySettings();
+            configuration.GetSection("Auth:KeyCloackProvider").Bind(apiKeySettings);
+            services.AddSwaggerGen(setup => {
+                setup.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
                     Title = "Troupon Catalog API",
                     Description = "A simple API to manage a Catalog for prodcuts and services",
                     TermsOfService = new Uri("https://example.com/terms"),
+                    
                     Contact = new OpenApiContact
                     {
                         Name = "Oualid Ktata",
@@ -33,7 +44,17 @@ namespace Troupon.Catalog.Service.Api.DependencyInjectionExtensions
                 });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                setup.IncludeXmlComments(xmlPath);
+                #region Auth2 filters and Security
+                //setup.SchemaFilter<SchemaFilter>();
+
+                setup.MapType<FileContentResult>(() => new OpenApiSchema { Type = "string", Format = "binary" });
+                setup.MapType<IFormFile>(() => new OpenApiSchema { Type = "string", Format = "binary" });
+                //setup.DocumentFilter<SecurityRequirementDocumentFilter>();
+                setup.AddBearerAuthentication(apiKeySettings);//Uncomment to enableAuth
+
+                #endregion
+
             });
 
             services.Configure<ApiBehaviorOptions>(options =>

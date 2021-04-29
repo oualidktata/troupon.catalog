@@ -39,6 +39,7 @@
     <PackageReference Include="HotChocolate.Types.Filters" Version="11.0.9" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -85,7 +86,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Infrastructure\Infra.Authentication.Service\Infra.OAuthService\Infra.oAuthService.csproj" />
+    <ProjectReference Include="..\okt.Infrastructure\Infra.Authentication.Service\Infra.OAuthService\Infra.oAuthService.csproj" />
+    <ProjectReference Include="..\okt.Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
     <ProjectReference Include="..\Troupon.Application\Troupon.Catalog.Core.Application.csproj" />
   </ItemGroup>
   <PropertyGroup>

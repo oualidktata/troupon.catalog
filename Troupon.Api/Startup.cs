@@ -17,32 +17,34 @@ namespace Troupon.Catalog.Service.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment hostEnvironment)
         {
             Configuration = configuration;
+            HostEnvironment = hostEnvironment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment HostEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
             var value = Configuration.GetValue<string>("Global:tenant");
-            // var connectionString = "Data Source=.;Initial Catalog=TrouponExpress;Integrated Security=True";
-            //var connectionString= "Filename=release-notes.db";
-            services.AddAutoMapper(typeof(AutomapperProfile), typeof(AutomapperProfileDomain));
             
 
-           
-            //services.AddDbContext<CatalogDbContext>(opt => opt.UseSqlite(connectionString, b => b.MigrationsAssembly("release-mgt-service")));
-            //services.AddScoped(typeof(IPipelineBehavior<,>), typeof(CustomRequestPostProcessorBehavior<,>));
+            services.AddAuthenticationToApplication(Configuration,HostEnvironment);
+            services.AddAuthorization(options => {
+               // options.AddPolicy("crm-api-backend", policy => policy.RequireClaim("crm-api-backend", "[crm-api-backend]"));
+            });
 
+
+            services.AddAutoMapper(typeof(AutomapperProfile), typeof(AutomapperProfileDomain));
             services.AddMediatorToApplication();
             services.AddPersistanceToApplication(Configuration);
             services.AddGraphQLToApplication();//https://localhost:5001/graphql/
             services.AddControllers();
-            services.AddOpenApiToApplication();
+            services.AddOpenApiToApplication(Configuration);
             services.AddHealthChecksToApplication(Configuration);
             services.AddHealthChecksUIToApplication();
              services.AddMetrics();
@@ -77,8 +79,8 @@ namespace Troupon.Catalog.Service.Api
                 c.RoutePrefix = string.Empty;
             });
             app.UseRouting();
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -91,7 +93,6 @@ namespace Troupon.Catalog.Service.Api
                 endpoints.MapHealthChecksUI();
                 endpoints.MapGraphQL();
             });
-            
         }
 
         private async Task JsonHealthReport(HttpContext context, HealthReport report)

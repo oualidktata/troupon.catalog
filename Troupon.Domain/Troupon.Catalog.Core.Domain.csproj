@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
+    <ProjectReference Include="..\okt.Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
   </ItemGroup>
 
 </Project>

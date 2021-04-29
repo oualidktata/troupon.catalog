@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
+    <ProjectReference Include="..\okt.Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
     <ProjectReference Include="..\Troupon.Domain\Troupon.Catalog.Core.Domain.csproj" />
     <ProjectReference Include="..\Troupon.Persistance\Troupon.Catalog.Infra.Persistence.csproj" />
   </ItemGroup>

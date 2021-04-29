@@ -13,6 +13,7 @@ using Troupon.Catalog.Core.Application.Commands;
 using Troupon.Catalog.Core.Application.Events;
 using Troupon.Catalog.Core.Domain.InputModels;
 using Troupon.Catalog.Core.Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Troupon.Catalog.Service.Api.Controllers
 {
@@ -20,6 +21,7 @@ namespace Troupon.Catalog.Service.Api.Controllers
     [Route("api")]
     [Produces("application/json", "application/xml")]
     [Consumes("application/json", "application/xml")]
+    
     public class CatalogController : BaseController
     {
         public CatalogController(IMapper mapper, IMediator mediator) : base(mediator, mapper)
@@ -44,6 +46,7 @@ namespace Troupon.Catalog.Service.Api.Controllers
        )]
         [HttpPost]
         [Route("search")]
+        [Authorize(Roles = "crm-api-backend")]
         public async Task<ActionResult<IEnumerable<DealDto>>> Search([FromBody]SearchDealsFilter filter, CancellationToken cancellationToken)
         {
             try
