@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Troupon.Catalog.Core.Domain.Entities;
-using System;
 
-namespace TR.Catalog
+namespace Troupon.Catalog.Infra.Persistence
 {
     public class DealConfiguration : IEntityTypeConfiguration<DealEntity>
     {

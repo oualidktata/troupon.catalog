@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\okt.Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
+    <ProjectReference Include="..\okt.Infrastructure\Infra.DomainDrivenDesign.Base\Infra.DomainDrivenDesign.Base.csproj" />
   </ItemGroup>
 
 </Project>

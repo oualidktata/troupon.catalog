@@ -12,6 +12,7 @@ using Troupon.Catalog.Core.Application;
 using Troupon.Catalog.Service.Api.DependencyInjectionExtensions;
 using Serilog;
 using HealthChecks.UI.Client;
+using Microsoft.EntityFrameworkCore;
 
 namespace Troupon.Catalog.Service.Api
 {
@@ -54,7 +55,7 @@ namespace Troupon.Catalog.Service.Api
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbContextFactory<CatalogDbContext> dbContextFactory)
         {
             //if (env.IsDevelopment())
             //{
@@ -66,12 +67,11 @@ namespace Troupon.Catalog.Service.Api
             app.UseSerilogRequestLogging();
            // app.UsePathBase("/graphql");
 
-            //using (CatalogDbContext)
-            //{
-            //    CatalogDbContext.Database.EnsureDeleted();
-            //    CatalogDbContext.Database.Migrate();
-            //}
-             //app.UsePlayground();
+            
+            //catalogDbContext.Database.EnsureDeleted();
+            var catalogDbContext = dbContextFactory.CreateDbContext();
+            catalogDbContext.Database.Migrate();
+            // app.UsePlayground();
 
             app.UseSwagger();
             app.UseSwaggerUI(c => {

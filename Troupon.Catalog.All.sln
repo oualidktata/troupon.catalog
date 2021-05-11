@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{2AAC66A3-6D24-43DB-9E0F-23A8FDB05DFC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other services", "Other services", "{1C0C6CC5-B56F-49D8-B2FC-B46EDC64A096}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Troupon.Catalog.Service.Api", "Troupon.Api\Troupon.Catalog.Service.Api.csproj", "{5B2F40DA-73EC-440D-8665-F8C6B750FD27}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Troupon.Catalog.Service.Api.Test", "Troupon.Api.Test\Troupon.Catalog.Service.Api.Test.csproj", "{B3293FA1-9831-4B40-AE03-C7127124F381}"
@@ -30,6 +28,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.oAuthService", "okt.Infrastructure\Infra.Authentication.Service\Infra.OAuthService\Infra.oAuthService.csproj", "{0D2D82A2-5494-47E5-8D07-CE0E4F70ACA2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "infra.oAuthService.Api.Extensions", "okt.Infrastructure\Infra.Authentication.Service\Infra.OAuthService.Api.Extensions\infra.oAuthService.Api.Extensions.csproj", "{55295A55-A842-4BEA-8703-92620A44B24E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.DomainDrivenDesign.Base", "okt.Infrastructure\Infra.DomainDrivenDesign.Base\Infra.DomainDrivenDesign.Base.csproj", "{8EFDE8F7-EA60-4531-88FD-F0E281FCD147}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,12 +73,15 @@ Global
 		{55295A55-A842-4BEA-8703-92620A44B24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55295A55-A842-4BEA-8703-92620A44B24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55295A55-A842-4BEA-8703-92620A44B24E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EFDE8F7-EA60-4531-88FD-F0E281FCD147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EFDE8F7-EA60-4531-88FD-F0E281FCD147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EFDE8F7-EA60-4531-88FD-F0E281FCD147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EFDE8F7-EA60-4531-88FD-F0E281FCD147}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{1C0C6CC5-B56F-49D8-B2FC-B46EDC64A096} = {39726FEE-8958-4115-B0A0-1F711D4EEE8C}
 		{5B2F40DA-73EC-440D-8665-F8C6B750FD27} = {5E048544-2A5B-43D5-9231-052403F0DD60}
 		{B3293FA1-9831-4B40-AE03-C7127124F381} = {5E048544-2A5B-43D5-9231-052403F0DD60}
 		{F561D3DF-AB18-46AD-B3CB-F7EEB138CD07} = {39726FEE-8958-4115-B0A0-1F711D4EEE8C}
@@ -88,6 +91,7 @@ Global
 		{40755998-1245-43A4-9B95-CF7AA2C776B7} = {2AAC66A3-6D24-43DB-9E0F-23A8FDB05DFC}
 		{0D2D82A2-5494-47E5-8D07-CE0E4F70ACA2} = {2AAC66A3-6D24-43DB-9E0F-23A8FDB05DFC}
 		{55295A55-A842-4BEA-8703-92620A44B24E} = {2AAC66A3-6D24-43DB-9E0F-23A8FDB05DFC}
+		{8EFDE8F7-EA60-4531-88FD-F0E281FCD147} = {2AAC66A3-6D24-43DB-9E0F-23A8FDB05DFC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63F4EA02-B9BA-404B-9773-D9585A8D5964}
