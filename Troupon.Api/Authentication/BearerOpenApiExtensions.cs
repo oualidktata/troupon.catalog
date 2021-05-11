@@ -9,7 +9,7 @@ namespace Troupon.Catalog.Service.Api.Authentication
 {
     public static class BearerOpenApiExtensions
     {
-        public static void AddBearerAuthentication(this Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions setup, APIKeySettings oAuthSettings)
+        public static void AddBearerAuthentication(this Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions setup, IOAuthSettings  oAuthSettings)
         {
             setup.AddSecurityDefinition(oAuthSettings.Scheme, new OpenApiSecurityScheme
             {

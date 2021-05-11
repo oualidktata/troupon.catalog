@@ -1,0 +1,135 @@
+05/11/2021 11:45:56App starting
+05/11/2021 11:46:01Initializing UI Database
+05/11/2021 11:46:01Saving healthchecks configuration to database
+05/11/2021 11:46:02Executing HealthCheck collector HostedService.
+05/11/2021 11:46:02"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:02Health check "Errors KPI" completed after 1.3152ms with status Unhealthy and description '"There were 168 in the last 24H, you need investigate this!"'
+05/11/2021 11:46:02Health check "Identity server" completed after 1.3575ms with status Degraded and description '"Not going well!"'
+05/11/2021 11:46:02HTTP "GET" "/index.html" responded 200 in 46.1310 ms
+05/11/2021 11:46:03HTTP "GET" "/swagger/v1/swagger.json" responded 200 in 88.1458 ms
+05/11/2021 11:46:04HTTP "GET" "/health" responded 503 in 2072.9134 ms
+05/11/2021 11:46:04HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:04Creating a new HealthReport history.
+05/11/2021 11:46:04"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:04HTTP "GET" "/health/db" responded 200 in 6.8766 ms
+05/11/2021 11:46:04HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:04Creating a new HealthReport history.
+05/11/2021 11:46:04"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:05HTTP "GET" "/health/uri" responded 200 in 1356.9504 ms
+05/11/2021 11:46:05HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:05Creating a new HealthReport history.
+05/11/2021 11:46:05"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:05Health check "Identity server" completed after 0.1206ms with status Degraded and description '"Not going well!"'
+05/11/2021 11:46:05HTTP "GET" "/health/external" responded 200 in 3.7374 ms
+05/11/2021 11:46:06HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:06Creating a new HealthReport history.
+05/11/2021 11:46:06"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:06Health check "Errors KPI" completed after 0.2421ms with status Unhealthy and description '"There were 226 in the last 24H, you need investigate this!"'
+05/11/2021 11:46:06HTTP "GET" "/health/internal" responded 503 in 4.3754 ms
+05/11/2021 11:46:06HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:06Creating a new HealthReport history.
+05/11/2021 11:46:06HealthReportCollector has completed.
+05/11/2021 11:46:06HealthCheck collector HostedService executed successfully.
+05/11/2021 11:46:08"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:10HTTP "POST" "/api/Auth/token" responded 200 in 2544.1027 ms
+05/11/2021 11:46:11Executing HealthCheck collector HostedService.
+05/11/2021 11:46:11"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:11Health check "Identity server" completed after 0.0045ms with status Degraded and description '"Not going well!"'
+05/11/2021 11:46:11Health check "Errors KPI" completed after 0.0867ms with status Unhealthy and description '"There were 80 in the last 24H, you need investigate this!"'
+05/11/2021 11:46:12HTTP "GET" "/health" responded 503 in 1409.4592 ms
+05/11/2021 11:46:12Notification is sent on same window time.
+05/11/2021 11:46:12HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:12HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:12"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:12HTTP "GET" "/health/db" responded 200 in 2.5871 ms
+05/11/2021 11:46:12HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:12HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:12"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:13HTTP "GET" "/health/uri" responded 200 in 1200.5274 ms
+05/11/2021 11:46:13HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:13HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:13"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:13Health check "Identity server" completed after 0.0026ms with status Degraded and description '"Not going well!"'
+05/11/2021 11:46:13HTTP "GET" "/health/external" responded 200 in 3.2145 ms
+05/11/2021 11:46:13Notification is sent on same window time.
+05/11/2021 11:46:13HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:13HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:13"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:13Health check "Errors KPI" completed after 0.0154ms with status Unhealthy and description '"There were 53 in the last 24H, you need investigate this!"'
+05/11/2021 11:46:13HTTP "GET" "/health/internal" responded 503 in 3.5674 ms
+05/11/2021 11:46:13Notification is sent on same window time.
+05/11/2021 11:46:13HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:13HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:13HealthReportCollector has completed.
+05/11/2021 11:46:13HealthCheck collector HostedService executed successfully.
+05/11/2021 11:46:18Executing HealthCheck collector HostedService.
+05/11/2021 11:46:18"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:18Health check "Identity server" completed after 0.1179ms with status Degraded and description '"Not going well!"'
+05/11/2021 11:46:18Health check "Errors KPI" completed after 0.1353ms with status Unhealthy and description '"There were 223 in the last 24H, you need investigate this!"'
+05/11/2021 11:46:19HTTP "GET" "/health" responded 503 in 914.6235 ms
+05/11/2021 11:46:19Notification is sent on same window time.
+05/11/2021 11:46:19HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:19HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:19"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:19HTTP "GET" "/health/db" responded 200 in 2.5304 ms
+05/11/2021 11:46:19HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:19HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:19"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:20HTTP "GET" "/health/uri" responded 200 in 789.3012 ms
+05/11/2021 11:46:20HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:20HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:20"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:20Health check "Identity server" completed after 0.0039ms with status Degraded and description '"Not going well!"'
+05/11/2021 11:46:20HTTP "GET" "/health/external" responded 200 in 3.2100 ms
+05/11/2021 11:46:20Notification is sent on same window time.
+05/11/2021 11:46:20HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:20HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:20"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:20Health check "Errors KPI" completed after 0.0088ms with status Unhealthy and description '"There were 114 in the last 24H, you need investigate this!"'
+05/11/2021 11:46:20HTTP "GET" "/health/internal" responded 503 in 3.3512 ms
+05/11/2021 11:46:20Notification is sent on same window time.
+05/11/2021 11:46:20HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:20HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:20HealthReportCollector has completed.
+05/11/2021 11:46:20HealthCheck collector HostedService executed successfully.
+05/11/2021 11:46:25Executing HealthCheck collector HostedService.
+05/11/2021 11:46:25"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:25Health check "Identity server" completed after 0.1388ms with status Degraded and description '"Not going well!"'
+05/11/2021 11:46:25Health check "Errors KPI" completed after 0.2411ms with status Unhealthy and description '"There were 201 in the last 24H, you need investigate this!"'
+05/11/2021 11:46:26HTTP "GET" "/health" responded 503 in 1016.3580 ms
+05/11/2021 11:46:26Notification is sent on same window time.
+05/11/2021 11:46:26HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:26HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:26"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:26HTTP "GET" "/health/db" responded 200 in 3.6822 ms
+05/11/2021 11:46:26HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:26HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:26"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:27HTTP "GET" "/health/uri" responded 200 in 894.7931 ms
+05/11/2021 11:46:27HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:27HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:27"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:27Health check "Identity server" completed after 0.0021ms with status Degraded and description '"Not going well!"'
+05/11/2021 11:46:27HTTP "GET" "/health/external" responded 200 in 3.1807 ms
+05/11/2021 11:46:27Notification is sent on same window time.
+05/11/2021 11:46:27HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:27HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:27"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:27Health check "Errors KPI" completed after 0.0095ms with status Unhealthy and description '"There were 257 in the last 24H, you need investigate this!"'
+05/11/2021 11:46:27HTTP "GET" "/health/internal" responded 503 in 4.1504 ms
+05/11/2021 11:46:27Notification is sent on same window time.
+05/11/2021 11:46:27HealthReportCollector - health report execution history saved.
+05/11/2021 11:46:27HealthReport history already exists and is in the same state, updating the values.
+05/11/2021 11:46:27HealthReportCollector has completed.
+05/11/2021 11:46:27HealthCheck collector HostedService executed successfully.
+05/11/2021 11:46:30AuthenticationScheme: "Bearer" was successfully authenticated.
+05/11/2021 11:46:30ValidationBehavior Troupon.Catalog.Core.Application.Queries.Deals.GetDealsQuery
+05/11/2021 11:46:30"Troupon.Catalog.Core.Application.Queries.Deals.GetDealsQuery" response is cacheable
+05/11/2021 11:46:30"Troupon.Catalog.Core.Application.Queries.Deals.GetDealsQuery" response is not in cache,request executed
+05/11/2021 11:46:30Before calling Troupon.Catalog.Core.Application.Queries.Deals.GetDealsQuery
+05/11/2021 11:46:30After calling Troupon.Catalog.Core.Application.Queries.Deals.GetDealsQuery
+05/11/2021 11:46:30"Troupon.Catalog.Core.Application.Queries.Deals.GetDealsQuery" response is now cached
+05/11/2021 11:46:30HTTP "POST" "/api/search" responded 200 in 3185.9618 ms
+05/11/2021 11:46:32Executing HealthCheck collector HostedService.
+05/11/2021 11:46:32"Bearer" was not authenticated. Failure message: "The provided token is null"
+05/11/2021 11:46:32Health check "Identity server" completed after 0.0021ms with status Degraded and description '"Not

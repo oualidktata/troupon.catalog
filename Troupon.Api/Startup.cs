@@ -12,6 +12,7 @@ using Troupon.Catalog.Core.Application;
 using Troupon.Catalog.Service.Api.DependencyInjectionExtensions;
 using Serilog;
 using HealthChecks.UI.Client;
+using Infra.oAuthService;
 
 namespace Troupon.Catalog.Service.Api
 {
@@ -32,12 +33,14 @@ namespace Troupon.Catalog.Service.Api
 
             var value = Configuration.GetValue<string>("Global:tenant");
             
+            var apiKeySettings = new OAuthSettings();
+            Configuration.GetSection($"Auth:{Configuration.GetValue<string>("Auth:DefaultAuthProvider")}").Bind(apiKeySettings);
+            services.AddScoped<IAuthService>(service => new AuthService(apiKeySettings));
 
-            services.AddAuthenticationToApplication(Configuration,HostEnvironment);
+            services.AddAuthenticationToApplication(new AuthService(apiKeySettings), Configuration, HostEnvironment);
             services.AddAuthorization(options => {
-               // options.AddPolicy("crm-api-backend", policy => policy.RequireClaim("crm-api-backend", "[crm-api-backend]"));
+               //options.AddPolicy("crm-api-backend", policy => policy.RequireClaim("crm-api-backend", "[crm-api-backend]"));
             });
-
 
             services.AddAutoMapper(typeof(AutomapperProfile), typeof(AutomapperProfileDomain));
             services.AddMediatorToApplication();
@@ -47,7 +50,7 @@ namespace Troupon.Catalog.Service.Api
             services.AddOpenApiToApplication(Configuration);
             services.AddHealthChecksToApplication(Configuration);
             services.AddHealthChecksUIToApplication();
-             services.AddMetrics();
+            services.AddMetrics();
             services.AddFluentValidatonToApplication();
             services.AddMemoryCache();
         }
