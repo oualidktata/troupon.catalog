@@ -8,7 +8,7 @@ namespace Troupon.Catalog.Service.Api.Authentication
 {
     public static class OAuthOpenApiExtensions
     {
-        public static void AddOAuthSecurity(this Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions setup, APIKeySettings oAuthSettings)
+        public static void AddOAuthSecurity(this Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions setup, OAuthSettings  oAuthSettings)
         {
             var flows = new OpenApiOAuthFlows();
             flows.ClientCredentials = new OpenApiOAuthFlow()

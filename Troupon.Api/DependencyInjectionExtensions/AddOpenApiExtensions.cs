@@ -17,7 +17,7 @@ namespace Troupon.Catalog.Service.Api.DependencyInjectionExtensions
         public static IServiceCollection AddOpenApiToApplication(this IServiceCollection services,IConfiguration configuration)
         {
 
-            var apiKeySettings = new APIKeySettings();
+            var apiKeySettings = new OAuthSettings ();
             configuration.GetSection("Auth:KeyCloackProvider").Bind(apiKeySettings);
             services.AddSwaggerGen(setup => {
                 setup.SwaggerDoc("v1", new OpenApiInfo

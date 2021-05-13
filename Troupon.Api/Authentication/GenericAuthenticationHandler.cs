@@ -11,14 +11,12 @@ using System.Threading.Tasks;
 
 namespace Infra.oAuthService
 {
-    public class OktaAuthenticationHandler : AuthenticationHandler<TokenAuthenticationOptions>
+    public class GenericAuthenticationHandler : AuthenticationHandler<TokenAuthenticationOptions>
     {
-        public IServiceProvider ServiceProvider { get; set; }
-
-        public OktaAuthenticationHandler(IOptionsMonitor<TokenAuthenticationOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, IServiceProvider serviceProvider)
+        public GenericAuthenticationHandler(IOptionsMonitor<TokenAuthenticationOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
             : base(options, logger, encoder, clock)
         {
-            ServiceProvider = serviceProvider;
+          
         }
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -46,11 +44,9 @@ namespace Infra.oAuthService
                     return Task.FromResult(AuthenticateResult.Fail($"Could not validate the token : for token={securityToken}"));
                 }
                     var claims = new[] { new Claim("token", token), new Claim(ClaimTypes.Role, "crm-api-backend"), };
-                    var identity = new ClaimsIdentity(claims, nameof(OktaAuthenticationHandler));
+                    var identity = new ClaimsIdentity(claims);
                     var ticket = new AuthenticationTicket(new ClaimsPrincipal(identity), new AuthenticationProperties(), this.Scheme.Name);
                     return Task.FromResult(AuthenticateResult.Success(ticket));
-                
-
             }
             catch (Exception ex)
             {
