@@ -13,7 +13,7 @@ namespace Troupon.Catalog.Service.Api.DependencyInjectionExtensions
         public static IServiceCollection AddMediatorToApplication(this IServiceCollection services)
         {
               //Mediator
-            services.AddMediatR(typeof(GetDealsQuery));
+            services.AddMediatR(typeof(GetDealsQuery).Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
