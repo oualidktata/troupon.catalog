@@ -8,9 +8,9 @@ namespace Troupon.Catalog.Core.Domain.Entities.Account
         
     }
     
-    public class BillingInfo : Entity<BillingInfoId>
+    public class BillingInfo : Entity
     {
-        public CreditCard CreditCard { get; private set; }
-        public Address Address { get; private set; }
+        public virtual CreditCard CreditCard { get; private set; }
+        public virtual Address Address { get; private set; }
     }
 }

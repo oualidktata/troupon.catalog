@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Troupon.Catalog.Infra.Persistence;
 
 namespace Troupon.Catalog.Service.Api.Migrations
@@ -15,9 +14,286 @@ namespace Troupon.Catalog.Service.Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("Troupon")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Account.Account", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("BillingInfoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("LocationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("MerchantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BillingInfoId");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("MerchantId");
+
+                    b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Account.BillingInfo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AddressId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreditCardId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("CreditCardId");
+
+                    b.ToTable("BillingInfo");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Category.DealCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DealId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DealId");
+
+                    b.ToTable("DealCategories");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StateProvince")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetLine1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetLine2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.CreditCard", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Cvv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CreditCard");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Currency", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CurrencyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Currency");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Location", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AddressId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("PositionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("PositionId");
+
+                    b.ToTable("Location");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Position", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Latitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Longitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Position");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Price", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("Amount")
+                        .HasColumnType("real");
+
+                    b.Property<Guid?>("CurrencyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.ToTable("Price");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.Deal", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Limitation")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OtherConditions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("Deals");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealOption", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DealId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DealId");
+
+                    b.ToTable("DealOption");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealPrice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CurrencyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CurrentPriceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DealOptionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("OriginalPriceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.HasIndex("CurrentPriceId");
+
+                    b.HasIndex("DealOptionId");
+
+                    b.HasIndex("OriginalPriceId");
+
+                    b.ToTable("DealPrice");
+                });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.DealEntity", b =>
                 {
@@ -44,7 +320,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
 
                     b.HasIndex("MerchantId");
 
-                    b.ToTable("Deals");
+                    b.ToTable("DealEntity");
 
                     b.HasData(
                         new
@@ -57,7 +333,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f6faaf05-4e4d-4beb-b13d-d3d4d8522c24"),
+                            Id = new Guid("060fad6c-112c-49b5-91eb-490a700098a5"),
                             Description = "1",
                             Details = "0",
                             MerchantId = new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"),
@@ -65,7 +341,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1edf029a-49d5-481b-8abc-82fb2984a935"),
+                            Id = new Guid("effb7842-5cf8-4daa-86c9-4b253e5749c1"),
                             Description = "2",
                             Details = "0",
                             MerchantId = new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"),
@@ -73,7 +349,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c02fdfbc-5376-4e27-a1e4-5fb41169be80"),
+                            Id = new Guid("565fa793-22f9-4ca3-936b-cfeb5da17453"),
                             Description = "3",
                             Details = "0",
                             MerchantId = new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"),
@@ -81,7 +357,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bf636b10-73ab-4ac9-9b49-3cc7edc32fbf"),
+                            Id = new Guid("1dba892b-24fe-4007-8cb8-245f5afbee10"),
                             Description = "4",
                             Details = "0",
                             MerchantId = new Guid("532e8ec2-121d-4a86-bfe2-8812c2c27232"),
@@ -89,7 +365,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("658383fd-fa67-4324-825c-287a754713f6"),
+                            Id = new Guid("87c9ab80-0c13-49ba-8235-e23a7e4df525"),
                             Description = "5",
                             Details = "0",
                             MerchantId = new Guid("532e8ec2-121d-4a86-bfe2-8812c2c27232"),
@@ -97,7 +373,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2492f690-1a77-4cc1-8234-827338976189"),
+                            Id = new Guid("2fe4efb6-1e2f-4b54-94c4-0c8b210198c9"),
                             Description = "6",
                             Details = "0",
                             MerchantId = new Guid("83c1dce6-97d5-4a35-afb7-4eb86577160c"),
@@ -105,12 +381,29 @@ namespace Troupon.Catalog.Service.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("309a8ad5-5d37-4b09-a918-8832ddf20721"),
+                            Id = new Guid("8aeb6e23-8099-47e4-9e34-2e22df9ee79c"),
                             Description = "7",
                             Details = "1",
                             MerchantId = new Guid("83c1dce6-97d5-4a35-afb7-4eb86577160c"),
                             Name = "1"
                         });
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Merchant.Merchant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Website")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Merchants");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.MerchantEntity", b =>
@@ -128,7 +421,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Merchants");
+                    b.ToTable("MerchantEntity");
 
                     b.HasData(
                         new
@@ -157,6 +450,114 @@ namespace Troupon.Catalog.Service.Api.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Account.Account", b =>
+                {
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Account.BillingInfo", "BillingInfo")
+                        .WithMany()
+                        .HasForeignKey("BillingInfoId");
+
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Common.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Merchant.Merchant", "Merchant")
+                        .WithMany()
+                        .HasForeignKey("MerchantId");
+
+                    b.Navigation("BillingInfo");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Merchant");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Account.BillingInfo", b =>
+                {
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Common.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Common.CreditCard", "CreditCard")
+                        .WithMany()
+                        .HasForeignKey("CreditCardId");
+
+                    b.Navigation("Address");
+
+                    b.Navigation("CreditCard");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Category.DealCategory", b =>
+                {
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Deal.Deal", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("DealId");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Location", b =>
+                {
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Common.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Common.Position", "Position")
+                        .WithMany()
+                        .HasForeignKey("PositionId");
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Position");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Price", b =>
+                {
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Common.Currency", "Currency")
+                        .WithMany()
+                        .HasForeignKey("CurrencyId");
+
+                    b.Navigation("Currency");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.Deal", b =>
+                {
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Account.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId");
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealOption", b =>
+                {
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Deal.Deal", null)
+                        .WithMany("Options")
+                        .HasForeignKey("DealId");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealPrice", b =>
+                {
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Common.Currency", "Currency")
+                        .WithMany()
+                        .HasForeignKey("CurrencyId");
+
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Common.Price", "CurrentPrice")
+                        .WithMany()
+                        .HasForeignKey("CurrentPriceId");
+
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Deal.DealOption", null)
+                        .WithMany("Prices")
+                        .HasForeignKey("DealOptionId");
+
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Common.Price", "OriginalPrice")
+                        .WithMany()
+                        .HasForeignKey("OriginalPriceId");
+
+                    b.Navigation("Currency");
+
+                    b.Navigation("CurrentPrice");
+
+                    b.Navigation("OriginalPrice");
+                });
+
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.DealEntity", b =>
                 {
                     b.HasOne("Troupon.Catalog.Core.Domain.Entities.MerchantEntity", "Merchant")
@@ -166,6 +567,18 @@ namespace Troupon.Catalog.Service.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Merchant");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.Deal", b =>
+                {
+                    b.Navigation("Categories");
+
+                    b.Navigation("Options");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealOption", b =>
+                {
+                    b.Navigation("Prices");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.MerchantEntity", b =>

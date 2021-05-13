@@ -1,41 +1,51 @@
-﻿using Troupon.Catalog.Infra.Persistence.Repositories;
-using System;
+﻿using System;
 using System.Linq;
-using HotChocolate;
+using AutoMapper;
 using HotChocolate.Data;
+using Infra.Persistence.Repositories;
 using Troupon.Catalog.Core.Domain.Dtos;
+using Troupon.Catalog.Core.Domain.Entities.Merchant;
 
 namespace Troupon.Catalog.Service.Api.Schema
 {
     //[ExtendObjectType(Name = "Query")]
     public class MerchantQueries
     {
-        private IMerchantRepo _repo;
+        private readonly IReadRepository<Merchant> _merchantReadRepo;
+        private readonly IMapper _mapper;
 
+        public MerchantQueries(
+            IReadRepository<Merchant> merchantReadRepo,
+            IMapper mapper)
+        {
+            _merchantReadRepo = merchantReadRepo;
+            _mapper = mapper;
+        }
 
-    public MerchantQueries([ScopedService] IMerchantRepo repo)
-    {
-        _repo = repo;
-    }
-    public MerchantDto GetMerchant(Guid appId)
-    {
-        return _repo.GetFirstMerchant(appId);
-    }
-    public MerchantDto GetOneMerchant()
-    {
-        return new MerchantDto { Name = "Sample App", Id = Guid.NewGuid(), ImageUri = "description" };
-    }
+        public MerchantDto GetMerchant(
+            Guid appId)
+        {
+            var merchant = _merchantReadRepo.FirstOrDefault(x => x.Id == appId);
 
-    ////[UseDbContext(typeof(CatalogDbContext))]
-    [UseProjection]
-    [UseFiltering]
-    [UseSorting]
-    public IQueryable<MerchantDto> GetMerchants()
-    {
-        //return new List<MerchantDto>() { new MerchantDto { Name = "Sample App 1", Id = Guid.NewGuid(), Description = "description" },
-        //new MerchantDto { Name = "Sample App 2", Id = Guid.NewGuid(), Description = "description" },
-        //new MerchantDto { Name = "Sample App 3", Id = Guid.NewGuid(), Description = "description" }}.AsQueryable();
-        return _repo.GetMerchant().AsQueryable();
-    }
+            return _mapper.Map<Merchant, MerchantDto>(merchant);
+        }
+
+        public MerchantDto GetOneMerchant()
+        {
+            return new MerchantDto {Name = "Sample App", Id = Guid.NewGuid(), Website = "www.merchant.com"};
+        }
+
+        ////[UseDbContext(typeof(CatalogDbContext))]
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<MerchantDto> GetMerchants()
+        {
+            //return new List<MerchantDto>() { new MerchantDto { Name = "Sample App 1", Id = Guid.NewGuid(), Description = "description" },
+            //new MerchantDto { Name = "Sample App 2", Id = Guid.NewGuid(), Description = "description" },
+            //new MerchantDto { Name = "Sample App 3", Id = Guid.NewGuid(), Description = "description" }}.AsQueryable();
+            return _merchantReadRepo.AsQueryable()
+                .Select(x => _mapper.Map<MerchantDto>(x));
+        }
     }
 }

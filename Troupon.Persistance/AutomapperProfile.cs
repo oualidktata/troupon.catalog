@@ -1,18 +1,19 @@
 ﻿using AutoMapper;
 using Troupon.Catalog.Core.Domain.Dtos;
-using Troupon.Catalog.Core.Domain.Entities;
+using Troupon.Catalog.Core.Domain.Entities.Deal;
+using Troupon.Catalog.Core.Domain.Entities.Merchant;
+
 namespace Troupon.Catalog.Infra.Persistence
 {
     public class AutomapperProfile : Profile
     {
         public AutomapperProfile()
         {
-            //Producer
-            CreateMap<DealEntity, DealDto>()
-                .ForMember(x=>x.MerchantName,opt=>opt.MapFrom(src=>src.Merchant.Name));
-            CreateMap<MerchantEntity, MerchantDto>()
-                .ForMember(x => x.NumberOfDeals, opt => opt.MapFrom(src => src.Deals.Count));
-                
+            CreateMap<Deal, DealDto>()
+                .ForMember(
+                    x => x.MerchantName,
+                    opt => opt.MapFrom(src => src.Account.Merchant.Name));
+            CreateMap<Merchant, MerchantDto>();
         }
     }
 }

@@ -1,16 +1,7 @@
-﻿using MediatR;
-using MediatR.Pipeline;
-using Microsoft.Extensions.DependencyInjection;
-using Troupon.Catalog.Core.Application.Behaviors;
-using Troupon.Catalog.Core.Application.Events;
-using Troupon.Catalog.Core.Application.Queries.Deals;
-using System;
-using System.IO;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Http;
 using Infra.oAuthService;
 using Troupon.Catalog.Service.Api.Authentication;
 

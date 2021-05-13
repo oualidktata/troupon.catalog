@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Troupon.Catalog.Core.Application.Commands;
-using Troupon.Catalog.Core.Domain.Entities;
+using Troupon.Catalog.Core.Domain.Entities.Deal;
 
 namespace Troupon.Catalog.Core.Application
 {
@@ -8,9 +8,7 @@ namespace Troupon.Catalog.Core.Application
     {
         public AutomapperProfileDomain()
         {
-           CreateMap<CreateDealCommand,DealEntity >();
-           
-
+            CreateMap<CreateDealCommand, Deal>();
         }
     }
 }

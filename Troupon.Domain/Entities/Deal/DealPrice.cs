@@ -6,10 +6,15 @@ namespace Troupon.Catalog.Core.Domain.Entities.Deal
 {
     public class DealPrice : ValueObject
     {
-        public Currency Currency { get; private set; }
-        public Price OriginalPrice { get; private set; }
-        public Price CurrentPrice { get; private set; }
+        public virtual Currency Currency { get; private set; }
+        public virtual Price OriginalPrice { get; private set; }
+        public virtual Price CurrentPrice { get; private set; }
 
+        public DealPrice()
+        {
+            
+        }
+        
         public DealPrice(Currency currency, Price originalPrice, Price currentPrice)
         {
             Currency = currency;

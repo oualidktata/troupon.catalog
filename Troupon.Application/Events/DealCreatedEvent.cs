@@ -1,32 +1,40 @@
-﻿using MediatR;
+﻿using System;
+using System.Linq;
+using MediatR;
 using Microsoft.Extensions.Logging;
-using Troupon.Catalog.Infra.Persistence.Repositories;
 using System.Threading;
 using System.Threading.Tasks;
+using Infra.DomainDrivenDesign.Base;
+using Infra.Persistence.Repositories;
+using Troupon.Catalog.Core.Domain.Entities.Deal;
 
 namespace Troupon.Catalog.Core.Application.Events
 {
-    public class DealCreatedEvent : INotification
+    public class DealCreatedEvent : INotification, IDomainEvent
     {
         public class DealCreatedEventHandler : INotificationHandler<DealCreatedEvent>
         {
-
-            private readonly IDealRepo _DealRepo;
+            private readonly IReadRepository<Deal> _dealReadRepo;
             private readonly ILogger<DealCreatedEventHandler> _logger;
 
-            public DealCreatedEventHandler(IDealRepo repo, ILogger<DealCreatedEventHandler> logger)//Add DI
+            public DealCreatedEventHandler(
+                IReadRepository<Deal> readRepo,
+                ILogger<DealCreatedEventHandler> logger)
             {
                 Name = "DealCreatedEventHandler";
-                _DealRepo = repo;
+                _dealReadRepo = readRepo;
                 _logger = logger;
             }
 
             public string Name { get; set; }
 
-            public Task Handle(DealCreatedEvent notification, CancellationToken cancellationToken)
+            public Task Handle(
+                DealCreatedEvent notification,
+                CancellationToken cancellationToken)
             {
                 _logger.LogInformation($"{notification.GetType()} handled by {Name}");
-                var allItems = _DealRepo.GetDeals();
+                var allItems = _dealReadRepo.ToList();
+
                 // throw new SomeBusinessException("DealCreatedEvent");
                 //var duplicateItem = allItems.FirstOrDefault(i => i.Name == notification.NewName && i.Id != notification.Id);
 
@@ -39,7 +47,6 @@ namespace Troupon.Catalog.Core.Application.Events
             }
         }
 
+        public DateTime CreationDate { get; set; }
     }
-    
-
 }

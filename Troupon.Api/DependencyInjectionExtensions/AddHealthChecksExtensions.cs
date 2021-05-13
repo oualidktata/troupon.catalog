@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Troupon.Catalog.Service.Api.HealthCheckers;
-using Troupon.Catalog.Service.Api.Schema;
 
 namespace Troupon.Catalog.Service.Api.DependencyInjectionExtensions
 {

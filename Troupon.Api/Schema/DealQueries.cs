@@ -1,16 +1,18 @@
 ﻿using HotChocolate.Types;
-using Troupon.Catalog.Infra.Persistence.Repositories;
+using Infra.Persistence.Repositories;
+using Troupon.Catalog.Core.Domain.Entities.Deal;
 
 namespace Troupon.Catalog.Service.Api.Schema
 {
     [ExtendObjectType(Name = "Query")]
     public class DealQueries
     {
-        private DealRepo _repo;
+        private readonly IReadRepository<Deal> _dealsReadRepo;
 
-        public DealQueries(DealRepo repo)
+        public DealQueries(
+            IReadRepository<Deal> dealsReadRepo)
         {
-            _repo = repo;
+            _dealsReadRepo = dealsReadRepo;
         }
 
         //public DealDto GetDeal(Guid DealId)

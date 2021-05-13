@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using MediatR.Pipeline;
 using Microsoft.Extensions.DependencyInjection;
 using Troupon.Catalog.Core.Application.Behaviors;
 using Troupon.Catalog.Core.Application.Events;

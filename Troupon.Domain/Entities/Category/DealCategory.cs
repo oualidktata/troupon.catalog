@@ -7,9 +7,20 @@ namespace Troupon.Catalog.Core.Domain.Entities.Category
         
     }
     
-    public class DealCategory : AggregateRoot<DealCategoryId>
+    public class DealCategory : AggregateRoot
     {
         public string Name { get; private set; }
-        
+
+        public DealCategory(
+            string name)
+        {
+            Name = name;
+        }
+
+        public void SetName(
+            string name)
+        {
+            Name = name;
+        }
     }
 }

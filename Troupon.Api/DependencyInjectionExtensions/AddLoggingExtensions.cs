@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-namespace Troupon.Catalog.Service.Api.DependencyInjectionExtensions
+﻿namespace Troupon.Catalog.Service.Api.DependencyInjectionExtensions
 {
     public static class AddLoggingExtensions
     {

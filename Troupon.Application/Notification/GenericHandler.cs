@@ -1,9 +1,4 @@
-﻿using MediatR;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Troupon.Catalog.Core.Application.Notification
+﻿namespace Troupon.Catalog.Core.Application.Notification
 {
     //public class GenericHandler : INotificationHandler<INotification>
     //{

@@ -10,7 +10,6 @@ using Troupon.Catalog.Core.Domain.Dtos;
 using Troupon.Catalog.Core.Application.Queries.Deals;
 using Swashbuckle.AspNetCore.Annotations;
 using Troupon.Catalog.Core.Application.Commands;
-using Troupon.Catalog.Core.Application.Events;
 using Troupon.Catalog.Core.Domain.InputModels;
 using Troupon.Catalog.Core.Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -63,6 +62,7 @@ namespace Troupon.Catalog.Service.Api.Controllers
                 return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, exception));
             }
         }
+        
         /// <summary>
         /// Gets a specific Deal
         /// </summary>
@@ -130,6 +130,24 @@ namespace Troupon.Catalog.Service.Api.Controllers
                 return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, exception));
             }
         }
+        
+        
+        [HttpPost]
+        [Route("Deals/Publish")]
+        public async Task<ActionResult<DealDto>> Publish([FromBody] PublishDealCommand model, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await Mediator.Send(model, cancellationToken);
+                return Ok();
+            }
+            catch (Exception exception)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, exception));
+            }
+        }
+        
+        
         [HttpGet]
         [Route("ErrorEndpoint")]
         public Task<ActionResult<DealDto>> ErrorEndpoint()

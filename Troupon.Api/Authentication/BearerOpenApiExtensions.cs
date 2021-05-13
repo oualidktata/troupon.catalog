@@ -1,8 +1,6 @@
 ﻿using Infra.oAuthService;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using System;
 using System.Collections.Generic;
 
 namespace Troupon.Catalog.Service.Api.Authentication

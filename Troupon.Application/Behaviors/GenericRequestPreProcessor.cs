@@ -1,9 +1,4 @@
-﻿using MediatR.Pipeline;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Troupon.Catalog.Core.Application.Behaviors
+﻿namespace Troupon.Catalog.Core.Application.Behaviors
 {
     //public class GenericRequestPreProcessor<TRequest> : IRequestPreProcessor<TRequest>
     //{

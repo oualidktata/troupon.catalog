@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Troupon.Catalog.Core.Application.Caching;
 using System.Threading;
 using System.Threading.Tasks;

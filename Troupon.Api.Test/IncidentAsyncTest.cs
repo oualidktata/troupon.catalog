@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 using System.Net.Http;
 using Shouldly;

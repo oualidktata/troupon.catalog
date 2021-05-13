@@ -5,9 +5,14 @@ namespace Troupon.Catalog.Core.Domain.Entities.Common
 {
     public class Location : ValueObject
     {
-        public Position Position { get; private set; }
-        public Address Address { get; private set; }
+        public virtual Position Position { get; private set; }
+        public virtual Address Address { get; private set; }
 
+        public Location()
+        {
+            
+        }
+        
         public Location(
             Position position,
             Address address)

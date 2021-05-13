@@ -10,10 +10,10 @@ namespace Troupon.Catalog.Core.Domain.Entities.Deal
         
     }
     
-    public class DealOption : Entity<DealOptionId>
+    public class DealOption : Entity
     {
         public string Name { get; private set; }
-        public ICollection<DealPrice> Prices { get; private set; }
+        public virtual ICollection<DealPrice> Prices { get; private set; }
 
         public DealOption()
         {

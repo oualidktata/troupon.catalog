@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Infra.DomainDrivenDesign.Base;
-using Troupon.Catalog.Core.Domain.Entities.Account;
 using Troupon.Catalog.Core.Domain.Entities.Category;
 using Troupon.Catalog.Core.Domain.Enums;
 
@@ -9,10 +8,22 @@ namespace Troupon.Catalog.Core.Domain.Entities.Deal
 {
     public class DealId : EntityId
     {
-        
+        public DealId()
+        {
+        }
+
+        public DealId(
+            string id) : base(id)
+        {
+        }
+
+        public DealId(
+            Guid guid) : base(guid)
+        {
+        }
     }
     
-    public class Deal : AggregateRoot<DealId>
+    public class Deal : AggregateRoot
     {
         public string Description { get; private set; }
         public string Title { get; private set; }
@@ -20,14 +31,14 @@ namespace Troupon.Catalog.Core.Domain.Entities.Deal
         public int Limitation { get; private set; }
         public string OtherConditions { get; private set; }
         public DealStatus Status { get; private set; }
-        public AccountId AccountId { get; private set; }
-        public ICollection<DealOption> Options { get; private set; }
-        public ICollection<DealCategoryId> CategoryIds { get; private set; }
+        public virtual Account.Account Account { get; private set; }
+        public virtual ICollection<DealOption> Options { get; private set; }
+        public virtual ICollection<DealCategory> Categories { get; private set; }
 
         public Deal()
         {
             Options = new List<DealOption>();
-            CategoryIds = new List<DealCategoryId>();
+            Categories = new List<DealCategory>();
         }
 
         public void Publish()
@@ -66,15 +77,15 @@ namespace Troupon.Catalog.Core.Domain.Entities.Deal
         }
 
         public void SetCategories(
-            ICollection<DealCategoryId> categoryIds)
+            ICollection<DealCategory> categories)
         {
-            CategoryIds = categoryIds;
+            Categories = categories;
         }
 
         public void AddCategory(
-            DealCategoryId categoryId)
+            DealCategory category)
         {
-            CategoryIds.Add(categoryId);
+            Categories.Add(category);
         }
     }
 }

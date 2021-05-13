@@ -1,3 +1,4 @@
+using System.Reflection;
 using Troupon.Catalog.Infra.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +13,9 @@ using Troupon.Catalog.Core.Application;
 using Troupon.Catalog.Service.Api.DependencyInjectionExtensions;
 using Serilog;
 using HealthChecks.UI.Client;
+using Infra.Persistence.EntityFramework.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Troupon.Catalog.Infra.Persistence.Extensions;
 
 namespace Troupon.Catalog.Service.Api
 {
@@ -42,7 +45,12 @@ namespace Troupon.Catalog.Service.Api
 
             services.AddAutoMapper(typeof(AutomapperProfile), typeof(AutomapperProfileDomain));
             services.AddMediatorToApplication();
-            services.AddPersistanceToApplication(Configuration);
+            services.AddPersistence(
+                Configuration,
+                "mainDatabaseConnStr",
+                Assembly.GetExecutingAssembly().GetName().Name);
+            services.AddQueries();
+            services.AddEfRepository<CatalogDbContext>();
             services.AddGraphQLToApplication();//https://localhost:5001/graphql/
             services.AddControllers();
             services.AddOpenApiToApplication(Configuration);

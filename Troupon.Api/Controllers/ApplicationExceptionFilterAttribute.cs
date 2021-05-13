@@ -1,7 +1,5 @@
-﻿using Infra.Common.Models.Exceptions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Troupon.Catalog.Core.Domain;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
+
 namespace Troupon.Catalog.Service.Api.Controllers
 {
 

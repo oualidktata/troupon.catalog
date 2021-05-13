@@ -6,9 +6,9 @@ namespace Troupon.Catalog.Core.Application.Commands
     {
         public CreateDealCommandValidator()
         {
-            RuleFor(c => c.Major).NotEmpty();
-            RuleFor(c => c.Minor).NotEmpty();
-            RuleFor(c => c.Patch).NotEmpty();
+            RuleFor(c => c.Description).NotEmpty();
+            RuleFor(c => c.Title).NotEmpty();
+            RuleFor(c => c.ExpirationDate).NotEmpty();
         }
     }
 }
