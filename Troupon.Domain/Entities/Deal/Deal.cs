@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Infra.DomainDrivenDesign.Base;
 using Troupon.Catalog.Core.Domain.Entities.Category;
+using Troupon.Catalog.Core.Domain.Entities.Common;
 using Troupon.Catalog.Core.Domain.Enums;
 
 namespace Troupon.Catalog.Core.Domain.Entities.Deal
@@ -86,6 +88,23 @@ namespace Troupon.Catalog.Core.Domain.Entities.Deal
             DealCategory category)
         {
             Categories.Add(category);
+        }
+
+        public DealOption GetOption(
+            Guid optionId)
+        {
+            return Options.SingleOrDefault(x => x.Id == optionId);
+        }
+
+        public DealPrice GetOptionPrice(
+            Guid optionId,
+            Currency currency)
+        {
+            var option = GetOption(optionId);
+
+            if (option == null) return null;
+
+            return option.GetPrice(currency);
         }
     }
 }

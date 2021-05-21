@@ -12,6 +12,11 @@ namespace Troupon.Catalog.Core.Application.Events
 {
     public class DealCreatedEvent : INotification, IDomainEvent
     {
+        public DealCreatedEvent()
+        {
+            CreationDate = DateTime.UtcNow;
+        }
+        
         public class DealCreatedEventHandler : INotificationHandler<DealCreatedEvent>
         {
             private readonly IReadRepository<Deal> _dealReadRepo;

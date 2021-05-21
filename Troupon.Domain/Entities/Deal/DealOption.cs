@@ -20,7 +20,7 @@ namespace Troupon.Catalog.Core.Domain.Entities.Deal
             Prices = new List<DealPrice>();
         }
 
-        public DealOption(string name)
+        public DealOption(string name): this()
         {
             Name = name;
         }
@@ -28,7 +28,7 @@ namespace Troupon.Catalog.Core.Domain.Entities.Deal
         public DealPrice GetPrice(
             Currency currency)
         {
-            return Prices.SingleOrDefault(x => x.Currency == currency);
+            return Prices.SingleOrDefault(x => x.Currency.CurrencyName == currency.CurrencyName);
         }
 
         public void SetPrice(

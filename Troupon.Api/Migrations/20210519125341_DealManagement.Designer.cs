@@ -10,7 +10,7 @@ using Troupon.Catalog.Infra.Persistence;
 namespace Troupon.Catalog.Service.Api.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20210513131628_DealManagement")]
+    [Migration("20210519125341_DealManagement")]
     partial class DealManagement
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
             modelBuilder
                 .HasDefaultSchema("Troupon")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Account.Account", b =>
@@ -69,7 +69,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
 
                     b.HasIndex("CreditCardId");
 
-                    b.ToTable("BillingInfo");
+                    b.ToTable("BillingInfos");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Category.DealCategory", b =>
@@ -120,7 +120,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.CreditCard", b =>
@@ -140,7 +140,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CreditCard");
+                    b.ToTable("CreditCards");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Currency", b =>
@@ -154,7 +154,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Currency");
+                    b.ToTable("Currencies");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Location", b =>
@@ -175,7 +175,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
 
                     b.HasIndex("PositionId");
 
-                    b.ToTable("Location");
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Position", b =>
@@ -192,7 +192,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Position");
+                    b.ToTable("Positions");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Price", b =>
@@ -211,7 +211,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
 
                     b.HasIndex("CurrencyId");
 
-                    b.ToTable("Price");
+                    b.ToTable("Prices");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.Deal", b =>
@@ -264,7 +264,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
 
                     b.HasIndex("DealId");
 
-                    b.ToTable("DealOption");
+                    b.ToTable("DealOptions");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealPrice", b =>
@@ -295,101 +295,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
 
                     b.HasIndex("OriginalPriceId");
 
-                    b.ToTable("DealPrice");
-                });
-
-            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.DealEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Details")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("MerchantId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MerchantId");
-
-                    b.ToTable("DealEntity");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("0d53c6ce-6181-42a8-8616-03f86f883112"),
-                            Description = "0",
-                            Details = "1",
-                            MerchantId = new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"),
-                            Name = "0"
-                        },
-                        new
-                        {
-                            Id = new Guid("060fad6c-112c-49b5-91eb-490a700098a5"),
-                            Description = "1",
-                            Details = "0",
-                            MerchantId = new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"),
-                            Name = "1"
-                        },
-                        new
-                        {
-                            Id = new Guid("effb7842-5cf8-4daa-86c9-4b253e5749c1"),
-                            Description = "2",
-                            Details = "0",
-                            MerchantId = new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"),
-                            Name = "1"
-                        },
-                        new
-                        {
-                            Id = new Guid("565fa793-22f9-4ca3-936b-cfeb5da17453"),
-                            Description = "3",
-                            Details = "0",
-                            MerchantId = new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"),
-                            Name = "1"
-                        },
-                        new
-                        {
-                            Id = new Guid("1dba892b-24fe-4007-8cb8-245f5afbee10"),
-                            Description = "4",
-                            Details = "0",
-                            MerchantId = new Guid("532e8ec2-121d-4a86-bfe2-8812c2c27232"),
-                            Name = "1"
-                        },
-                        new
-                        {
-                            Id = new Guid("87c9ab80-0c13-49ba-8235-e23a7e4df525"),
-                            Description = "5",
-                            Details = "0",
-                            MerchantId = new Guid("532e8ec2-121d-4a86-bfe2-8812c2c27232"),
-                            Name = "1"
-                        },
-                        new
-                        {
-                            Id = new Guid("2fe4efb6-1e2f-4b54-94c4-0c8b210198c9"),
-                            Description = "6",
-                            Details = "0",
-                            MerchantId = new Guid("83c1dce6-97d5-4a35-afb7-4eb86577160c"),
-                            Name = "1"
-                        },
-                        new
-                        {
-                            Id = new Guid("8aeb6e23-8099-47e4-9e34-2e22df9ee79c"),
-                            Description = "7",
-                            Details = "1",
-                            MerchantId = new Guid("83c1dce6-97d5-4a35-afb7-4eb86577160c"),
-                            Name = "1"
-                        });
+                    b.ToTable("DealPrices");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Merchant.Merchant", b =>
@@ -407,50 +313,6 @@ namespace Troupon.Catalog.Service.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Merchants");
-                });
-
-            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.MerchantEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ImageUri")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MerchantEntity");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"),
-                            ImageUri = "https://picsum.photos/id/1023/200/300",
-                            Name = "Awsome Goods Plus"
-                        },
-                        new
-                        {
-                            Id = new Guid("532e8ec2-121d-4a86-bfe2-8812c2c27232"),
-                            ImageUri = "https://picsum.photos/id/1003/200/300",
-                            Name = "Masso Relax Inc"
-                        },
-                        new
-                        {
-                            Id = new Guid("83c1dce6-97d5-4a35-afb7-4eb86577160c"),
-                            ImageUri = "https://picsum.photos/id/1012/200/300",
-                            Name = "Antirouille la magouille"
-                        },
-                        new
-                        {
-                            Id = new Guid("042038de-1e60-427d-bdce-7d683ffc8bf5"),
-                            ImageUri = "https://picsum.photos/id/1011/200/300",
-                            Name = "Bronsage & Debosselage Reuni"
-                        });
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Account.Account", b =>
@@ -561,17 +423,6 @@ namespace Troupon.Catalog.Service.Api.Migrations
                     b.Navigation("OriginalPrice");
                 });
 
-            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.DealEntity", b =>
-                {
-                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.MerchantEntity", "Merchant")
-                        .WithMany("Deals")
-                        .HasForeignKey("MerchantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Merchant");
-                });
-
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.Deal", b =>
                 {
                     b.Navigation("Categories");
@@ -582,11 +433,6 @@ namespace Troupon.Catalog.Service.Api.Migrations
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealOption", b =>
                 {
                     b.Navigation("Prices");
-                });
-
-            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.MerchantEntity", b =>
-                {
-                    b.Navigation("Deals");
                 });
 #pragma warning restore 612, 618
         }

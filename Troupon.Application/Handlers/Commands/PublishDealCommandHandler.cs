@@ -7,7 +7,7 @@ using Troupon.Catalog.Core.Application.Commands;
 using Troupon.Catalog.Core.Application.Events;
 using Troupon.Catalog.Core.Domain.Entities.Deal;
 
-namespace Troupon.Catalog.Core.Application.Handlers
+namespace Troupon.Catalog.Core.Application.Handlers.Commands
 {
     public class PublishDealCommandHandler : IRequestHandler<PublishDealCommand, Unit>
     {

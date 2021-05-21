@@ -44,3 +44,4 @@ Coverage/
 /run-coverage.bat
 .idea/
 Troupon.Api/path/
+*.~vsdx

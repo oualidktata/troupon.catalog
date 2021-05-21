@@ -45,7 +45,7 @@ namespace Troupon.Catalog.Service.Api.Controllers
        )]
         [HttpPost]
         [Route("search")]
-        [Authorize(Roles = "crm-api-backend")]
+        /*[Authorize(Roles = "crm-api-backend")]*/
         public async Task<ActionResult<IEnumerable<DealDto>>> Search([FromBody]SearchDealsFilter filter, CancellationToken cancellationToken)
         {
             try

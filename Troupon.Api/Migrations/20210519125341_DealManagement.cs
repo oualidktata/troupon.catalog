@@ -11,7 +11,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 name: "Troupon");
 
             migrationBuilder.CreateTable(
-                name: "Address",
+                name: "Addresses",
                 schema: "Troupon",
                 columns: table => new
                 {
@@ -26,11 +26,11 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CreditCard",
+                name: "CreditCards",
                 schema: "Troupon",
                 columns: table => new
                 {
@@ -41,11 +41,11 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CreditCard", x => x.Id);
+                    table.PrimaryKey("PK_CreditCards", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Currency",
+                name: "Currencies",
                 schema: "Troupon",
                 columns: table => new
                 {
@@ -54,21 +54,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Currency", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MerchantEntity",
-                schema: "Troupon",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUri = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MerchantEntity", x => x.Id);
+                    table.PrimaryKey("PK_Currencies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,7 +72,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Position",
+                name: "Positions",
                 schema: "Troupon",
                 columns: table => new
                 {
@@ -96,11 +82,11 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Position", x => x.Id);
+                    table.PrimaryKey("PK_Positions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "BillingInfo",
+                name: "BillingInfos",
                 schema: "Troupon",
                 columns: table => new
                 {
@@ -110,25 +96,25 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BillingInfo", x => x.Id);
+                    table.PrimaryKey("PK_BillingInfos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BillingInfo_Address_AddressId",
+                        name: "FK_BillingInfos_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalSchema: "Troupon",
-                        principalTable: "Address",
+                        principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_BillingInfo_CreditCard_CreditCardId",
+                        name: "FK_BillingInfos_CreditCards_CreditCardId",
                         column: x => x.CreditCardId,
                         principalSchema: "Troupon",
-                        principalTable: "CreditCard",
+                        principalTable: "CreditCards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Price",
+                name: "Prices",
                 schema: "Troupon",
                 columns: table => new
                 {
@@ -138,41 +124,18 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Price", x => x.Id);
+                    table.PrimaryKey("PK_Prices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Price_Currency_CurrencyId",
+                        name: "FK_Prices_Currencies_CurrencyId",
                         column: x => x.CurrencyId,
                         principalSchema: "Troupon",
-                        principalTable: "Currency",
+                        principalTable: "Currencies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DealEntity",
-                schema: "Troupon",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Details = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MerchantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DealEntity", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DealEntity_MerchantEntity_MerchantId",
-                        column: x => x.MerchantId,
-                        principalSchema: "Troupon",
-                        principalTable: "MerchantEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Location",
+                name: "Locations",
                 schema: "Troupon",
                 columns: table => new
                 {
@@ -182,19 +145,19 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Location", x => x.Id);
+                    table.PrimaryKey("PK_Locations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Location_Address_AddressId",
+                        name: "FK_Locations_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalSchema: "Troupon",
-                        principalTable: "Address",
+                        principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Location_Position_PositionId",
+                        name: "FK_Locations_Positions_PositionId",
                         column: x => x.PositionId,
                         principalSchema: "Troupon",
-                        principalTable: "Position",
+                        principalTable: "Positions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -205,8 +168,8 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MerchantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MerchantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     BillingInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -214,17 +177,17 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 {
                     table.PrimaryKey("PK_Accounts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Accounts_BillingInfo_BillingInfoId",
+                        name: "FK_Accounts_BillingInfos_BillingInfoId",
                         column: x => x.BillingInfoId,
                         principalSchema: "Troupon",
-                        principalTable: "BillingInfo",
+                        principalTable: "BillingInfos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Accounts_Location_LocationId",
+                        name: "FK_Accounts_Locations_LocationId",
                         column: x => x.LocationId,
                         principalSchema: "Troupon",
-                        principalTable: "Location",
+                        principalTable: "Locations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -284,7 +247,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DealOption",
+                name: "DealOptions",
                 schema: "Troupon",
                 columns: table => new
                 {
@@ -294,9 +257,9 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DealOption", x => x.Id);
+                    table.PrimaryKey("PK_DealOptions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DealOption_Deals_DealId",
+                        name: "FK_DealOptions_Deals_DealId",
                         column: x => x.DealId,
                         principalSchema: "Troupon",
                         principalTable: "Deals",
@@ -305,7 +268,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DealPrice",
+                name: "DealPrices",
                 schema: "Troupon",
                 columns: table => new
                 {
@@ -317,63 +280,35 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DealPrice", x => x.Id);
+                    table.PrimaryKey("PK_DealPrices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DealPrice_Currency_CurrencyId",
+                        name: "FK_DealPrices_Currencies_CurrencyId",
                         column: x => x.CurrencyId,
                         principalSchema: "Troupon",
-                        principalTable: "Currency",
+                        principalTable: "Currencies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DealPrice_DealOption_DealOptionId",
+                        name: "FK_DealPrices_DealOptions_DealOptionId",
                         column: x => x.DealOptionId,
                         principalSchema: "Troupon",
-                        principalTable: "DealOption",
+                        principalTable: "DealOptions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DealPrice_Price_CurrentPriceId",
+                        name: "FK_DealPrices_Prices_CurrentPriceId",
                         column: x => x.CurrentPriceId,
                         principalSchema: "Troupon",
-                        principalTable: "Price",
+                        principalTable: "Prices",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DealPrice_Price_OriginalPriceId",
+                        name: "FK_DealPrices_Prices_OriginalPriceId",
                         column: x => x.OriginalPriceId,
                         principalSchema: "Troupon",
-                        principalTable: "Price",
+                        principalTable: "Prices",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.InsertData(
-                schema: "Troupon",
-                table: "MerchantEntity",
-                columns: new[] { "Id", "ImageUri", "Name" },
-                values: new object[,]
-                {
-                    { new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"), "https://picsum.photos/id/1023/200/300", "Awsome Goods Plus" },
-                    { new Guid("532e8ec2-121d-4a86-bfe2-8812c2c27232"), "https://picsum.photos/id/1003/200/300", "Masso Relax Inc" },
-                    { new Guid("83c1dce6-97d5-4a35-afb7-4eb86577160c"), "https://picsum.photos/id/1012/200/300", "Antirouille la magouille" },
-                    { new Guid("042038de-1e60-427d-bdce-7d683ffc8bf5"), "https://picsum.photos/id/1011/200/300", "Bronsage & Debosselage Reuni" }
-                });
-
-            migrationBuilder.InsertData(
-                schema: "Troupon",
-                table: "DealEntity",
-                columns: new[] { "Id", "Description", "Details", "MerchantId", "Name" },
-                values: new object[,]
-                {
-                    { new Guid("0d53c6ce-6181-42a8-8616-03f86f883112"), "0", "1", new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"), "0" },
-                    { new Guid("060fad6c-112c-49b5-91eb-490a700098a5"), "1", "0", new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"), "1" },
-                    { new Guid("effb7842-5cf8-4daa-86c9-4b253e5749c1"), "2", "0", new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"), "1" },
-                    { new Guid("565fa793-22f9-4ca3-936b-cfeb5da17453"), "3", "0", new Guid("5e448b39-db5b-42a4-bc12-52f34dcd5c14"), "1" },
-                    { new Guid("1dba892b-24fe-4007-8cb8-245f5afbee10"), "4", "0", new Guid("532e8ec2-121d-4a86-bfe2-8812c2c27232"), "1" },
-                    { new Guid("87c9ab80-0c13-49ba-8235-e23a7e4df525"), "5", "0", new Guid("532e8ec2-121d-4a86-bfe2-8812c2c27232"), "1" },
-                    { new Guid("2fe4efb6-1e2f-4b54-94c4-0c8b210198c9"), "6", "0", new Guid("83c1dce6-97d5-4a35-afb7-4eb86577160c"), "1" },
-                    { new Guid("8aeb6e23-8099-47e4-9e34-2e22df9ee79c"), "7", "1", new Guid("83c1dce6-97d5-4a35-afb7-4eb86577160c"), "1" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -395,15 +330,15 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 column: "MerchantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BillingInfo_AddressId",
+                name: "IX_BillingInfos_AddressId",
                 schema: "Troupon",
-                table: "BillingInfo",
+                table: "BillingInfos",
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BillingInfo_CreditCardId",
+                name: "IX_BillingInfos_CreditCardId",
                 schema: "Troupon",
-                table: "BillingInfo",
+                table: "BillingInfos",
                 column: "CreditCardId");
 
             migrationBuilder.CreateIndex(
@@ -413,39 +348,33 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 column: "DealId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DealEntity_MerchantId",
+                name: "IX_DealOptions_DealId",
                 schema: "Troupon",
-                table: "DealEntity",
-                column: "MerchantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DealOption_DealId",
-                schema: "Troupon",
-                table: "DealOption",
+                table: "DealOptions",
                 column: "DealId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DealPrice_CurrencyId",
+                name: "IX_DealPrices_CurrencyId",
                 schema: "Troupon",
-                table: "DealPrice",
+                table: "DealPrices",
                 column: "CurrencyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DealPrice_CurrentPriceId",
+                name: "IX_DealPrices_CurrentPriceId",
                 schema: "Troupon",
-                table: "DealPrice",
+                table: "DealPrices",
                 column: "CurrentPriceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DealPrice_DealOptionId",
+                name: "IX_DealPrices_DealOptionId",
                 schema: "Troupon",
-                table: "DealPrice",
+                table: "DealPrices",
                 column: "DealOptionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DealPrice_OriginalPriceId",
+                name: "IX_DealPrices_OriginalPriceId",
                 schema: "Troupon",
-                table: "DealPrice",
+                table: "DealPrices",
                 column: "OriginalPriceId");
 
             migrationBuilder.CreateIndex(
@@ -455,21 +384,21 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 column: "AccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Location_AddressId",
+                name: "IX_Locations_AddressId",
                 schema: "Troupon",
-                table: "Location",
+                table: "Locations",
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Location_PositionId",
+                name: "IX_Locations_PositionId",
                 schema: "Troupon",
-                table: "Location",
+                table: "Locations",
                 column: "PositionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Price_CurrencyId",
+                name: "IX_Prices_CurrencyId",
                 schema: "Troupon",
-                table: "Price",
+                table: "Prices",
                 column: "CurrencyId");
         }
 
@@ -480,23 +409,15 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 schema: "Troupon");
 
             migrationBuilder.DropTable(
-                name: "DealEntity",
+                name: "DealPrices",
                 schema: "Troupon");
 
             migrationBuilder.DropTable(
-                name: "DealPrice",
+                name: "DealOptions",
                 schema: "Troupon");
 
             migrationBuilder.DropTable(
-                name: "MerchantEntity",
-                schema: "Troupon");
-
-            migrationBuilder.DropTable(
-                name: "DealOption",
-                schema: "Troupon");
-
-            migrationBuilder.DropTable(
-                name: "Price",
+                name: "Prices",
                 schema: "Troupon");
 
             migrationBuilder.DropTable(
@@ -504,7 +425,7 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 schema: "Troupon");
 
             migrationBuilder.DropTable(
-                name: "Currency",
+                name: "Currencies",
                 schema: "Troupon");
 
             migrationBuilder.DropTable(
@@ -512,11 +433,11 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 schema: "Troupon");
 
             migrationBuilder.DropTable(
-                name: "BillingInfo",
+                name: "BillingInfos",
                 schema: "Troupon");
 
             migrationBuilder.DropTable(
-                name: "Location",
+                name: "Locations",
                 schema: "Troupon");
 
             migrationBuilder.DropTable(
@@ -524,15 +445,15 @@ namespace Troupon.Catalog.Service.Api.Migrations
                 schema: "Troupon");
 
             migrationBuilder.DropTable(
-                name: "CreditCard",
+                name: "CreditCards",
                 schema: "Troupon");
 
             migrationBuilder.DropTable(
-                name: "Address",
+                name: "Addresses",
                 schema: "Troupon");
 
             migrationBuilder.DropTable(
-                name: "Position",
+                name: "Positions",
                 schema: "Troupon");
         }
     }

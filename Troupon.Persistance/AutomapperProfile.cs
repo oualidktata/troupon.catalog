@@ -2,6 +2,7 @@
 using Troupon.Catalog.Core.Domain.Dtos;
 using Troupon.Catalog.Core.Domain.Entities.Deal;
 using Troupon.Catalog.Core.Domain.Entities.Merchant;
+using Troupon.Catalog.Core.Domain.Entities.Order;
 
 namespace Troupon.Catalog.Infra.Persistence
 {
@@ -14,6 +15,7 @@ namespace Troupon.Catalog.Infra.Persistence
                     x => x.MerchantName,
                     opt => opt.MapFrom(src => src.Account.Merchant.Name));
             CreateMap<Merchant, MerchantDto>();
+            CreateMap<Order, OrderDto>();
         }
     }
 }
