@@ -3,26 +3,26 @@ using Infra.DomainDrivenDesign.Base;
 
 namespace Troupon.Catalog.Core.Domain.Entities.Merchant
 {
-    public class MerchantId : EntityId
+  public class MerchantId : EntityId
+  {
+    public MerchantId()
     {
-        public MerchantId()
-        {
-        }
-
-        public MerchantId(
-            string id) : base(id)
-        {
-        }
-
-        public MerchantId(
-            Guid guid) : base(guid)
-        {
-        }
     }
-    
-    public class Merchant : AggregateRoot
+
+    public MerchantId(
+      string id) : base(id)
     {
-        public string Name { get; private set; }
-        public string Website { get; private set; }
     }
+
+    public MerchantId(
+      Guid guid) : base(guid)
+    {
+    }
+  }
+
+  public class Merchant : AggregateRoot
+  {
+    public string Name { get; private set; }
+    public string Website { get; private set; }
+  }
 }

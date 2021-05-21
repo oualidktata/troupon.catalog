@@ -4,16 +4,17 @@ using MediatR;
 
 namespace Troupon.Catalog.Core.Application.Events
 {
-    public class OrderPlacedEvent : INotification, IDomainEvent
-    {
-        public Guid OrderId { get; set; }
-        public DateTime CreationDate { get; set; }
+  public class OrderPlacedEvent : INotification,
+    IDomainEvent
+  {
+    public Guid OrderId { get; set; }
+    public DateTime CreationDate { get; set; }
 
-        public OrderPlacedEvent(
-            Guid orderId)
-        {
-            OrderId = orderId;
-            CreationDate = DateTime.UtcNow;
-        }
+    public OrderPlacedEvent(
+      Guid orderId)
+    {
+      OrderId = orderId;
+      CreationDate = DateTime.UtcNow;
     }
+  }
 }

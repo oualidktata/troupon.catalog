@@ -4,12 +4,13 @@ using Troupon.Catalog.Core.Domain.Dtos;
 
 namespace Troupon.Catalog.Api.Schema
 {
-    [ExtendObjectType(Name = nameof(DealDto))]
-    public class DealResolvers
+  [ExtendObjectType(Name = nameof(DealDto))]
+  public class DealResolvers
+  {
+    public MerchantDto Application(
+      IResolverContext context)
     {
-        public MerchantDto Application(IResolverContext context)
-        {
-            return new MerchantDto { Name = "Test" };
-        }
+      return new MerchantDto {Name = "Test"};
     }
+  }
 }

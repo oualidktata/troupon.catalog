@@ -10,31 +10,47 @@ using Troupon.Catalog.Core.Domain.Dtos;
 
 namespace Troupon.Catalog.Api.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    [Produces("application/json", "application/xml")]
-    [Consumes("application/json", "application/xml")]
-    public class OrderController : BaseController
+  [ApiController]
+  [Route("api/[controller]")]
+  [Produces(
+    "application/json",
+    "application/xml")]
+  [Consumes(
+    "application/json",
+    "application/xml")]
+  public class OrderController : BaseController
+  {
+    public OrderController(
+      IMediator mediator,
+      IMapper mapper) : base(
+      mediator,
+      mapper)
     {
-        public OrderController(
-            IMediator mediator,
-            IMapper mapper) : base(mediator,
-            mapper)
-        {
-        }
-        
-        [HttpPost]
-        public async Task<ActionResult<OrderDto>> Post([FromBody] PlaceOrderCommand model, CancellationToken cancellationToken)
-        {
-            try
-            {
-                var result = await Mediator.Send<OrderDto>(model, cancellationToken);
-                return CreatedAtAction(nameof(Post), new { id = result.Id }, result);
-            }
-            catch (Exception exception)
-            {
-                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, exception));
-            }
-        }
     }
+
+    [HttpPost]
+    public async Task<ActionResult<OrderDto>> Post(
+      [FromBody] PlaceOrderCommand model,
+      CancellationToken cancellationToken)
+    {
+      try
+      {
+        var result = await Mediator.Send<OrderDto>(
+          model,
+          cancellationToken);
+
+        return CreatedAtAction(
+          nameof(Post),
+          new {id = result.Id},
+          result);
+      }
+      catch (Exception exception)
+      {
+        return await Task.FromResult(
+          StatusCode(
+            StatusCodes.Status500InternalServerError,
+            exception));
+      }
+    }
+  }
 }

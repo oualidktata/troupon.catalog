@@ -12,78 +12,78 @@ using Troupon.Catalog.Api.Authentication;
 
 namespace Troupon.Catalog.Api.DependencyInjectionExtensions
 {
-    public static class AddOpenApiExtensions
+  public static class AddOpenApiExtensions
+  {
+    public static IServiceCollection AddOpenApi(
+      this IServiceCollection services,
+      IConfiguration configuration)
     {
-        public static IServiceCollection AddOpenApi(
-            this IServiceCollection services,
-            IConfiguration configuration)
+      var apiKeySettings = new OAuthSettings();
+      configuration.GetSection("Auth:KeyCloackProvider")
+        .Bind(apiKeySettings);
+      services.AddSwaggerGen(
+        setup =>
         {
-            var apiKeySettings = new OAuthSettings();
-            configuration.GetSection("Auth:KeyCloackProvider")
-                .Bind(apiKeySettings);
-            services.AddSwaggerGen(
-                setup =>
-                {
-                    setup.SwaggerDoc(
-                        "v1",
-                        new OpenApiInfo
-                        {
-                            Version = "v1",
-                            Title = "Troupon Catalog API",
-                            Description = "A simple API to manage a Catalog for prodcuts and services",
-                            TermsOfService = new Uri("https://example.com/terms"),
+          setup.SwaggerDoc(
+            "v1",
+            new OpenApiInfo
+            {
+              Version = "v1",
+              Title = "Troupon Catalog API",
+              Description = "A simple API to manage a Catalog for prodcuts and services",
+              TermsOfService = new Uri("https://example.com/terms"),
 
-                            Contact = new OpenApiContact
-                            {
-                                Name = "Oualid Ktata",
-                                Email = string.Empty,
-                                Url = new Uri("https://github.com/oualidktata/"),
-                            },
-                            License = new OpenApiLicense
-                            {
-                                Name = "Use under LICX",
-                                Url = new Uri("https://example.com/license"),
-                            }
-                        });
-                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                    var xmlPath = Path.Combine(
-                        AppContext.BaseDirectory,
-                        xmlFile);
-                    setup.IncludeXmlComments(xmlPath);
+              Contact = new OpenApiContact
+              {
+                Name = "Oualid Ktata",
+                Email = string.Empty,
+                Url = new Uri("https://github.com/oualidktata/"),
+              },
+              License = new OpenApiLicense
+              {
+                Name = "Use under LICX",
+                Url = new Uri("https://example.com/license"),
+              }
+            });
+          var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+          var xmlPath = Path.Combine(
+            AppContext.BaseDirectory,
+            xmlFile);
+          setup.IncludeXmlComments(xmlPath);
 
-                    #region Auth2 filters and Security
+          #region Auth2 filters and Security
 
-                    //setup.SchemaFilter<SchemaFilter>();
+          //setup.SchemaFilter<SchemaFilter>();
 
-                    setup.MapType<FileContentResult>(() => new OpenApiSchema {Type = "string", Format = "binary"});
-                    setup.MapType<IFormFile>(() => new OpenApiSchema {Type = "string", Format = "binary"});
+          setup.MapType<FileContentResult>(() => new OpenApiSchema {Type = "string", Format = "binary"});
+          setup.MapType<IFormFile>(() => new OpenApiSchema {Type = "string", Format = "binary"});
 
-                    //setup.DocumentFilter<SecurityRequirementDocumentFilter>();
-                    setup.AddBearerAuthentication(apiKeySettings); //Uncomment to enableAuth
+          //setup.DocumentFilter<SecurityRequirementDocumentFilter>();
+          setup.AddBearerAuthentication(apiKeySettings); //Uncomment to enableAuth
 
-                    #endregion
-                });
+          #endregion
+        });
 
-            services.Configure<ApiBehaviorOptions>(
-                options =>
-                {
-                    options.InvalidModelStateResponseFactory = actionContext =>
-                    {
-                        var actionExecutingContext =
-                            actionContext as ActionExecutingContext;
+      services.Configure<ApiBehaviorOptions>(
+        options =>
+        {
+          options.InvalidModelStateResponseFactory = actionContext =>
+          {
+            var actionExecutingContext =
+              actionContext as ActionExecutingContext;
 
-                        if (actionContext.ModelState.ErrorCount > 0
-                            && actionExecutingContext?.ActionArguments.Count ==
-                            actionContext.ActionDescriptor.Parameters.Count)
-                        {
-                            return new UnprocessableEntityObjectResult(actionContext.ModelState);
-                        }
+            if (actionContext.ModelState.ErrorCount > 0
+                && actionExecutingContext?.ActionArguments.Count ==
+                actionContext.ActionDescriptor.Parameters.Count)
+            {
+              return new UnprocessableEntityObjectResult(actionContext.ModelState);
+            }
 
-                        return new BadRequestObjectResult(actionContext.ModelState);
-                    };
-                });
+            return new BadRequestObjectResult(actionContext.ModelState);
+          };
+        });
 
-            return services;
-        }
+      return services;
     }
+  }
 }

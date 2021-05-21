@@ -4,11 +4,11 @@ using Troupon.Catalog.Core.Domain.Entities.Deal;
 
 namespace Troupon.Catalog.Core.Application
 {
-    public class AutomapperProfileDomain : Profile
+  public class AutomapperProfileDomain : Profile
+  {
+    public AutomapperProfileDomain()
     {
-        public AutomapperProfileDomain()
-        {
-            CreateMap<CreateDealCommand, Deal>();
-        }
+      CreateMap<CreateDealCommand, Deal>();
     }
+  }
 }

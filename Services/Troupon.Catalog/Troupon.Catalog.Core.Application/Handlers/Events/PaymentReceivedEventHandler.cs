@@ -8,30 +8,31 @@ using Troupon.Catalog.Core.Domain.Entities.Order;
 
 namespace Troupon.Catalog.Core.Application.Handlers.Events
 {
-    public class PaymentReceivedEventHandler : INotificationHandler<PaymentReceivedEvent>
+  public class PaymentReceivedEventHandler : INotificationHandler<PaymentReceivedEvent>
+  {
+    private readonly IReadRepository<Order> _orderReadRepo;
+    private readonly IWriteRepository<Order> _orderWriteRepo;
+
+    public PaymentReceivedEventHandler(
+      IReadRepository<Order> orderReadRepo,
+      IWriteRepository<Order> orderWriteRepo)
     {
-        private readonly IReadRepository<Order> _orderReadRepo;
-        private readonly IWriteRepository<Order> _orderWriteRepo;
-
-        public PaymentReceivedEventHandler(
-            IReadRepository<Order> orderReadRepo,
-            IWriteRepository<Order> orderWriteRepo)
-        {
-            _orderReadRepo = orderReadRepo;
-            _orderWriteRepo = orderWriteRepo;
-        }
-
-        public Task Handle(
-            PaymentReceivedEvent notification,
-            CancellationToken cancellationToken)
-        {
-            // Do something
-            
-            var order = _orderReadRepo.Single(x => x.Id == notification.OrderId);
-            order.PaymentReceived();
-
-            _orderWriteRepo.Update(order);
-            return Task.CompletedTask;
-        }
+      _orderReadRepo = orderReadRepo;
+      _orderWriteRepo = orderWriteRepo;
     }
+
+    public Task Handle(
+      PaymentReceivedEvent notification,
+      CancellationToken cancellationToken)
+    {
+      // Do something
+
+      var order = _orderReadRepo.Single(x => x.Id == notification.OrderId);
+      order.PaymentReceived();
+
+      _orderWriteRepo.Update(order);
+
+      return Task.CompletedTask;
+    }
+  }
 }

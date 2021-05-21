@@ -6,16 +6,16 @@ using Troupon.Catalog.Core.Domain.Entities.Order;
 
 namespace Troupon.Catalog.Infra.Persistence
 {
-    public class AutomapperProfile : Profile
+  public class AutomapperProfile : Profile
+  {
+    public AutomapperProfile()
     {
-        public AutomapperProfile()
-        {
-            CreateMap<Deal, DealDto>()
-                .ForMember(
-                    x => x.MerchantName,
-                    opt => opt.MapFrom(src => src.Account.Merchant.Name));
-            CreateMap<Merchant, MerchantDto>();
-            CreateMap<Order, OrderDto>();
-        }
+      CreateMap<Deal, DealDto>()
+        .ForMember(
+          x => x.MerchantName,
+          opt => opt.MapFrom(src => src.Account.Merchant.Name));
+      CreateMap<Merchant, MerchantDto>();
+      CreateMap<Order, OrderDto>();
     }
+  }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Troupon.Catalog.Api.Schema
 {
-    public class MerchantType
-    {
-    }
+  public class MerchantType
+  {
+  }
 }

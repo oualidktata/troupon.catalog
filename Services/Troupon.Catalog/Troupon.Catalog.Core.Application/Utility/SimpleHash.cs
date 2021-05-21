@@ -6,16 +6,18 @@ using System.Text;
 
 namespace Troupon.Catalog.Core.Application.Utility
 {
-    public static class UtilityMethods
+  public static class UtilityMethods
+  {
+    public static string ToHash(
+      SearchDealsFilter filter)
     {
-        public static string ToHash(SearchDealsFilter filter)
-        {
-            using (var algorithm = MD5.Create())
-            {
-                var json = JsonConvert.SerializeObject(filter);
-                var hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(json));
-                return Convert.ToBase64String(hash);
-            }
-        }
+      using (var algorithm = MD5.Create())
+      {
+        var json = JsonConvert.SerializeObject(filter);
+        var hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(json));
+
+        return Convert.ToBase64String(hash);
+      }
     }
+  }
 }

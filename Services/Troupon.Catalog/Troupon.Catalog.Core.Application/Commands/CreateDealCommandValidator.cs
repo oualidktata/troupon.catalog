@@ -2,13 +2,16 @@
 
 namespace Troupon.Catalog.Core.Application.Commands
 {
-    class CreateDealCommandValidator:AbstractValidator<CreateDealCommand>
+  class CreateDealCommandValidator : AbstractValidator<CreateDealCommand>
+  {
+    public CreateDealCommandValidator()
     {
-        public CreateDealCommandValidator()
-        {
-            RuleFor(c => c.Description).NotEmpty();
-            RuleFor(c => c.Title).NotEmpty();
-            RuleFor(c => c.ExpirationDate).NotEmpty();
-        }
+      RuleFor(c => c.Description)
+        .NotEmpty();
+      RuleFor(c => c.Title)
+        .NotEmpty();
+      RuleFor(c => c.ExpirationDate)
+        .NotEmpty();
     }
+  }
 }

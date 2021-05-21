@@ -2,25 +2,24 @@
 
 namespace Troupon.Catalog.Core.Domain.Entities.Category
 {
-    public class DealCategoryId : EntityId
-    {
-        
-    }
-    
-    public class DealCategory : AggregateRoot
-    {
-        public string Name { get; private set; }
+  public class DealCategoryId : EntityId
+  {
+  }
 
-        public DealCategory(
-            string name)
-        {
-            Name = name;
-        }
+  public class DealCategory : AggregateRoot
+  {
+    public string Name { get; private set; }
 
-        public void SetName(
-            string name)
-        {
-            Name = name;
-        }
+    public DealCategory(
+      string name)
+    {
+      Name = name;
     }
+
+    public void SetName(
+      string name)
+    {
+      Name = name;
+    }
+  }
 }

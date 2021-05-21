@@ -6,13 +6,14 @@ using MediatR;
 
 namespace Troupon.Catalog.Core.Application.Events
 {
-    public class DealPublishedEvent : INotification, IDomainEvent
-    {
-        public DateTime CreationDate { get; set; }
+  public class DealPublishedEvent : INotification,
+    IDomainEvent
+  {
+    public DateTime CreationDate { get; set; }
 
-        public DealPublishedEvent()
-        {
-            CreationDate = DateTime.UtcNow;
-        }
+    public DealPublishedEvent()
+    {
+      CreationDate = DateTime.UtcNow;
     }
+  }
 }

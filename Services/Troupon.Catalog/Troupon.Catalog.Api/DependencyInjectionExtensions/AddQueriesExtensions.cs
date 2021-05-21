@@ -6,20 +6,20 @@ using Troupon.Catalog.Core.Domain.Entities.Merchant;
 
 namespace Troupon.Catalog.Api.DependencyInjectionExtensions
 {
-    public static class AddQueriesExtensions
+  public static class AddQueriesExtensions
+  {
+    public static IServiceCollection AddQueries(
+      this IServiceCollection serviceCollection)
     {
-        public static IServiceCollection AddQueries(
-            this IServiceCollection serviceCollection)
-        {
-            serviceCollection.AddScoped<MerchantQueries>(
-                provider => new MerchantQueries(
-                    provider.GetRequiredService<IReadRepository<Merchant>>(),
-                    provider.GetRequiredService<IMapper>()));
+      serviceCollection.AddScoped<MerchantQueries>(
+        provider => new MerchantQueries(
+          provider.GetRequiredService<IReadRepository<Merchant>>(),
+          provider.GetRequiredService<IMapper>()));
 
-            /*serviceCollection.AddScoped<DealQueries>(
-                provider => new DealQueries(provider.GetRequiredService<IReadRepository<Deal>>()));*/
+      /*serviceCollection.AddScoped<DealQueries>(
+          provider => new DealQueries(provider.GetRequiredService<IReadRepository<Deal>>()));*/
 
-            return serviceCollection;
-        }
+      return serviceCollection;
     }
+  }
 }

@@ -6,18 +6,18 @@ using Troupon.Catalog.Core.Application.Events;
 
 namespace Troupon.Catalog.Core.Application.Handlers.Commands
 {
-    public class ProcessPaymentCommandHandler : IRequestHandler<ProcessPaymentCommand, Unit>
+  public class ProcessPaymentCommandHandler : IRequestHandler<ProcessPaymentCommand, Unit>
+  {
+    public async Task<Unit> Handle(
+      ProcessPaymentCommand request,
+      CancellationToken cancellationToken)
     {
-        public async Task<Unit> Handle(
-            ProcessPaymentCommand request,
-            CancellationToken cancellationToken)
-        {
-            // Process Payment
+      // Process Payment
 
-            await DomainEvents.Raise(
-                new PaymentReceivedEvent(request.OrderId));
-            
-            return await Task.FromResult(Unit.Value);
-        }
+      await DomainEvents.Raise(
+        new PaymentReceivedEvent(request.OrderId));
+
+      return await Task.FromResult(Unit.Value);
     }
+  }
 }
