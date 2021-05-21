@@ -3,9 +3,9 @@ using Troupon.Catalog.Api.Schema;
 
 namespace Troupon.Catalog.Api.DependencyInjectionExtensions
 {
-    public static class AddGraphQLExtensions
+    public static class AddGraphQlExtensions
     {
-        public static IServiceCollection AddGraphQLToApplication(this IServiceCollection services)
+        public static IServiceCollection AddGraphQl(this IServiceCollection services)
         {
             //services.AddDataLoaderRegistry();
             services.AddGraphQLServer()

@@ -43,5 +43,5 @@ msbuild.wrn
 Coverage/
 /run-coverage.bat
 .idea/
-path/
+logs/
 *.~vsdx

@@ -7,7 +7,7 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
 {
     public static class AddHealthChecksExtensions
     {
-        public static IServiceCollection AddHealthChecksToApplication(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddHealthChecks(this IServiceCollection services,IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("mainDatabaseConnStr");
             var loggingBaseUri = configuration.GetValue<string>("Global:Dependencies:ElasticUri");
@@ -26,7 +26,7 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
                .AddUrlGroup(new System.Uri("https://www.yahoo.ca"), tags: new[] { "uri", "all" }, name: "Yahoo!");
             return services;
         }
-        public static IServiceCollection AddHealthChecksUIToApplication(this IServiceCollection services)
+        public static IServiceCollection AddHealthChecksUI(this IServiceCollection services)
         {
             services.AddHealthChecksUI(setupSettings: setup =>
             {//https://localhost:5001/healthchecks-ui

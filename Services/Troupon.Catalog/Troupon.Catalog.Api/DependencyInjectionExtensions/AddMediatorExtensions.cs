@@ -10,7 +10,7 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
 {
     public static class AddMediatorExtensions
     {
-        public static IServiceCollection AddMediatorToApplication(this IServiceCollection services)
+        public static IServiceCollection AddMediator(this IServiceCollection services)
         {
               //Mediator
             services.AddMediatR(typeof(GetDealsQuery).Assembly);

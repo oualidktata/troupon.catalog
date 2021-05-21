@@ -7,7 +7,7 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
 {
     public static class AddFluentValidatonExtensions
     {
-        public static IServiceCollection AddFluentValidatonToApplication(this IServiceCollection services)
+        public static IServiceCollection AddFluentValidaton(this IServiceCollection services)
         {
             services.AddTransient<IValidator<CreateDealModel>, CreateDealModelValidator>();
             services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
