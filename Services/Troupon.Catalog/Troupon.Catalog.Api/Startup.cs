@@ -53,8 +53,7 @@ namespace Troupon.Catalog.Api
         });
 
       services.AddAutoMapper(
-        typeof(AutomapperProfile),
-        typeof(AutomapperProfileDomain));
+        typeof(AutomapperProfile));
 
       services.AddMediator();
       services.AddSqlServerPersistence<CatalogDbContext>(
@@ -63,13 +62,9 @@ namespace Troupon.Catalog.Api
         Assembly.GetExecutingAssembly()
           .GetName()
           .Name);
-      services.AddQueries();
       services.AddEfRepository<CatalogDbContext>();
-      services.AddGraphQl(); //https://localhost:5001/graphql/
       services.AddControllers();
       services.AddOpenApi(Configuration);
-      services.AddHealthChecks(Configuration);
-      services.AddHealthChecksUI();
       services.AddMetrics();
       services.AddFluentValidaton();
       services.AddMemoryCache();
@@ -114,62 +109,7 @@ namespace Troupon.Catalog.Api
         endpoints =>
         {
           endpoints.MapControllers();
-          endpoints.MapHealthChecks(
-            "/health",
-            new HealthCheckOptions()
-            {
-              Predicate = (
-                check) => check.Tags.Contains("all"),
-              ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
-          endpoints.MapHealthChecks(
-            "/health/external",
-            new HealthCheckOptions()
-            {
-              Predicate = (
-                check) => check.Tags.Contains("external"),
-              ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
-          endpoints.MapHealthChecks(
-            "/health/db",
-            new HealthCheckOptions()
-            {
-              Predicate = (
-                check) => check.Tags.Contains("db"),
-              ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
-          endpoints.MapHealthChecks(
-            "/health/uri",
-            new HealthCheckOptions()
-            {
-              Predicate = (
-                check) => check.Tags.Contains("uri"),
-              ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
-          endpoints.MapHealthChecks(
-            "/health/internal",
-            new HealthCheckOptions()
-            {
-              Predicate = (
-                check) => check.Tags.Contains("errors") || check.Tags.Contains("db"),
-              ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
-
-          //endpoints.MapHealthChecks("/health/scheduler", new HealthCheckOptions() { Predicate = (check) => check.Tags.Contains("scheduler"), ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse });
-          endpoints.MapHealthChecksUI();
-          endpoints.MapGraphQL();
         });
-    }
-
-    private async Task JsonHealthReport(
-      HttpContext context,
-      HealthReport report)
-    {
-      context.Response.ContentType = "application/json";
-      await JsonSerializer.SerializeAsync(
-        context.Response.Body,
-        new {Status = report.Status.ToString()},
-        new JsonSerializerOptions {PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
     }
   }
 }

@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Persistence.EntityFra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Persistence.SqlServer.Extensions", "..\..\Infrastructure\Persistence\Infra.Persistence.SqlServer.Extensions\Infra.Persistence.SqlServer.Extensions.csproj", "{A2EA6CA8-8919-416A-888A-AA41B11886D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.MediatR.Events", "..\..\Infrastructure\MediatR\Infra.MediatR.Events\Infra.MediatR.Events.csproj", "{E103C762-F3C4-41A4-92F5-64B38315EF00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,10 @@ Global
 		{A2EA6CA8-8919-416A-888A-AA41B11886D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2EA6CA8-8919-416A-888A-AA41B11886D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2EA6CA8-8919-416A-888A-AA41B11886D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E103C762-F3C4-41A4-92F5-64B38315EF00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E103C762-F3C4-41A4-92F5-64B38315EF00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E103C762-F3C4-41A4-92F5-64B38315EF00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E103C762-F3C4-41A4-92F5-64B38315EF00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,6 +177,7 @@ Global
 		{B41F0B34-2F0D-4EE9-BD1F-7F389939534C} = {44F08FF2-DFC3-49E2-A0CF-88AD3B572B78}
 		{166A8CBC-8541-4BF8-95FE-F648127707A2} = {44F08FF2-DFC3-49E2-A0CF-88AD3B572B78}
 		{A2EA6CA8-8919-416A-888A-AA41B11886D1} = {44F08FF2-DFC3-49E2-A0CF-88AD3B572B78}
+		{E103C762-F3C4-41A4-92F5-64B38315EF00} = {E28A09B9-E9C8-4966-8C7A-59E8DBB83FA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63F4EA02-B9BA-404B-9773-D9585A8D5964}

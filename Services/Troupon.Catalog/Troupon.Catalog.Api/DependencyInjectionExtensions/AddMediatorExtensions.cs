@@ -7,7 +7,6 @@ using Infra.MediatR.Validation.Extensions;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Troupon.Catalog.Core.Application.Behaviors;
-using Troupon.Catalog.Core.Application.Events;
 using Troupon.Catalog.Core.Application.Queries.Deals;
 
 namespace Troupon.Catalog.Api.DependencyInjectionExtensions

@@ -97,6 +97,10 @@
     <ProjectReference Include="..\Troupon.Catalog.Core.Application\Troupon.Catalog.Core.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="logs\logJson.json" />
+  </ItemGroup>
+
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>

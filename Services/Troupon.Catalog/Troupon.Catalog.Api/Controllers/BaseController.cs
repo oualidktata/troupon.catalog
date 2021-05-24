@@ -1,8 +1,8 @@
 ﻿using System;
 using AutoMapper;
+using Infra.MediatR.Events;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Troupon.Catalog.Core.Application.Events;
 
 namespace Troupon.Catalog.Api.Controllers
 {
