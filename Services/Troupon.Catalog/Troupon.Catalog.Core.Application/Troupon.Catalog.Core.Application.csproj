@@ -12,8 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Infrastructure\Infra.Persistence\Infra.Persistence.csproj" />
     <ProjectReference Include="..\..\..\Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\MediatR\Infra.MediatR.Caching\Infra.MediatR.Caching.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\Persistence\Infra.Persistence\Infra.Persistence.csproj" />
     <ProjectReference Include="..\Troupon.Catalog.Core.Domain\Troupon.Catalog.Core.Domain.csproj" />
     <ProjectReference Include="..\Troupon.Catalog.Infra.Persistance\Troupon.Catalog.Infra.Persistence.csproj" />
   </ItemGroup>

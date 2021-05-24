@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using Troupon.Catalog.Api.Validators;
 using Troupon.Catalog.Core.Domain.InputModels;
 
 namespace Troupon.Catalog.Api.DependencyInjectionExtensions
@@ -10,7 +9,6 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
     public static IServiceCollection AddFluentValidaton(
       this IServiceCollection services)
     {
-      services.AddTransient<IValidator<CreateDealModel>, CreateDealModelValidator>();
       services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
 
       return services;

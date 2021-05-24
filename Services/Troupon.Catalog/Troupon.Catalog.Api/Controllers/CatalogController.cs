@@ -216,7 +216,7 @@ namespace Troupon.Catalog.Api.Controllers
     [Route("ErrorEndpoint")]
     public Task<ActionResult<DealDto>> ErrorEndpoint()
     {
-      throw new CRMIntergrationException("Error on ErrorEndpoint");
+      throw new CrmIntegrationException("Error on ErrorEndpoint");
 
       //return Ok(await Task.FromResult(model));
     }

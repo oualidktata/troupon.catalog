@@ -17,10 +17,10 @@ namespace Troupon.Catalog.Api.Controllers
 
     public BaseController(
       IMediator mediator,
+
       IMapper mapper)
     {
       Mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-      ;
       Mapper = mapper;
       DomainEvents.Mediator = () => mediator;
     }

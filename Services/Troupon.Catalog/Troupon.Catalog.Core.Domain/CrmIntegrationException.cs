@@ -3,22 +3,14 @@ using ApplicationException = Infra.Common.Models.Exceptions.ApplicationException
 
 namespace Troupon.Catalog.Core.Domain
 {
-  public class DealAlreadyExistsException : ApplicationException
+  public class CrmIntegrationException : ApplicationException
   {
-    public DealAlreadyExistsException(
-      string message) : base(message)
-    {
-    }
-  }
-
-  public class CRMIntergrationException : ApplicationException
-  {
-    public CRMIntergrationException(
+    public CrmIntegrationException(
       string message) : base(message)
     {
     }
 
-    public CRMIntergrationException(
+    public CrmIntegrationException(
       string message,
       Exception exception) : base(
       message,
