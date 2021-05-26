@@ -64,7 +64,8 @@ namespace Troupon.DealManagement.Api
           .GetName()
           .Name);
       services.AddQueries();
-      services.AddEfRepository<DealManagementDbContext>();
+      services.AddEfReadRepository<DealManagementDbContext>();
+      services.AddEfWriteRepository<DealManagementDbContext>();
       services.AddGraphQl(); //https://localhost:5001/graphql/
       services.AddControllers();
       services.AddOpenApi(Configuration);

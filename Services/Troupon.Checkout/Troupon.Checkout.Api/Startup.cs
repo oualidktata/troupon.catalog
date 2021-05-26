@@ -59,7 +59,8 @@ namespace Troupon.Checkout.Api
           .GetName()
           .Name);
 
-      services.AddEfRepository<CheckoutDbContext>();
+      services.AddEfReadRepository<CheckoutDbContext>();
+      services.AddEfWriteRepository<CheckoutDbContext>();
       services.AddControllers();
       services.AddOpenApi(Configuration);
       services.AddMetrics();

@@ -62,7 +62,8 @@ namespace Troupon.Catalog.Api
         Assembly.GetExecutingAssembly()
           .GetName()
           .Name);
-      services.AddEfRepository<CatalogDbContext>();
+      services.AddEfReadRepository<CatalogDbContext>();
+      services.AddEfWriteRepository<CatalogDbContext>();
       services.AddControllers();
       services.AddOpenApi(Configuration);
       services.AddMetrics();
