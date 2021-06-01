@@ -10,7 +10,7 @@ using Troupon.Catalog.Infra.Persistence;
 namespace Troupon.Catalog.Api.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20210601112537_Initial")]
+    [Migration("20210601121818_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

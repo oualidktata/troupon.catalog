@@ -15,6 +15,7 @@
     <ProjectReference Include="..\Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Caching\Infra.MediatR.Caching.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Events\Infra.MediatR.Events.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infra.Persistence\Infra.Persistence.Dapper\Infra.Persistence.Dapper.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Persistence\Infra.Persistence\Infra.Persistence.csproj" />
     <ProjectReference Include="..\Troupon.Catalog.Core.Domain\Troupon.Catalog.Core.Domain.csproj" />
     <ProjectReference Include="..\Troupon.Catalog.Infra.Persistance\Troupon.Catalog.Infra.Persistence.csproj" />

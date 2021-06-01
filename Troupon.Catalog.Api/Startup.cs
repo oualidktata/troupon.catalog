@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using HealthChecks.UI.Client;
 using Infra.oAuthService;
+using Infra.Persistence.Dapper.Extensions;
 using Infra.Persistence.EntityFramework.Extensions;
 using Infra.Persistence.SqlServer.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -62,13 +63,13 @@ namespace Troupon.Catalog.Api
         Assembly.GetExecutingAssembly()
           .GetName()
           .Name);
-      services.AddEfReadRepository<CatalogDbContext>();
-      services.AddEfWriteRepository<CatalogDbContext>();
-      services.AddControllers();
+      services.AddControllers()
+        .AddNewtonsoftJson();
       services.AddOpenApi(Configuration);
       services.AddMetrics();
       services.AddFluentValidaton();
       services.AddMemoryCache();
+      services.AddDapperPersistence("mainDatabaseConnStr");
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,10 +108,7 @@ namespace Troupon.Catalog.Api
       app.UseAuthentication();
       app.UseAuthorization();
       app.UseEndpoints(
-        endpoints =>
-        {
-          endpoints.MapControllers();
-        });
+        endpoints => { endpoints.MapControllers(); });
     }
   }
 }

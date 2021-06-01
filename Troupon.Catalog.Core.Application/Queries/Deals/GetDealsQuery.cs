@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Infra.MediatR.Caching;
+using Infra.Persistence.Dapper;
 using Infra.Persistence.Repositories;
 using MediatR;
 using Troupon.Catalog.Core.Application.Utility;
@@ -26,16 +28,15 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
 
     public class GetDealsQueryHandler : IRequestHandler<GetDealsQuery, IEnumerable<DealDto>>
     {
-      private readonly IReadRepository<Deal> _dealReadRepo;
-
+      private readonly IDapper _dapper;
       private readonly IMapper _mapper;
 
       public GetDealsQueryHandler(
-        IReadRepository<Deal> dealReadRepo,
-        IMapper mapper)
+        IMapper mapper,
+        IDapper dapper)
       {
-        _dealReadRepo = dealReadRepo;
         _mapper = mapper;
+        _dapper = dapper;
       }
 
       public async Task<IEnumerable<DealDto>> Handle(
@@ -43,7 +44,11 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
         CancellationToken cancellationToken)
       {
         //Business logic goes here
-        var deals = _dealReadRepo.ToList();
+        var deals = await Task.FromResult(
+          _dapper.GetAll<Deal>(
+            $"Select * from [Troupon.Catalog].[Deals]",
+            null,
+            commandType: CommandType.Text));
         var dealDtos =
           _mapper.Map<IEnumerable<Deal>, IEnumerable<DealDto>>(deals);
 
