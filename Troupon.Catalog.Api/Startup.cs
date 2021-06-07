@@ -42,10 +42,10 @@ namespace Troupon.Catalog.Api
         .Bind(apiKeySettings);
       services.AddScoped<IAuthService>(service => new AuthService(apiKeySettings));
 
-      services.AddAuthenticationToApplication(
-        new AuthService(apiKeySettings),
-        Configuration,
-        HostEnvironment);
+      // services.AddAuthenticationToApplication(
+      //   new AuthService(apiKeySettings),
+      //   Configuration,
+      //   HostEnvironment);
       services.AddAuthorization(
         options =>
         {
@@ -104,7 +104,7 @@ namespace Troupon.Catalog.Api
           c.RoutePrefix = string.Empty;
         });
       app.UseRouting();
-      app.UseAuthentication();
+      //app.UseAuthentication();
       app.UseAuthorization();
       app.UseEndpoints(
         endpoints =>

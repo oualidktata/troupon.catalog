@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Troupon.Catalog.Infra.Persi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Troupon.Catalog.Api", "Troupon.Catalog.Api\Troupon.Catalog.Api.csproj", "{713CC65A-C5D9-41C1-A9AF-BF333A2BAFA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Troupon.Catalog.Api.Test", "Troupon.Catalog.Api.Test\Troupon.Catalog.Api.Test.csproj", "{BE2816B4-66B0-4F23-A94B-21EDD7FF83F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Troupon.Catalog.Integration.Tests", "Troupon.Catalog.Api.Test\Troupon.Catalog.Integration.Tests.csproj", "{BE2816B4-66B0-4F23-A94B-21EDD7FF83F5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Troupon.Catalog.Client.SDK", "Troupon.Catalog.Client.SDK\Troupon.Catalog.Client.SDK.csproj", "{04F92A7F-2A26-432F-B2A8-BBB78B017325}"
 EndProject

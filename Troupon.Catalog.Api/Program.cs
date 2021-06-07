@@ -56,6 +56,7 @@ namespace Troupon.Catalog.Api
           webBuilder =>
           {
             webBuilder.UseStartup<Startup>()
+              // .UseUrls("http://localhost:3001")
               .UseSerilog();
           });
   }

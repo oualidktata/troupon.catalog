@@ -26,7 +26,7 @@ namespace Troupon.Catalog.Api.Test
       "pw12345678910",
       "Bad Request")]
     [Theory]
-    public async void GetIncidentsShouldReturnArrayOfIncidents(
+    public async void GetIncidents_ShouldReturnArrayOfIncidents(
       string userParam,
       string response)
     {
@@ -38,7 +38,7 @@ namespace Troupon.Catalog.Api.Test
       //Act
       try
       {
-        var result = await client.IncidentAsync(new IncidentSearchInput {User = userParam});
+        var result = await client.IncidentAsync(new IncidentSearchInput { User = userParam });
 
         //Assert
         result.ShouldNotBeNull();
