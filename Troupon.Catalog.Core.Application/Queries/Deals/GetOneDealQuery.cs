@@ -16,12 +16,12 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
 
     public class GetOneDealQueryHandler : IRequestHandler<GetOneDealQuery, DealDto>
     {
-      private readonly IReadRepository<Deal> _dealReadRepo;
+      private readonly IReadRepository<DealView> _dealReadRepo;
 
       private readonly IMapper _mapper;
 
       public GetOneDealQueryHandler(
-        IReadRepository<Deal> dealReadRepo,
+        IReadRepository<DealView> dealReadRepo,
         IMapper mapper)
       {
         _dealReadRepo = dealReadRepo;
@@ -34,7 +34,7 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
       {
         //Business logic goes here
         var deal = _dealReadRepo.SingleOrDefault(x => x.Id == request.Id);
-        var dealDto = _mapper.Map<Deal, DealDto>(deal);
+        var dealDto = _mapper.Map<DealView, DealDto>(deal);
 
         return await Task.FromResult(dealDto);
       }

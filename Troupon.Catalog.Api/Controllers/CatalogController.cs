@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentResults;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ using Troupon.Catalog.Core.Domain.InputModels;
 namespace Troupon.Catalog.Api.Controllers
 {
   [ApiController]
-  [Route("api")]
+  [Route("api/catalog")]
   [Produces(
     "application/json",
     "application/xml")]
@@ -55,7 +56,7 @@ namespace Troupon.Catalog.Api.Controllers
     [SwaggerOperation(
       Description = "Returns all active Deals",
       OperationId = "SearchDeals",
-      Tags = new[] {"Search"}
+      Tags = new[] { "Search" }
     )]
     [HttpPost]
     [Route("search")]
@@ -103,15 +104,15 @@ namespace Troupon.Catalog.Api.Controllers
     [ProducesResponseType(
       typeof(ProblemDetails),
       StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     [SwaggerOperation(
       Description = "Returns the Deal specified by Id",
       OperationId = "GetOneDeal",
-      Tags = new[] {"One Deal"}
+      Tags = new[] { "One Deal" }
     )]
     [HttpGet]
-    [Route("Deals/{id}")]
+    [Route("{id}")]
     public async Task<ActionResult<IEnumerable<DealDto>>> Get(
       Guid id,
       CancellationToken cancellationToken)
@@ -119,9 +120,12 @@ namespace Troupon.Catalog.Api.Controllers
       try
       {
         var result = await Mediator.Send<DealDto>(
-          new GetOneDealQuery() {Id = id},
+          new GetOneDealQuery() { Id = id },
           cancellationToken);
-
+        if (result is null)
+        {
+          return NotFound(Result.Fail(new Error($"Could not find the Deal: {id}")));
+        }
         return Ok(result);
       }
       catch (Exception exception)
@@ -131,15 +135,6 @@ namespace Troupon.Catalog.Api.Controllers
             StatusCodes.Status500InternalServerError,
             exception));
       }
-    }
-
-    [HttpGet]
-    [Route("ErrorEndpoint")]
-    public Task<ActionResult<DealDto>> ErrorEndpoint()
-    {
-      throw new CrmIntegrationException("Error on ErrorEndpoint");
-
-      //return Ok(await Task.FromResult(model));
     }
   }
 }
