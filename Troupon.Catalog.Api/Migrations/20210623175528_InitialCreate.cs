@@ -58,6 +58,28 @@ namespace Troupon.Catalog.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Deals",
+                schema: "Troupon.Catalog",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Limitation = table.Column<int>(type: "int", nullable: false),
+                    OtherConditions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MerchantName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Account = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Categories = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Deals", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Merchants",
                 schema: "Troupon.Catalog",
                 columns: table => new
@@ -135,6 +157,27 @@ namespace Troupon.Catalog.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DealOptions",
+                schema: "Troupon.Catalog",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DealViewId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DealOptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DealOptions_Deals_DealViewId",
+                        column: x => x.DealViewId,
+                        principalSchema: "Troupon.Catalog",
+                        principalTable: "Deals",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Locations",
                 schema: "Troupon.Catalog",
                 columns: table => new
@@ -158,111 +201,6 @@ namespace Troupon.Catalog.Api.Migrations
                         column: x => x.PositionId,
                         principalSchema: "Troupon.Catalog",
                         principalTable: "Positions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Accounts",
-                schema: "Troupon.Catalog",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MerchantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    BillingInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Accounts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Accounts_BillingInfos_BillingInfoId",
-                        column: x => x.BillingInfoId,
-                        principalSchema: "Troupon.Catalog",
-                        principalTable: "BillingInfos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Accounts_Locations_LocationId",
-                        column: x => x.LocationId,
-                        principalSchema: "Troupon.Catalog",
-                        principalTable: "Locations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Accounts_Merchants_MerchantId",
-                        column: x => x.MerchantId,
-                        principalSchema: "Troupon.Catalog",
-                        principalTable: "Merchants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Deals",
-                schema: "Troupon.Catalog",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Limitation = table.Column<int>(type: "int", nullable: false),
-                    OtherConditions = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Deals", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Deals_Accounts_AccountId",
-                        column: x => x.AccountId,
-                        principalSchema: "Troupon.Catalog",
-                        principalTable: "Accounts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DealCategories",
-                schema: "Troupon.Catalog",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DealId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DealCategories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DealCategories_Deals_DealId",
-                        column: x => x.DealId,
-                        principalSchema: "Troupon.Catalog",
-                        principalTable: "Deals",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DealOptions",
-                schema: "Troupon.Catalog",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DealId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DealOptions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DealOptions_Deals_DealId",
-                        column: x => x.DealId,
-                        principalSchema: "Troupon.Catalog",
-                        principalTable: "Deals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -311,6 +249,43 @@ namespace Troupon.Catalog.Api.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Accounts",
+                schema: "Troupon.Catalog",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MerchantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    BillingInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Accounts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Accounts_BillingInfos_BillingInfoId",
+                        column: x => x.BillingInfoId,
+                        principalSchema: "Troupon.Catalog",
+                        principalTable: "BillingInfos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Accounts_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalSchema: "Troupon.Catalog",
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Accounts_Merchants_MerchantId",
+                        column: x => x.MerchantId,
+                        principalSchema: "Troupon.Catalog",
+                        principalTable: "Merchants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Accounts_BillingInfoId",
                 schema: "Troupon.Catalog",
@@ -342,16 +317,10 @@ namespace Troupon.Catalog.Api.Migrations
                 column: "CreditCardId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DealCategories_DealId",
-                schema: "Troupon.Catalog",
-                table: "DealCategories",
-                column: "DealId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DealOptions_DealId",
+                name: "IX_DealOptions_DealViewId",
                 schema: "Troupon.Catalog",
                 table: "DealOptions",
-                column: "DealId");
+                column: "DealViewId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DealPrices_CurrencyId",
@@ -378,12 +347,6 @@ namespace Troupon.Catalog.Api.Migrations
                 column: "OriginalPriceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Deals_AccountId",
-                schema: "Troupon.Catalog",
-                table: "Deals",
-                column: "AccountId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Locations_AddressId",
                 schema: "Troupon.Catalog",
                 table: "Locations",
@@ -405,31 +368,11 @@ namespace Troupon.Catalog.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DealCategories",
+                name: "Accounts",
                 schema: "Troupon.Catalog");
 
             migrationBuilder.DropTable(
                 name: "DealPrices",
-                schema: "Troupon.Catalog");
-
-            migrationBuilder.DropTable(
-                name: "DealOptions",
-                schema: "Troupon.Catalog");
-
-            migrationBuilder.DropTable(
-                name: "Prices",
-                schema: "Troupon.Catalog");
-
-            migrationBuilder.DropTable(
-                name: "Deals",
-                schema: "Troupon.Catalog");
-
-            migrationBuilder.DropTable(
-                name: "Currencies",
-                schema: "Troupon.Catalog");
-
-            migrationBuilder.DropTable(
-                name: "Accounts",
                 schema: "Troupon.Catalog");
 
             migrationBuilder.DropTable(
@@ -445,6 +388,14 @@ namespace Troupon.Catalog.Api.Migrations
                 schema: "Troupon.Catalog");
 
             migrationBuilder.DropTable(
+                name: "DealOptions",
+                schema: "Troupon.Catalog");
+
+            migrationBuilder.DropTable(
+                name: "Prices",
+                schema: "Troupon.Catalog");
+
+            migrationBuilder.DropTable(
                 name: "CreditCards",
                 schema: "Troupon.Catalog");
 
@@ -454,6 +405,14 @@ namespace Troupon.Catalog.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Positions",
+                schema: "Troupon.Catalog");
+
+            migrationBuilder.DropTable(
+                name: "Deals",
+                schema: "Troupon.Catalog");
+
+            migrationBuilder.DropTable(
+                name: "Currencies",
                 schema: "Troupon.Catalog");
         }
     }

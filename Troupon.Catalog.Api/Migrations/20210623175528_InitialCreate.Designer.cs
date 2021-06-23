@@ -10,7 +10,7 @@ using Troupon.Catalog.Infra.Persistence;
 namespace Troupon.Catalog.Api.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20210608125049_InitialCreate")]
+    [Migration("20210623175528_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,25 +70,6 @@ namespace Troupon.Catalog.Api.Migrations
                     b.HasIndex("CreditCardId");
 
                     b.ToTable("BillingInfos");
-                });
-
-            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Category.DealCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("DealId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DealId");
-
-                    b.ToTable("DealCategories");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Address", b =>
@@ -214,47 +195,13 @@ namespace Troupon.Catalog.Api.Migrations
                     b.ToTable("Prices");
                 });
 
-            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.Deal", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Limitation")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OtherConditions")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.ToTable("Deals");
-                });
-
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealOption", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("DealId")
+                    b.Property<Guid?>("DealViewId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -262,7 +209,7 @@ namespace Troupon.Catalog.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DealId");
+                    b.HasIndex("DealViewId");
 
                     b.ToTable("DealOptions");
                 });
@@ -296,6 +243,47 @@ namespace Troupon.Catalog.Api.Migrations
                     b.HasIndex("OriginalPriceId");
 
                     b.ToTable("DealPrices");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealView", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Account")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Categories")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Limitation")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MerchantName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OtherConditions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Deals");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Merchant.Merchant", b =>
@@ -351,13 +339,6 @@ namespace Troupon.Catalog.Api.Migrations
                     b.Navigation("CreditCard");
                 });
 
-            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Category.DealCategory", b =>
-                {
-                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Deal.Deal", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("DealId");
-                });
-
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Common.Location", b =>
                 {
                     b.HasOne("Troupon.Catalog.Core.Domain.Entities.Common.Address", "Address")
@@ -382,20 +363,11 @@ namespace Troupon.Catalog.Api.Migrations
                     b.Navigation("Currency");
                 });
 
-            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.Deal", b =>
-                {
-                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Account.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId");
-
-                    b.Navigation("Account");
-                });
-
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealOption", b =>
                 {
-                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Deal.Deal", null)
+                    b.HasOne("Troupon.Catalog.Core.Domain.Entities.Deal.DealView", null)
                         .WithMany("Options")
-                        .HasForeignKey("DealId");
+                        .HasForeignKey("DealViewId");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealPrice", b =>
@@ -423,16 +395,14 @@ namespace Troupon.Catalog.Api.Migrations
                     b.Navigation("OriginalPrice");
                 });
 
-            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.Deal", b =>
-                {
-                    b.Navigation("Categories");
-
-                    b.Navigation("Options");
-                });
-
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealOption", b =>
                 {
                     b.Navigation("Prices");
+                });
+
+            modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealView", b =>
+                {
+                    b.Navigation("Options");
                 });
 #pragma warning restore 612, 618
         }
