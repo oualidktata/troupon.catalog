@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentResults;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Swashbuckle.AspNetCore.Annotations;
 using Troupon.Catalog.Core.Application.Queries.Deals;
 using Troupon.Catalog.Core.Domain;
@@ -16,7 +18,7 @@ using Troupon.Catalog.Core.Domain.InputModels;
 namespace Troupon.Catalog.Api.Controllers
 {
   [ApiController]
-  [Route("api/catalog")]
+  [Route("api/v{version:apiVersion}/[controller]")]
   [Produces(
     "application/json",
     "application/xml")]
@@ -59,10 +61,12 @@ namespace Troupon.Catalog.Api.Controllers
       Tags = new[] { "Search" }
     )]
     [HttpPost]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [Route("search")]
-    /*[Authorize(Roles = "crm-api-backend")]*/
+    [Authorize(Policy = "tenant-policy")]
     public async Task<ActionResult<IEnumerable<DealDto>>> Search(
-      [FromBody] SearchDealsFilter filter,
+      [FromBody,BindRequired] SearchDealsFilter filter,
       CancellationToken cancellationToken)
     {
       try
@@ -113,8 +117,10 @@ namespace Troupon.Catalog.Api.Controllers
     )]
     [HttpGet]
     [Route("{id}")]
+    [ApiVersion("2.0")]
+    [ApiVersion("3.0")]
     public async Task<ActionResult<IEnumerable<DealDto>>> Get(
-      Guid id,
+      [BindRequired] Guid id,
       CancellationToken cancellationToken)
     {
       try

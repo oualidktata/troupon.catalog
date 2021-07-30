@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Troupon.Catalog.Core.Domain.Entities.Account;
 using Troupon.Catalog.Core.Domain.Entities.Common;
@@ -32,6 +32,19 @@ namespace Troupon.Catalog.Infra.Persistence
     {
       modelBuilder.HasDefaultSchema("Troupon.Catalog");
       modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+      modelBuilder.Entity<DealView>()
+            .Property(e => e.Location)
+            .HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', System.StringSplitOptions.RemoveEmptyEntries));
+      modelBuilder.Entity<DealView>()
+            .Property(e => e.Categories)
+            .HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', System.StringSplitOptions.RemoveEmptyEntries));
+      ;
+
     }
   }
 }

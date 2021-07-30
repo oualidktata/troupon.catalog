@@ -12,21 +12,21 @@ using Troupon.Catalog.Core.Application.Queries.Deals;
 using Troupon.Catalog.Core.Domain;
 using Troupon.Catalog.Core.Domain.Dtos;
 using Troupon.Catalog.Core.Domain.InputModels;
-using Troupon.DealManagement.Core.Application.Commands;
 
 namespace Troupon.Catalog.Api.Controllers
 {
   [ApiController]
   [Route("api/v{version:apiVersion}/[controller]")]
+  [ApiVersion("2.0")]
   [Produces(
     "application/json",
     "application/xml")]
   [Consumes(
     "application/json",
     "application/xml")]
-  public class SimulationController : BaseController
+  public class CatalogV2Controller : BaseController
   {
-    public SimulationController(
+    public CatalogV2Controller(
       IMapper mapper,
       IMediator mediator) : base(
       mediator,
@@ -34,20 +34,15 @@ namespace Troupon.Catalog.Api.Controllers
     {
     }
 
-
-
-
     /// <summary>
-    /// Simulate the handling of the DealPublishedEvent in order to create a deal view in the catalog
+    /// Gets all active Deals
     /// </summary>
-    /// <returns>Returns the Deal created</returns>
-    /// <response code="201">Returned if the Deal view was Created</response>
-    /// <response code="400">Returned if the model couldn't be parsed or the customer couldn't be found</response>
-    /// <response code="406">Returned if no response found with an acceptable format</response>
-    /// <response code="422">Returned when the validation failed</response>
+    /// <returns>List of Deal Dtos</returns>
     [ProducesResponseType(
-      typeof(DealDto),
-      StatusCodes.Status201Created)]
+      typeof(IEnumerable<DealDto>),
+      StatusCodes.Status200OK)]
+
+    // [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(
       typeof(ValidationProblemDetails),
       StatusCodes.Status400BadRequest)]
@@ -59,25 +54,30 @@ namespace Troupon.Catalog.Api.Controllers
       typeof(ProblemDetails),
       StatusCodes.Status500InternalServerError)]
     [ProducesDefaultResponseType]
+    [SwaggerOperation(
+      Description = "Returns all active Deals",
+      OperationId = "SearchDeals",
+      Tags = new[] { "Search" }
+    )]
     [HttpPost]
-    [Route("HandleDealEventPublished")]
-    [ApiVersion("1.0")]
-    public async Task<ActionResult<DealDto>> Post(
-      [FromBody] UpdateDealViewCommand model,
+    [Route("search")]
+    /*[Authorize(Roles = "crm-api-backend")]*/
+    public async Task<ActionResult<IEnumerable<DealDto>>> Search(
+      [FromBody] SearchDealsFilter filter,
       CancellationToken cancellationToken)
     {
       try
       {
-        var result = await Mediator.Send<DealDto>(
-          model,
+        if (!ModelState.IsValid)
+        {
+          return BadRequest(new ValidationProblemDetails());
+        }
+
+        var result = await Mediator.Send<IEnumerable<DealDto>>(
+          new GetDealsQuery(filter),
           cancellationToken);
 
-        // await Mediator.Publish<DealCreatedEvent>(new DealCreatedEvent());
-        //await DomainEvents.Raise(new DealCreatedEvent());
-        return CreatedAtAction(
-          nameof(CatalogController.Get), nameof(CatalogController),
-          new { id = result.Id },
-          result);
+        return Ok(result);
       }
       catch (Exception exception)
       {
@@ -87,6 +87,5 @@ namespace Troupon.Catalog.Api.Controllers
             exception));
       }
     }
-
   }
 }

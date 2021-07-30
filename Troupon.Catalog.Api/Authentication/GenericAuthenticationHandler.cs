@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -59,22 +59,26 @@ namespace Troupon.Catalog.Api.Authentication
         {
           return Task.FromResult(AuthenticateResult.Fail($"Could not validate the token : for token={securityToken}"));
         }
-
+        //Create Identity
         var claims = new[]
         {
           new Claim(
             "token",
             token),
           new Claim(
-            ClaimTypes.Role,
-            "crm-api-backend"),
+            "TenantId",
+            "pwc"),
+          //new Claim(
+          //  ClaimTypes.Role,
+          //  "admin"),//consult DB to get Role claims and add them to the identity
+          //new Claim(ClaimTypes.NameIdentifier,new Guid().ToString())
         };
         var identity = new ClaimsIdentity(claims);
+       
         var ticket = new AuthenticationTicket(
           new ClaimsPrincipal(identity),
           new AuthenticationProperties(),
           this.Scheme.Name);
-
         return Task.FromResult(AuthenticateResult.Success(ticket));
       }
       catch (Exception ex)

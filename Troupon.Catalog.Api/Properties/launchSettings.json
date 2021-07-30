@@ -12,11 +12,11 @@
     "Troupon.Catalog.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "https://localhost:4001/index.html",
+      "launchUrl": "https://troupon.catalog.local:5001/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:5001;http://troupon.catalog.local:5000"
+      "applicationUrl": "https://troupon.catalog.local:5001;http://troupon.catalog.local:5000"
     }
   }
 }

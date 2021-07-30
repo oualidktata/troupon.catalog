@@ -5,10 +5,12 @@ using HealthChecks.UI.Client;
 using Infra.oAuthService;
 using Infra.Persistence.EntityFramework.Extensions;
 using Infra.Persistence.SqlServer.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,8 +30,13 @@ namespace Troupon.Catalog.Api
     {
       Configuration = configuration;
       HostEnvironment = hostEnvironment;
+      AuthSettings = new OAuthSettings();
+      Configuration.GetSection($"Auth:{Configuration.GetValue<string>("Auth:DefaultAuthProvider")}")
+        .Bind(AuthSettings);
+      
     }
 
+    private IOAuthSettings AuthSettings { get; }
     private IConfiguration Configuration { get; }
     private IWebHostEnvironment HostEnvironment { get; }
 
@@ -37,21 +44,20 @@ namespace Troupon.Catalog.Api
     public void ConfigureServices(
       IServiceCollection services)
     {
-      var apiKeySettings = new OAuthSettings();
-      Configuration.GetSection($"Auth:{Configuration.GetValue<string>("Auth:DefaultAuthProvider")}")
-        .Bind(apiKeySettings);
-      services.AddScoped<IAuthService>(service => new AuthService(apiKeySettings));
-
-      // services.AddAuthenticationToApplication(
-      //   new AuthService(apiKeySettings),
-      //   Configuration,
-      //   HostEnvironment);
+      
+      services.AddScoped<IAuthService>(service => new AuthService(AuthSettings));
+      IAuthService authService = services.BuildServiceProvider().GetRequiredService<IAuthService>();//TODO: Try another way to avoid BuildServiceProvider(not a priority)...
+        services.AddAuthenticationToApplication(authService,
+        Configuration,
+        HostEnvironment);
       services.AddAuthorization(
         options =>
         {
-          //options.AddPolicy("crm-api-backend", policy => policy.RequireClaim("crm-api-backend", "[crm-api-backend]"));
+          options.AddPolicy("tenant-policy",pb=>pb.AddTenantPolicy("pwc"));
+          
         });
 
+      services.AddScoped<IAuthorizationHandler,RequireTenantClaimHandler>();
       services.AddAutoMapper(
         typeof(AutomapperProfile));
 
@@ -65,7 +71,7 @@ namespace Troupon.Catalog.Api
       services.AddEfReadRepository<CatalogDbContext>();
       services.AddEfWriteRepository<CatalogDbContext>();
       services.AddControllers();
-      services.AddOpenApi(Configuration);
+      services.AddOpenApi(AuthSettings);
       services.AddMetrics();
       services.AddFluentValidaton();
       services.AddMemoryCache();
@@ -74,7 +80,7 @@ namespace Troupon.Catalog.Api
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(
       IApplicationBuilder app,
-      IWebHostEnvironment env,
+      IWebHostEnvironment env, IApiVersionDescriptionProvider apiVersionDescriptionProvider,
       IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
       //if (env.IsDevelopment())
@@ -93,18 +99,10 @@ namespace Troupon.Catalog.Api
       catalogDbContext.Database.Migrate();
 
       // app.UsePlayground();
-
       app.UseSwagger();
-      app.UseSwaggerUI(
-        c =>
-        {
-          c.SwaggerEndpoint(
-            "/swagger/v1/swagger.json",
-            "Troupon Catalog");
-          c.RoutePrefix = string.Empty;
-        });
+      app.ConfigureSwaggerUI(apiVersionDescriptionProvider, AuthSettings);
       app.UseRouting();
-      //app.UseAuthentication();
+      app.UseAuthentication();
       app.UseAuthorization();
       app.UseEndpoints(
         endpoints =>
