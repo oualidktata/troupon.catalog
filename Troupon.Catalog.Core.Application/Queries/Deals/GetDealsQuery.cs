@@ -28,12 +28,13 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
 
     public class GetDealsQueryHandler : IRequestHandler<GetDealsQuery, IEnumerable<DealDto>>
     {
-      private readonly IDapper _dapper;
+      private readonly IReadRepository<DealView> _dealReadRepo;
+
       private readonly IMapper _mapper;
 
       public GetDealsQueryHandler(
-        IMapper mapper,
-        IDapper dapper)
+        IReadRepository<DealView> dealReadRepo,
+        IMapper mapper)
       {
         _mapper = mapper;
         _dapper = dapper;
@@ -50,7 +51,7 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
             null,
             commandType: CommandType.Text));
         var dealDtos =
-          _mapper.Map<IEnumerable<Deal>, IEnumerable<DealDto>>(deals);
+          _mapper.Map<IEnumerable<DealView>, IEnumerable<DealDto>>(deals);
 
         return await Task.FromResult(dealDtos);
       }

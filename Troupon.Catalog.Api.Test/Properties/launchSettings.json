@@ -3,16 +3,21 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:53420",
-      "sslPort": 44343
+      "applicationUrl": "http://localhost:54027/",
+      "sslPort": 44359
     }
   },
-  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "Troupon.Catalog.Api": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Troupon.Catalog.Integration.Tests": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "https://troupon.catalog.local:5001/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

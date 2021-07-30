@@ -1,6 +1,7 @@
-﻿using Infra.oAuthService;
+using Infra.oAuthService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Troupon.Catalog.Api.Authentication;
@@ -77,27 +78,27 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
 
       //    .AddJwtBearer(o =>
       //{
-      //    o.Authority = configuration["Jwt:Authority"];
-      //    o.Audience = configuration["Jwt:Audience"];
-      //    o.RequireHttpsMetadata = false;
+      //  o.Authority = configuration["Jwt:Authority"];
+      //  o.Audience = configuration["Jwt:Audience"];
+      //  o.RequireHttpsMetadata = false;
 
-      //    o.Events = new JwtBearerEvents()
+      //  o.Events = new JwtBearerEvents()
+      //  {
+      //    OnAuthenticationFailed = c =>
       //    {
-      //        OnAuthenticationFailed = c =>
-      //        {
-      //            c.NoResult();
+      //      c.NoResult();
 
-      //            c.Response.StatusCode = 500;
-      //            c.Response.ContentType = "text/plain";
+      //      c.Response.StatusCode = 500;
+      //      c.Response.ContentType = "text/plain";
 
-      //            if (env.IsDevelopment())
-      //            {
-      //                return c.Response.WriteAsync(c.Exception.ToString());
-      //            }
+      //      //if (env.IsDevelopment())
+      //      //{
+      //      //  return c.Response.WriteAsync(c.Exception.ToString());
+      //      //}
 
-      //            return c.Response.WriteAsync("An error occured processing your authentication with KeyCloak (RedHatSSO).");
-      //        }
-      //    };
+      //      return c.Response.WriteAsync("An error occured processing your authentication with KeyCloak (RedHatSSO).");
+      //    }
+      //  };
       //});
 
       return services;
