@@ -69,9 +69,10 @@ namespace Troupon.Catalog.Api
         Assembly.GetExecutingAssembly()
           .GetName()
           .Name);
+      services.AddControllers()
+        .AddNewtonsoftJson();
       services.AddEfReadRepository<CatalogDbContext>();
       services.AddEfWriteRepository<CatalogDbContext>();
-      services.AddControllers();
       services.AddOpenApi(AuthSettings);
       services.AddMetrics();
       services.AddFluentValidaton();

@@ -13,7 +13,6 @@ namespace Troupon.Catalog.Api.Migrations
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
-#pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Troupon.Catalog")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
@@ -283,7 +282,6 @@ namespace Troupon.Catalog.Api.Migrations
 
                     b.ToTable("Deals");
                 });
-
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Merchant.Merchant", b =>
                 {
                     b.Property<Guid>("Id")

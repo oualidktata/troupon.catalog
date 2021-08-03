@@ -3,6 +3,7 @@ using System.Reflection;
 using Troupon.Catalog.Core.Domain.Entities.Account;
 using Troupon.Catalog.Core.Domain.Entities.Common;
 using Troupon.Catalog.Core.Domain.Entities.Deal;
+using Troupon.Catalog.Core.Domain.Entities.Merchant;
 
 namespace Troupon.Catalog.Infra.Persistence
 {

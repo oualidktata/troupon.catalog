@@ -2,11 +2,9 @@
 using MediatR;
 using Troupon.Catalog.Core.Domain.Dtos;
 using System;
-using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Infra.Persistence.Dapper;
 using Infra.Persistence.Repositories;
 using Troupon.Catalog.Core.Domain.Entities.Deal;
 
@@ -26,8 +24,8 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
         IReadRepository<DealView> dealReadRepo,
         IMapper mapper)
       {
+        _dealReadRepo = dealReadRepo;
         _mapper = mapper;
-        _dapper = dapper;
       }
 
       public async Task<DealDto> Handle(
