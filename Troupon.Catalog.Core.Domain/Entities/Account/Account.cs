@@ -7,6 +7,9 @@ namespace Troupon.Catalog.Core.Domain.Entities.Account
   {
   }
 
+  /// <summary>
+  /// Account: A merchant can have multiple accounts
+  /// </summary>
   public class Account : AggregateRoot
   {
     public string Name { get; private set; }
