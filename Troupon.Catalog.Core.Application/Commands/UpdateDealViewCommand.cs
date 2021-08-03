@@ -38,15 +38,7 @@ namespace Troupon.DealManagement.Core.Application.Commands
       {
         var dealToAdd = _mapper.Map<UpdateDealViewCommand, DealView>(request);
         var dealOption = new DealOption("Default Option");
-        dealOption.SetPrice(
-          new DealPrice(
-            new Currency("USD"),
-            new Price(
-              150,
-              new Currency("USD")),
-            new Price(
-              100,
-              new Currency("USD"))));
+        dealOption.SetPrice(new DealPrice(new Currency("USD"),new Price(150,new Currency("USD")),new Price(100,new Currency("USD"))));
         dealToAdd.AddDealOption(dealOption);
         var addedDealView = _dealWriteRepo.Create(dealToAdd);
         var dealDto = _mapper.Map<DealView, DealDto>(addedDealView);

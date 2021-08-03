@@ -136,7 +136,7 @@ namespace Troupon.Catalog.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Prices",
+                name: "Price",
                 schema: "Troupon.Catalog",
                 columns: table => new
                 {
@@ -146,9 +146,9 @@ namespace Troupon.Catalog.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Prices", x => x.Id);
+                    table.PrimaryKey("PK_Price", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Prices_Currencies_CurrencyId",
+                        name: "FK_Price_Currencies_CurrencyId",
                         column: x => x.CurrencyId,
                         principalSchema: "Troupon.Catalog",
                         principalTable: "Currencies",
@@ -234,17 +234,17 @@ namespace Troupon.Catalog.Api.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DealPrices_Prices_CurrentPriceId",
+                        name: "FK_DealPrices_Price_CurrentPriceId",
                         column: x => x.CurrentPriceId,
                         principalSchema: "Troupon.Catalog",
-                        principalTable: "Prices",
+                        principalTable: "Price",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DealPrices_Prices_OriginalPriceId",
+                        name: "FK_DealPrices_Price_OriginalPriceId",
                         column: x => x.OriginalPriceId,
                         principalSchema: "Troupon.Catalog",
-                        principalTable: "Prices",
+                        principalTable: "Price",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -359,9 +359,9 @@ namespace Troupon.Catalog.Api.Migrations
                 column: "PositionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prices_CurrencyId",
+                name: "IX_Price_CurrencyId",
                 schema: "Troupon.Catalog",
-                table: "Prices",
+                table: "Price",
                 column: "CurrencyId");
         }
 
@@ -392,7 +392,7 @@ namespace Troupon.Catalog.Api.Migrations
                 schema: "Troupon.Catalog");
 
             migrationBuilder.DropTable(
-                name: "Prices",
+                name: "Price",
                 schema: "Troupon.Catalog");
 
             migrationBuilder.DropTable(

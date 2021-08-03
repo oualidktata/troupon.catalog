@@ -1,19 +1,18 @@
 using System.Collections.Generic;
 using Infra.DomainDrivenDesign.Base;
-using Troupon.Catalog.Core.Domain.Entities.Common;
 
-namespace Troupon.Catalog.Core.Domain.Entities.Deal
+namespace Troupon.Catalog.Core.Domain.Entities.Common
 {
-  public class DealPrice : ValueObject
+  public class Price : ValueObject
   {
     public float Amount { get; private set; }
     public virtual Currency Currency { get; private set; }
 
-    public DealPrice()
+    public Price()
     {
     }
 
-    public DealPrice(
+    public Price(
       float amount,
       Currency currency)
     {

@@ -10,7 +10,7 @@ using Troupon.Catalog.Infra.Persistence;
 namespace Troupon.Catalog.Api.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20210623175528_InitialCreate")]
+    [Migration("20210803190338_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -192,7 +192,7 @@ namespace Troupon.Catalog.Api.Migrations
 
                     b.HasIndex("CurrencyId");
 
-                    b.ToTable("Prices");
+                    b.ToTable("Price");
                 });
 
             modelBuilder.Entity("Troupon.Catalog.Core.Domain.Entities.Deal.DealOption", b =>
