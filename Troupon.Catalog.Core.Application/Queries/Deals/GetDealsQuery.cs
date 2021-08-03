@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading;
@@ -28,13 +28,12 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
 
     public class GetDealsQueryHandler : IRequestHandler<GetDealsQuery, IEnumerable<DealDto>>
     {
-      private readonly IReadRepository<DealView> _dealReadRepo;
-
+      private readonly IDapper _dapper;
       private readonly IMapper _mapper;
 
       public GetDealsQueryHandler(
-        IReadRepository<DealView> dealReadRepo,
-        IMapper mapper)
+        IMapper mapper,
+        IDapper dapper)
       {
         _mapper = mapper;
         _dapper = dapper;
@@ -46,7 +45,7 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
       {
         //Business logic goes here
         var deals = await Task.FromResult(
-          _dapper.GetAll<Deal>(
+          _dapper.GetAll<DealView>(
             $"Select * from [Troupon.Catalog].[Deals]",
             null,
             commandType: CommandType.Text));

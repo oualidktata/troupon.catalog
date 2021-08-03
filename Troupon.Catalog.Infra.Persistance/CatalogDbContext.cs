@@ -20,7 +20,6 @@ namespace Troupon.Catalog.Infra.Persistence
     public DbSet<Currency> Currencies { get; set; }
     public DbSet<Location> Locations { get; set; }
     public DbSet<Position> Positions { get; set; }
-    public DbSet<Price> Prices { get; set; }
 
     public CatalogDbContext(
       DbContextOptions<CatalogDbContext> options) : base(options)
