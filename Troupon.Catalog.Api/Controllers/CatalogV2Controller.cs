@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentResults;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Swashbuckle.AspNetCore.Annotations;
 using Troupon.Catalog.Core.Application.Queries.Deals;
 using Troupon.Catalog.Core.Domain;
@@ -19,15 +17,16 @@ namespace Troupon.Catalog.Api.Controllers
 {
   [ApiController]
   [Route("api/v{version:apiVersion}/[controller]")]
+  [ApiVersion("2.0")]
   [Produces(
     "application/json",
     "application/xml")]
   [Consumes(
     "application/json",
     "application/xml")]
-  public class CatalogController : BaseController
+  public class CatalogV2Controller : BaseController
   {
-    public CatalogController(
+    public CatalogV2Controller(
       IMapper mapper,
       IMediator mediator) : base(
       mediator,
@@ -61,12 +60,10 @@ namespace Troupon.Catalog.Api.Controllers
       Tags = new[] { "Search" }
     )]
     [HttpPost]
-    [ApiVersion("1.0")]
-    [ApiVersion("2.0")]
     [Route("search")]
-    [Authorize(Policy = "tenant-policy")]
+    /*[Authorize(Roles = "crm-api-backend")]*/
     public async Task<ActionResult<IEnumerable<DealDto>>> Search(
-      [FromBody,BindRequired] SearchDealsFilter filter,
+      [FromBody] SearchDealsFilter filter,
       CancellationToken cancellationToken)
     {
       try
@@ -80,58 +77,6 @@ namespace Troupon.Catalog.Api.Controllers
           new GetDealsQuery(filter),
           cancellationToken);
 
-        return Ok(result);
-      }
-      catch (Exception exception)
-      {
-        return await Task.FromResult(
-          StatusCode(
-            StatusCodes.Status500InternalServerError,
-            exception));
-      }
-    }
-
-    /// <summary>
-    /// Gets a specific Deal
-    /// </summary>
-    /// <returns>Returns a Deal Dto</returns>
-    [ProducesResponseType(
-      typeof(DealDto),
-      StatusCodes.Status200OK)]
-    [ProducesResponseType(
-      typeof(ValidationProblemDetails),
-      StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status406NotAcceptable)]
-    [ProducesResponseType(
-      typeof(ProblemDetails),
-      StatusCodes.Status409Conflict)]
-    [ProducesResponseType(
-      typeof(ProblemDetails),
-      StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
-    [SwaggerOperation(
-      Description = "Returns the Deal specified by Id",
-      OperationId = "GetOneDeal",
-      Tags = new[] { "One Deal" }
-    )]
-    [HttpGet]
-    [Route("{id}")]
-    [ApiVersion("2.0")]
-    [ApiVersion("3.0")]
-    public async Task<ActionResult<IEnumerable<DealDto>>> Get(
-      [BindRequired] Guid id,
-      CancellationToken cancellationToken)
-    {
-      try
-      {
-        var result = await Mediator.Send<DealDto>(
-          new GetOneDealQuery() { Id = id },
-          cancellationToken);
-        if (result is null)
-        {
-          return NotFound(Result.Fail(new Error($"Could not find the Deal: {id}")));
-        }
         return Ok(result);
       }
       catch (Exception exception)

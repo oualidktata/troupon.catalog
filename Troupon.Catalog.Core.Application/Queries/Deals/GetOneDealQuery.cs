@@ -18,12 +18,13 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
 
     public class GetOneDealQueryHandler : IRequestHandler<GetOneDealQuery, DealDto>
     {
-      private readonly IDapper _dapper;
+      private readonly IReadRepository<DealView> _dealReadRepo;
+
       private readonly IMapper _mapper;
 
       public GetOneDealQueryHandler(
-        IMapper mapper,
-        IDapper dapper)
+        IReadRepository<DealView> dealReadRepo,
+        IMapper mapper)
       {
         _mapper = mapper;
         _dapper = dapper;

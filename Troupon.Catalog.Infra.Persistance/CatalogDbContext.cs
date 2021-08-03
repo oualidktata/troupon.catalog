@@ -1,12 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Troupon.Catalog.Core.Domain.Entities.Account;
+using Troupon.Catalog.Core.Domain.Entities.Common;
 using Troupon.Catalog.Core.Domain.Entities.Deal;
 
 namespace Troupon.Catalog.Infra.Persistence
 {
   public class CatalogDbContext : DbContext
   {
-    public DbSet<Deal> Deals { get; set; }
+    public DbSet<DealView> Deals { get; set; }
+    public DbSet<DealOption> DealOptions { get; set; }
+    public DbSet<DealPrice> DealPrices { get; set; }
+    public DbSet<Merchant> Merchants { get; set; }
+    public DbSet<Account> Accounts { get; set; }
+    public DbSet<BillingInfo> BillingInfos { get; set; }
+    public DbSet<Address> Addresses { get; set; }
+    public DbSet<CreditCard> CreditCards { get; set; }
+    public DbSet<Currency> Currencies { get; set; }
+    public DbSet<Location> Locations { get; set; }
+    public DbSet<Position> Positions { get; set; }
+    public DbSet<Price> Prices { get; set; }
 
     public CatalogDbContext(
       DbContextOptions<CatalogDbContext> options) : base(options)
@@ -18,6 +31,19 @@ namespace Troupon.Catalog.Infra.Persistence
     {
       modelBuilder.HasDefaultSchema("Troupon.Catalog");
       modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+      modelBuilder.Entity<DealView>()
+            .Property(e => e.Location)
+            .HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', System.StringSplitOptions.RemoveEmptyEntries));
+      modelBuilder.Entity<DealView>()
+            .Property(e => e.Categories)
+            .HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', System.StringSplitOptions.RemoveEmptyEntries));
+      ;
+
     }
   }
 }
