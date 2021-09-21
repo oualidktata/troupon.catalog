@@ -42,8 +42,6 @@ namespace Troupon.Catalog.Infra.Persistence
             .HasConversion(
                 v => string.Join(',', v),
                 v => v.Split(',', System.StringSplitOptions.RemoveEmptyEntries));
-      ;
-
     }
   }
 }
