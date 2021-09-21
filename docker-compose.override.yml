@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+
+  troupon-sqldata:
+    environment:
+      - SA_PASSWORD=P4ssw()rd
+      - ACCEPT_EULA=Y
+    ports:
+      - "5433:1433"
+    volumes:
+      - troupon-sqldata:/var/opt/mssql
+
+  troupon-catalog-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__mainDatabaseConnStr=Server=troupon-sqldata;Database=DevAraiDB;User Id=sa;Password=P4ssw()rd;
+      - PORT=80
+    ports:
+      - "5000:80"
+
+volumes:
+  troupon-sqldata:
+    external: false
+

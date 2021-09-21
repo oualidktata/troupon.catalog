@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  troupon-sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
+  troupon-catalog-api:
+    image: troupon.catalog.api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Troupon.Catalog.Api/Dockerfile
+    depends_on:
+      - troupon-sqldata
