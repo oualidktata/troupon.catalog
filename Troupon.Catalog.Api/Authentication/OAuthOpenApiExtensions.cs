@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Infra.oAuthService;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,8 +20,8 @@ namespace Troupon.Catalog.Api.Authentication
           UriKind.Relative),
         Scopes = new Dictionary<string, string>()
         {
-          {"custom_scope", "custom scope for CC defined in OKTA"},
-        }
+          { "custom_scope", "custom scope for CC defined in OKTA" },
+        },
       };
       var oauthScheme = new OpenApiSecurityScheme()
       {
@@ -33,12 +33,10 @@ namespace Troupon.Catalog.Api.Authentication
         Scheme = oAuthSettings.Scheme,
       };
 
-      //securityrDefinition
       setup.AddSecurityDefinition(
         oAuthSettings.Scheme,
         oauthScheme);
 
-      //securityrRequirements
       var securityrRequirements = new OpenApiSecurityRequirement();
       securityrRequirements.Add(
         oauthScheme,

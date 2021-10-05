@@ -9,15 +9,14 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Portal.Api.Controllers
 {
   [Route("api/v{version:apiVersion}/[controller]")]
-  [Produces("application/json", "application/xml", "text/plain")]
-  [Consumes("application/json", "application/xml", "text/plain")]
   [ApiController]
   public class OAuthController : ControllerBase
   {
-    private IAuthService _tokenService { get; set; }
+    private IAuthService TokenService { get; set; }
+
     public OAuthController(IAuthService tokenService)
     {
-      _tokenService = tokenService;
+      TokenService = tokenService;
     }
 
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -33,15 +32,16 @@ namespace Portal.Api.Controllers
     [ApiVersion("1.0")]
     [ApiVersion("2.0")]
     [ApiVersion("3.0")]
-        public async Task<IActionResult> Token()
+    public async Task<IActionResult> Token()
     {
       try
       {
-        var token = await _tokenService.GetToken();
+        var token = await TokenService.GetToken();
         if (token == null)
         {
           return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, "Token is empty"));
         }
+
         return Ok(token);
       }
       catch (Exception ex)

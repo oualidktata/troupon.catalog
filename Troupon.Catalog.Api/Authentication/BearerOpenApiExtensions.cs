@@ -19,10 +19,11 @@ namespace Troupon.Catalog.Api.Authentication
           Type = SecuritySchemeType.Http,
           Name = oAuthSettings.AuthHeaderName,
           In = ParameterLocation.Header,
-          //BearerFormat = "JWT",
+
+          // BearerFormat = "JWT",
           Scheme = oAuthSettings.Scheme,
           Description =
-            "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer'[space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\""
+            "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer'[space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
         });
 
       setup.AddSecurityRequirement(
@@ -34,14 +35,13 @@ namespace Troupon.Catalog.Api.Authentication
               Reference = new OpenApiReference
               {
                 Type = ReferenceType.SecurityScheme,
-                Id = oAuthSettings.Scheme
-              }
+                Id = oAuthSettings.Scheme,
+              },
             },
             new List<string>()
-          }
+          },
         });
     }
-
 
     public static void AddOAuthSecurity(this Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions setup, IOAuthSettings oauthSettings)
     {
@@ -49,7 +49,7 @@ namespace Troupon.Catalog.Api.Authentication
       flows.ClientCredentials = new OpenApiOAuthFlow()
       {
         TokenUrl = new Uri(oauthSettings.TokenUrl, UriKind.Relative),
-        Scopes = oauthSettings.Scopes
+        Scopes = oauthSettings.Scopes,
       };
       var oauthScheme = new OpenApiSecurityScheme()
       {
@@ -59,12 +59,10 @@ namespace Troupon.Catalog.Api.Authentication
         In = ParameterLocation.Query,
         Flows = flows,
         Scheme = oauthSettings.Scheme,
-
       };
-      //securityrDefinition
+
       setup.AddSecurityDefinition("Bearer", oauthScheme);
 
-      //securityrRequirements
       var securityrRequirements = new OpenApiSecurityRequirement();
       securityrRequirements.Add(oauthScheme, new List<string>() { });
       setup.AddSecurityRequirement(securityrRequirements);

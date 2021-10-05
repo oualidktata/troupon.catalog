@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -34,31 +35,28 @@ namespace Troupon.Catalog.Api
       AuthSettings = new OAuthSettings();
       Configuration.GetSection($"Auth:{Configuration.GetValue<string>("Auth:DefaultAuthProvider")}")
         .Bind(AuthSettings);
-      
     }
 
     private IOAuthSettings AuthSettings { get; }
+
     private IConfiguration Configuration { get; }
+
     private IWebHostEnvironment HostEnvironment { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(
       IServiceCollection services)
     {
-      
       services.AddScoped<IAuthService>(service => new AuthService(AuthSettings));
-      IAuthService authService = services.BuildServiceProvider().GetRequiredService<IAuthService>();//TODO: Try another way to avoid BuildServiceProvider(not a priority)...
-        services.AddAuthenticationToApplication(authService,
-        Configuration,
-        HostEnvironment);
+      IAuthService authService = services.BuildServiceProvider().GetRequiredService<IAuthService>(); // TODO: Try another way to avoid BuildServiceProvider(not a priority)...
+      services.AddAuthenticationToApplication(authService, Configuration, HostEnvironment);
       services.AddAuthorization(
         options =>
         {
-          options.AddPolicy("tenant-policy",pb=>pb.AddTenantPolicy("pwc"));
-          
+          options.AddPolicy("tenant-policy", pb => pb.AddTenantPolicy("pwc"));
         });
 
-      services.AddScoped<IAuthorizationHandler,RequireTenantClaimHandler>();
+      services.AddScoped<IAuthorizationHandler, RequireTenantClaimHandler>();
       services.AddAutoMapper(
         typeof(AutomapperProfile));
 
@@ -66,9 +64,7 @@ namespace Troupon.Catalog.Api
       services.AddSqlServerPersistence<CatalogDbContext>(
         Configuration,
         "mainDatabaseConnStr",
-        Assembly.GetExecutingAssembly()
-          .GetName()
-          .Name);
+        Assembly.GetExecutingAssembly().GetName().Name);
       services.AddControllers()
         .AddNewtonsoftJson();
       services.AddEfReadRepository<CatalogDbContext>();
@@ -78,26 +74,23 @@ namespace Troupon.Catalog.Api
       services.AddFluentValidaton();
       services.AddMemoryCache();
       services.AddDapperPersistence("mainDatabaseConnStr");
+
+      services.Configure<MvcOptions>(o =>
+      {
+        o.Filters.Add(new ProducesAttribute("application/json", "application/xml", "text/plain"));
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(
-      IApplicationBuilder app,
-      IWebHostEnvironment env, IApiVersionDescriptionProvider apiVersionDescriptionProvider,
-      IDbContextFactory<CatalogDbContext> dbContextFactory)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
-      //if (env.IsDevelopment())
-      //{
-      //    app.UseDeveloperExceptionPage();
-      //}
       app.UseExceptionHandler("/error");
-
       app.UseHttpsRedirection();
       app.UseSerilogRequestLogging();
 
       // app.UsePathBase("/graphql");
 
-      //catalogDbContext.Database.EnsureDeleted();
+      // catalogDbContext.Database.EnsureDeleted();
       var catalogDbContext = dbContextFactory.CreateDbContext();
       catalogDbContext.Database.Migrate();
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AutoMapper;
 using Infra.MediatR.Events;
 using MediatR;
@@ -12,13 +12,11 @@ namespace Troupon.Catalog.Api.Controllers
   [Route("api/[controller]")]
   public class BaseController : ControllerBase
   {
-    protected IMediator Mediator;
-    protected IMapper Mapper;
+    protected IMediator Mediator { get; }
 
-    public BaseController(
-      IMediator mediator,
+    protected IMapper Mapper { get; }
 
-      IMapper mapper)
+    public BaseController(IMediator mediator, IMapper mapper)
     {
       Mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
       Mapper = mapper;

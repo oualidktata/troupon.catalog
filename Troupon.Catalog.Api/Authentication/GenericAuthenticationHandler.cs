@@ -30,9 +30,9 @@ namespace Troupon.Catalog.Api.Authentication
     protected override Task<AuthenticateResult> HandleAuthenticateAsync()
     {
       var headers = Request.Headers;
-      var rawToken =
-        headers.FirstOrDefault(
-          x => x.Key == "Authorization"); //TODO: was OAuthSettings.HeaderName, to inject once tested
+
+      // TODO: was OAuthSettings.HeaderName, to inject once tested
+      var rawToken = headers.FirstOrDefault(x => x.Key == "Authorization");
       var token = rawToken.Value;
 
       if (string.IsNullOrEmpty(token))
@@ -52,14 +52,14 @@ namespace Troupon.Catalog.Api.Authentication
             string.Empty);
         var securityToken = new JwtSecurityToken(jwt);
 
-        //var handler = new JwtSecurityTokenHandler();
-
+        // var handler = new JwtSecurityTokenHandler();
         if (securityToken.Issuer != validationParameters.ValidIssuer ||
             securityToken.Audiences.All(c => !validationParameters.ValidAudiences.Contains(c)))
         {
           return Task.FromResult(AuthenticateResult.Fail($"Could not validate the token : for token={securityToken}"));
         }
-        //Create Identity
+
+        // Create Identity
         var claims = new[]
         {
           new Claim(
@@ -68,13 +68,14 @@ namespace Troupon.Catalog.Api.Authentication
           new Claim(
             "TenantId",
             "pwc"),
-          //new Claim(
+
+          // new Claim(
           //  ClaimTypes.Role,
           //  "admin"),//consult DB to get Role claims and add them to the identity
-          //new Claim(ClaimTypes.NameIdentifier,new Guid().ToString())
+          // new Claim(ClaimTypes.NameIdentifier,new Guid().ToString())
         };
         var identity = new ClaimsIdentity(claims);
-       
+
         var ticket = new AuthenticationTicket(
           new ClaimsPrincipal(identity),
           new AuthenticationProperties(),

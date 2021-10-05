@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Swashbuckle.AspNetCore.Annotations;
 using Troupon.Catalog.Core.Application.Queries.Deals;
-using Troupon.Catalog.Core.Domain;
 using Troupon.Catalog.Core.Domain.Dtos;
 using Troupon.Catalog.Core.Domain.InputModels;
 
@@ -19,12 +18,6 @@ namespace Troupon.Catalog.Api.Controllers
 {
   [ApiController]
   [Route("api/v{version:apiVersion}/[controller]")]
-  [Produces(
-    "application/json",
-    "application/xml")]
-  [Consumes(
-    "application/json",
-    "application/xml")]
   [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
   [ProducesResponseType(StatusCodes.Status406NotAcceptable)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
@@ -40,17 +33,16 @@ namespace Troupon.Catalog.Api.Controllers
     }
 
     /// <summary>
-    /// Gets all active Deals
+    /// Gets all active Deals.
     /// </summary>
-    /// <returns>List of Deal Dtos</returns>
-
-
-    //[ProducesDefaultResponseType]
+    /// <param name="filter">filter.</param>
+    /// <param name="cancellationToken">cancellationToken.</param>
+    /// <returns>List of Deal Dtos.</returns>
+    [ProducesDefaultResponseType]
     [SwaggerOperation(
       Description = "Returns all active Deals",
       OperationId = "SearchDeals",
-      Tags = new[] { "Search" }
-    )]
+      Tags = new[] { "Search" })]
     [HttpPost("search")]
     [ApiVersion("1.0")]
     [ApiVersion("2.0")]
@@ -75,10 +67,6 @@ namespace Troupon.Catalog.Api.Controllers
       }
     }
 
-    /// <summary>
-    /// Gets a specific Deal
-    /// </summary>
-    /// <returns>Returns a Deal Dto</returns>
     [ProducesResponseType(
       typeof(DealDto),
       StatusCodes.Status200OK)]
@@ -97,15 +85,12 @@ namespace Troupon.Catalog.Api.Controllers
     [SwaggerOperation(
       Description = "Returns the Deal specified by Id",
       OperationId = "GetOneDeal",
-      Tags = new[] { "One Deal" }
-    )]
+      Tags = new[] { "One Deal" })]
     [HttpGet]
     [Route("{id}")]
     [ApiVersion("2.0")]
     [ApiVersion("3.0")]
-    public async Task<ActionResult<IEnumerable<DealDto>>> Get(
-      [BindRequired] Guid id,
-      CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<DealDto>>> Get([BindRequired] Guid id, CancellationToken cancellationToken)
     {
       try
       {
@@ -116,6 +101,7 @@ namespace Troupon.Catalog.Api.Controllers
         {
           return NotFound(Result.Fail(new Error($"Could not find the Deal: {id}")));
         }
+
         return Ok(result);
       }
       catch (Exception exception)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Infra.MediatR.Caching.Extensions;
 using Infra.MediatR.Logging.Extensions;
@@ -16,7 +16,7 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
     public static IServiceCollection AddMediator(
       this IServiceCollection services)
     {
-      //Mediator
+      // Mediator
       services.AddMediatR(typeof(GetDealsQuery).Assembly);
 
       services.AddMediatRCaching();

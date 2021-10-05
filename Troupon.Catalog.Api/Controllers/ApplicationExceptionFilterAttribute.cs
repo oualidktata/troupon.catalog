@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Troupon.Catalog.Api.Controllers
 {
   public class ApplicationExceptionFilterAttribute : ExceptionFilterAttribute
   {
-    //public override void OnException(ExceptionContext context)
-    //{
+    // public override void OnException(ExceptionContext context)
+    // {
     //    switch (context.Exception)
     //    {
     //        case BadRequestException e:

@@ -1,22 +1,23 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Troupon.Catalog.Api;
 using Troupon.Catalog.Core.Domain.Dtos;
+using Troupon.Catalog.Core.Domain.Entities.Common;
 using Troupon.Catalog.Core.Domain.InputModels;
 using Troupon.Catalog.Infra.Persistence;
 using Xunit;
 
 namespace Troupon.Catalog.Integration.Tests
 {
-  public class SearchTests :SetupFixture, IDisposable
+  public class SearchTests : SetupFixture, IDisposable
   {
-    public SearchTests(WebApplicationFactory<Startup> factory):base(factory)
+    public SearchTests(WebApplicationFactory<Startup> factory) : base(factory)
     {
-
     }
 
     [Fact]
@@ -24,7 +25,7 @@ namespace Troupon.Catalog.Integration.Tests
     {
       //Arrange
       var client = Factory.CreateClient();
-      var filter = new SearchDealsFilter("Intersting Deal", "Nice description for Interseting Deal");
+      var filter = new SearchDealsFilter("Search Deal Text", "Location", Enumerable.Empty<string>(), Enumerable.Empty<MinMax>(), Enumerable.Empty<MinMax>(), null);
       var content = JsonContent.Create(filter);
       using var scope = _scopeFactory.CreateScope();
       //Act
@@ -33,6 +34,7 @@ namespace Troupon.Catalog.Integration.Tests
       response.StatusCode.Should().Be(HttpStatusCode.OK);
       response.Should().NotBeOfType<DealDto[]>();
     }
+
     [InlineData("6346dfe7-b3bc-4a85-bb6e-d5cdc19a6fbb")]
     [Theory]
     public async Task Get_ShouldReturnOneDealWhenValidDealId(string dealId)
