@@ -25,13 +25,17 @@ namespace Troupon.Catalog.Api.Controllers
   [Consumes(
     "application/json",
     "application/xml")]
+  [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status406NotAcceptable)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ApiVersion("1.0")]
+  [ApiVersion("2.0")]
   public class CatalogController : BaseController
   {
-    public CatalogController(
-      IMapper mapper,
-      IMediator mediator) : base(
-      mediator,
-      mapper)
+    public CatalogController(IMapper mapper, IMediator mediator)
+      : base(mediator, mapper)
     {
     }
 
@@ -39,35 +43,19 @@ namespace Troupon.Catalog.Api.Controllers
     /// Gets all active Deals
     /// </summary>
     /// <returns>List of Deal Dtos</returns>
-    [ProducesResponseType(
-      typeof(IEnumerable<DealDto>),
-      StatusCodes.Status200OK)]
 
-    // [ProducesResponseType(StatusCodes.Status202Accepted)]
-    [ProducesResponseType(
-      typeof(ValidationProblemDetails),
-      StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status406NotAcceptable)]
-    [ProducesResponseType(
-      typeof(ProblemDetails),
-      StatusCodes.Status409Conflict)]
-    [ProducesResponseType(
-      typeof(ProblemDetails),
-      StatusCodes.Status500InternalServerError)]
-    [ProducesDefaultResponseType]
+
+    //[ProducesDefaultResponseType]
     [SwaggerOperation(
       Description = "Returns all active Deals",
       OperationId = "SearchDeals",
       Tags = new[] { "Search" }
     )]
-    [HttpPost]
+    [HttpPost("search")]
     [ApiVersion("1.0")]
     [ApiVersion("2.0")]
-    [Route("search")]
     [Authorize(Policy = "tenant-policy")]
-    public async Task<ActionResult<IEnumerable<DealDto>>> Search(
-      [FromBody,BindRequired] SearchDealsFilter filter,
-      CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<SearchDealResponseDto>>> Search([FromBody, BindRequired] SearchDealsFilter filter, CancellationToken cancellationToken)
     {
       try
       {
@@ -76,18 +64,14 @@ namespace Troupon.Catalog.Api.Controllers
           return BadRequest(new ValidationProblemDetails());
         }
 
-        var result = await Mediator.Send<IEnumerable<DealDto>>(
-          new GetDealsQuery(filter),
-          cancellationToken);
+        var result = await Mediator.Send(new GetDealsQuery(filter), cancellationToken);
 
         return Ok(result);
       }
       catch (Exception exception)
       {
-        return await Task.FromResult(
-          StatusCode(
-            StatusCodes.Status500InternalServerError,
-            exception));
+        var errorResult = StatusCode(StatusCodes.Status500InternalServerError, exception);
+        return await Task.FromResult(errorResult);
       }
     }
 

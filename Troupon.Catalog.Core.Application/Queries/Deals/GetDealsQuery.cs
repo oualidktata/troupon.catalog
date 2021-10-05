@@ -15,13 +15,11 @@ using Troupon.Catalog.Core.Domain.InputModels;
 
 namespace Troupon.Catalog.Core.Application.Queries.Deals
 {
-  public class GetDealsQuery : IRequest<IEnumerable<DealDto>>,
-    ICachable
+  public class GetDealsQuery : IRequest<IEnumerable<DealDto>>, ICachable
   {
     public string CacheKey { get; }
 
-    public GetDealsQuery(
-      SearchDealsFilter filter)
+    public GetDealsQuery(SearchDealsFilter filter)
     {
       CacheKey = $"GetDeal-{UtilityMethods.ToHash(filter)}";
     }
@@ -31,27 +29,24 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
       private readonly IDapper _dapper;
       private readonly IMapper _mapper;
 
-      public GetDealsQueryHandler(
-        IMapper mapper,
-        IDapper dapper)
+      public GetDealsQueryHandler(IMapper mapper, IDapper dapper)
       {
         _mapper = mapper;
         _dapper = dapper;
       }
 
-      public async Task<IEnumerable<DealDto>> Handle(
-        GetDealsQuery request,
-        CancellationToken cancellationToken)
+      public async Task<IEnumerable<DealDto>> Handle(GetDealsQuery request, CancellationToken cancellationToken)
       {
         //Business logic goes here
-        var deals = await Task.FromResult(
-          _dapper.GetAll<DealView>(
+
+        var dealsQuery = _dapper.GetAll<DealView>(
             $"Select * from [Troupon.Catalog].[Deals]",
             null,
-            commandType: CommandType.Text));
-        var dealDtos =
-          _mapper.Map<IEnumerable<DealView>, IEnumerable<DealDto>>(deals);
+            commandType: CommandType.Text);
 
+        var deals = await Task.FromResult(dealsQuery);
+
+        var dealDtos = _mapper.Map<IEnumerable<DealView>, IEnumerable<DealDto>>(deals);
         return await Task.FromResult(dealDtos);
       }
     }
