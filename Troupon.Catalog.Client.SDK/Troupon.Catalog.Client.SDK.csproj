@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <Nullable>enable</Nullable>
     <TargetFramework>net5.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -25,9 +25,9 @@
 
   <ItemGroup>
     <OpenApiReference Include="swagger1.json" CodeGenerator="NSwagCSharp" Namespace="CRM.Integration.SDK">
-	  <ClassName>CRMClient</ClassName>
-	  <OutputPath>../CRMClient.cs</OutputPath>
-	  <Options>/GenerateClientInterfaces:true </Options>
+      <ClassName>CRMClient</ClassName>
+      <OutputPath>../CRMClient.cs</OutputPath>
+      <Options>/GenerateClientInterfaces:true </Options>
     </OpenApiReference>
   </ItemGroup>
 
