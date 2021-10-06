@@ -77,7 +77,8 @@ namespace Troupon.Catalog.Api
 
       services.Configure<MvcOptions>(o =>
       {
-        o.Filters.Add(new ProducesAttribute("application/json", "application/xml", "text/plain"));
+        o.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
+        o.Filters.Add(new ConsumesAttribute("application/json", "application/xml"));
       });
     }
 
