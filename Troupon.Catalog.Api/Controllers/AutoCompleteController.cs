@@ -1,22 +1,17 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using Troupon.Catalog.Api.Conventions;
 
 namespace Troupon.Catalog.Api.Controllers
 {
   [ApiController]
   [Route("api/v{version:apiVersion}/[controller]")]
   [ApiVersion("1.0")]
-  [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-  [ProducesResponseType(StatusCodes.Status406NotAcceptable)]
-  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
-  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ApiConventionType(typeof(PwcApiConventions))]
   public class AutoCompleteController : BaseController
   {
     public AutoCompleteController(IMediator mediator, IMapper mapper)
@@ -24,14 +19,20 @@ namespace Troupon.Catalog.Api.Controllers
     {
     }
 
+    [SwaggerOperation(
+      Description = "Returns the 5 closest location to value by name",
+      OperationId = "SearchLocations")]
     [HttpGet("locations")]
-    public async Task<IEnumerable<string>> FindLocationsAutocomplete(string value)
+    public IEnumerable<string> SearchLocations(string value)
     {
       return Enumerable.Repeat(value, 5);
     }
 
+    [SwaggerOperation(
+      Description = "Returns the 5 closest deals to value by name",
+      OperationId = "SearchDeals")]
     [HttpGet("deals")]
-    public async Task<IEnumerable<string>> FindDealsAutocomplete(string value)
+    public IEnumerable<string> SearchDeals(string value)
     {
       return Enumerable.Repeat(value, 5);
     }
