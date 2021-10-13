@@ -20,6 +20,10 @@
   <ItemGroup>
     <Content Remove="swagger1.json" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Controllers\NotificationController" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="App.Metrics.AspNetCore" Version="4.1.0" />
     <PackageReference Include="App.Metrics.AspNetCore.Core" Version="4.1.0" />
