@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Troupon.Catalog.Api.Controllers
 {
-  // [Authorize]
   [ApiController]
   [ApplicationExceptionFilter]
   [Route("api/[controller]")]

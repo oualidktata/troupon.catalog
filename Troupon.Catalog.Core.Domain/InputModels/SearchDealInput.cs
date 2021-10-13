@@ -1,15 +1,29 @@
-using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections;
+using System.Collections.Generic;
 using Troupon.Catalog.Core.Domain.Entities.Common;
-using Troupon.Catalog.Core.Domain.Enums;
 
 namespace Troupon.Catalog.Core.Domain.InputModels
 {
-  public record SearchDealsFilter(
+  public class SearchDealsFilter
+  {
+    public string SearchText { get; }
+    public string Location { get; }
+    public IEnumerable<string> Categories { get; }
+    public IEnumerable<MinMax> PriceRanges { get; }
+    public IEnumerable<MinMax> DistanceRanges { get; }
+
+    public SearchDealsFilter(
       string searchText,
       string location,
-      string[] categories,
-      MinMax[] priceRanges,
-      MinMax[] distanceRanges
-    );
+      IEnumerable<string> categories,
+      IEnumerable<MinMax> priceRanges,
+      IEnumerable<MinMax> distanceRanges)
+    {
+      SearchText = searchText;
+      Location = location;
+      Categories = categories;
+      PriceRanges = priceRanges;
+      DistanceRanges = distanceRanges;
+    }
+  }
 }

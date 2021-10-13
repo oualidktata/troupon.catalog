@@ -25,7 +25,7 @@ namespace Troupon.Catalog.Integration.Tests
     {
       //Arrange
       var client = Factory.CreateClient();
-      var filter = new SearchDealsFilter("Search Deal Text", "Location", Enumerable.Empty<string>(), Enumerable.Empty<MinMax>(), Enumerable.Empty<MinMax>(), null);
+      var filter = new SearchDealsFilter("Search Deal Text", "Location", Enumerable.Empty<string>(), Enumerable.Empty<MinMax>(), Enumerable.Empty<MinMax>());
       var content = JsonContent.Create(filter);
       using var scope = _scopeFactory.CreateScope();
       //Act

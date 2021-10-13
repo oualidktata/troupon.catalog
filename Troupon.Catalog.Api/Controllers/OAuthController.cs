@@ -5,11 +5,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using Troupon.Catalog.Api.Conventions;
 
 namespace Portal.Api.Controllers
 {
   [Route("api/v{version:apiVersion}/[controller]")]
   [ApiController]
+  [ApiConventionType(typeof(PwcApiConventions))]
   public class OAuthController : ControllerBase
   {
     private IAuthService TokenService { get; set; }
@@ -19,20 +21,17 @@ namespace Portal.Api.Controllers
       TokenService = tokenService;
     }
 
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesDefaultResponseType]
     [SwaggerOperation(
        Description = "Authenticate the API",
        OperationId = "GetAccessToken",
        Tags = new[] { "*GetToken 1st*" })]
-    [HttpPost("token")]
-    [AllowAnonymous]
     [ApiVersion("1.0")]
     [ApiVersion("2.0")]
     [ApiVersion("3.0")]
-    public async Task<IActionResult> Token()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [HttpGet("token")]
+    public async Task<IActionResult> GetToken()
     {
       try
       {
