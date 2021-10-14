@@ -47,6 +47,7 @@ namespace Troupon.Catalog.Api
     public void ConfigureServices(
       IServiceCollection services)
     {
+      services.AddScoped<IOAuthSettings>(sp => AuthSettings);
       services.AddScoped<IAuthService>(service => new AuthService(AuthSettings));
       IAuthService authService = services.BuildServiceProvider().GetRequiredService<IAuthService>(); // TODO: Try another way to avoid BuildServiceProvider(not a priority)...
       services.AddAuthenticationToApplication(authService, Configuration, HostEnvironment);
