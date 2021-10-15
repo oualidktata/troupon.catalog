@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Serilog;
+using Troupon.Catalog.Api.AuthIntrospection;
 using Troupon.Catalog.Api.DependencyInjectionExtensions;
 using Troupon.Catalog.Core.Application;
 using Troupon.Catalog.Infra.Persistence;
@@ -48,6 +49,9 @@ namespace Troupon.Catalog.Api
       IServiceCollection services)
     {
       services.AddScoped<IOAuthSettings>(sp => AuthSettings);
+
+      services.AddScoped<IJwtIntrospector, JwtIntrospector>();
+
       services.AddScoped<IAuthService>(service => new AuthService(AuthSettings));
       IAuthService authService = services.BuildServiceProvider().GetRequiredService<IAuthService>(); // TODO: Try another way to avoid BuildServiceProvider(not a priority)...
       services.AddAuthenticationToApplication(authService, Configuration, HostEnvironment);

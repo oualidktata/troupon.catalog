@@ -2,6 +2,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Infra.oAuthService;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
+using Troupon.Catalog.Api.AuthIntrospection;
 using Troupon.Catalog.Api.Conventions;
 
 namespace Portal.Api.Controllers
@@ -22,12 +24,12 @@ namespace Portal.Api.Controllers
   {
     private IAuthService TokenService { get; }
 
-    private IOAuthSettings OAuthSettings { get; }
+    private IJwtIntrospector JwtIntrospector { get; }
 
-    public OAuthController(IAuthService tokenService, IOAuthSettings oAuthSettings)
+    public OAuthController(IAuthService tokenService, IJwtIntrospector jwtIntrospector)
     {
       TokenService = tokenService;
-      OAuthSettings = oAuthSettings;
+      JwtIntrospector = jwtIntrospector;
     }
 
     [SwaggerOperation(
@@ -67,35 +69,12 @@ namespace Portal.Api.Controllers
     {
       try
       {
-        if (HttpContext.Request.Headers.TryGetValue(HeaderNames.Authorization, out Microsoft.Extensions.Primitives.StringValues value))
-        {
-          var authorizationHeaderParts = value.ToString().Split(' ');
-          if (authorizationHeaderParts.First().ToLower() == "bearer")
-          {
-            var accessToken = authorizationHeaderParts.Skip(1).First();
-
-            var jwtHandler = new JwtSecurityTokenHandler();
-            var jwt = jwtHandler.ReadJwtToken(accessToken) as JwtSecurityToken;
-
-            var expirationClaim = jwt.Claims.Where(c => c.Type == "exp").First();
-            var scopeClaim = jwt.Claims.Where(c => c.Type == "scp").First();
-            var subjectClaim = jwt.Claims.Where(c => c.Type == "sub").First();
-
-            // https://www.oauth.com/oauth2-servers/token-introspection-endpoint/
-            var introspectionResponse = new
-            {
-              active = jwt.ValidTo > DateTime.Now,
-              scope = scopeClaim.Value,
-              client_id = OAuthSettings.ClientId,
-              username = subjectClaim.Value,
-              exp = expirationClaim.Value,
-            };
-
-            return Ok(introspectionResponse);
-          }
-        }
-
-        return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest, "bearer token not found"));
+        var jwtIntrospection = JwtIntrospector.GetJwtIntrospection();
+        return Ok(jwtIntrospection);
+      }
+      catch (JwtIntrospectionException ex)
+      {
+        return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest, ex.Message));
       }
       catch (Exception ex)
       {
