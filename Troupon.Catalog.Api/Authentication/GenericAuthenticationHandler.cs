@@ -2,6 +2,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Infra.oAuthService;
@@ -14,54 +15,105 @@ namespace Troupon.Catalog.Api.Authentication
 {
   public class GenericAuthenticationHandler : AuthenticationHandler<TokenAuthenticationOptions>
   {
+    private const string SECURITYKEY = "key here";
+
     public GenericAuthenticationHandler(
       IOptionsMonitor<TokenAuthenticationOptions> options,
       ILoggerFactory logger,
       UrlEncoder encoder,
       ISystemClock clock)
-      : base(
-        options,
-        logger,
-        encoder,
-        clock)
+      : base(options, logger, encoder, clock)
     {
     }
 
-    protected override Task<AuthenticateResult> HandleAuthenticateAsync()
+    protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
-      var headers = Request.Headers;
+      return await GenerateAuthenticationResult(GetToken());
+    }
 
-      // TODO: was OAuthSettings.HeaderName, to inject once tested
-      var rawToken = headers.FirstOrDefault(x => x.Key == "Authorization");
-      var token = rawToken.Value;
-
-      if (string.IsNullOrEmpty(token))
-      {
-        return Task.FromResult(AuthenticateResult.Fail("The provided token is null"));
-      }
-
+    private async Task<AuthenticateResult> GenerateAuthenticationResult(string token)
+    {
       try
       {
-        var validationParameters = new TokenValidationParameters();
-        validationParameters.ValidAudiences = this.Options.ValidAudiences;
-        validationParameters.ValidIssuer = this.Options.ValidIssuer;
+        var success = Authenticate(token);
+        return AuthenticateResult.Success(success);
+      }
 
-        var jwt = token.ToString()
-          .Replace(
-            "Bearer ",
-            string.Empty);
-        var securityToken = new JwtSecurityToken(jwt);
+      // TODO HANDLE DOMAIN EXCEPTIONS
+      catch (Exception ex)
+      {
+        return AuthenticateResult.Fail(ex.Message);
+      }
+    }
 
-        // var handler = new JwtSecurityTokenHandler();
-        if (securityToken.Issuer != validationParameters.ValidIssuer ||
-            securityToken.Audiences.All(c => !validationParameters.ValidAudiences.Contains(c)))
-        {
-          return Task.FromResult(AuthenticateResult.Fail($"Could not validate the token : for token={securityToken}"));
-        }
+    private AuthenticationTicket Authenticate(string token)
+    {
+      var jwt = ValidateToken(token);
 
-        // Create Identity
-        var claims = new[]
-        {
+      var claims = GetClaims(jwt);
+      ValidateClaims(claims);
+
+      return GenerateAuthenticationTicket(claims);
+    }
+
+    private void ValidateClaims(Claim[] claims)
+    {
+      // SOME LOGIC TO SAY
+      // OK IT'S GOOD TO GO
+    }
+
+    private JwtSecurityToken ValidateToken(string token)
+    {
+      if (string.IsNullOrEmpty(token))
+      {
+        throw new Exception("The provided token is null");
+      }
+
+      var key = GetSecurityKey();
+      var validationParameters = SetupValidationParameters(key);
+
+      if (!TryValidateToken(token, validationParameters, out JwtSecurityToken? jwtSecurityToken))
+      {
+        throw new Exception($"Could not validate the token");
+      }
+
+      return jwtSecurityToken!;
+    }
+
+    private string GetToken()
+    {
+      var authorizationHeader = Request.GetRequestAuthorizationHeader();
+      var scheme = ExtractAuthorizationScheme(authorizationHeader);
+      var token = ExtractAuthorizationToken(authorizationHeader, scheme);
+      return token;
+    }
+
+    private string ExtractAuthorizationScheme(string authorizationHeader)
+    {
+      var scheme = authorizationHeader.Split(' ')[0];
+      return scheme;
+    }
+
+    private string ExtractAuthorizationToken(string authorizationHeader, string authorizationScheme)
+    {
+      return authorizationHeader.Substring(authorizationScheme.Length).Trim();
+    }
+
+    private AuthenticationTicket GenerateAuthenticationTicket(Claim[] claims)
+    {
+      var identity = new ClaimsIdentity(claims);
+      var principal = new ClaimsPrincipal(identity);
+      var properties = new AuthenticationProperties();
+      return new AuthenticationTicket(principal, properties, Scheme.Name);
+    }
+
+    private static Claim[] GetClaims(JwtSecurityToken jwt)
+    {
+      /*
+
+      // Create Identity
+      var claims = new[]
+      {
           new Claim(
             "token",
             token),
@@ -74,17 +126,44 @@ namespace Troupon.Catalog.Api.Authentication
           //  "admin"),//consult DB to get Role claims and add them to the identity
           // new Claim(ClaimTypes.NameIdentifier,new Guid().ToString())
         };
-        var identity = new ClaimsIdentity(claims);
 
-        var ticket = new AuthenticationTicket(
-          new ClaimsPrincipal(identity),
-          new AuthenticationProperties(),
-          this.Scheme.Name);
-        return Task.FromResult(AuthenticateResult.Success(ticket));
-      }
-      catch (Exception ex)
+      return claims;3
+      */
+
+      return jwt.Claims.ToArray();
+    }
+
+    private TokenValidationParameters SetupValidationParameters(SymmetricSecurityKey key)
+    {
+      return new TokenValidationParameters
       {
-        return Task.FromResult(AuthenticateResult.Fail($"Authentication Failed {ex.Message}"));
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidIssuers = Options.ValidIssuers,
+        ValidAudiences = Options.ValidAudiences,
+        IssuerSigningKey = key,
+      };
+    }
+
+    private static SymmetricSecurityKey GetSecurityKey()
+    {
+      return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SECURITYKEY));
+    }
+
+    private static bool TryValidateToken(string token, TokenValidationParameters validationParameters, out JwtSecurityToken? validatedJwt)
+    {
+      validatedJwt = null;
+      try
+      {
+        new JwtSecurityTokenHandler().ValidateToken(token, validationParameters, out SecurityToken securityToken);
+        validatedJwt = (JwtSecurityToken)securityToken;
+
+        return true;
+      }
+      catch
+      {
+        return false;
       }
     }
   }
