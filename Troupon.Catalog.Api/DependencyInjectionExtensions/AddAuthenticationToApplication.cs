@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Linq;
 using Troupon.Catalog.Api.Authentication;
 
 namespace Troupon.Catalog.Api.DependencyInjectionExtensions
@@ -76,7 +78,7 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
           options =>
           {
             options.ValidAudiences = authenticationService.Settings.Audiences;
-            options.ValidIssuer = authenticationService.Settings.Issuer;
+            options.ValidIssuers = authenticationService.Settings.Issuers;
           });
 
       //    .AddJwtBearer(o =>

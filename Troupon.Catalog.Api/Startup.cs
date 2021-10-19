@@ -50,6 +50,7 @@ namespace Troupon.Catalog.Api
     {
       services.AddScoped<IOAuthSettings>(sp => AuthSettings);
 
+      services.AddHttpContextAccessor();
       services.AddScoped<IJwtIntrospector, JwtIntrospector>();
 
       services.AddScoped<IAuthService>(service => new AuthService(AuthSettings));
