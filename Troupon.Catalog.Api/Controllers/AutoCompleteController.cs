@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,18 +21,18 @@ namespace Troupon.Catalog.Api.Controllers
     }
 
     [SwaggerOperation(
-      Description = "Returns the 5 closest location to value by name",
-      OperationId = "SearchLocations")]
-    [HttpGet("locations")]
-    public IEnumerable<string> SearchLocations(string value)
+     Description = "Returns the n closest location to value by name",
+     OperationId = "locations")]
+    [HttpGet]
+    public Task<IEnumerable<string>> Get([FromQuery] string input)
     {
-      return Enumerable.Repeat(value, 5);
+      return Task.FromResult(Enumerable.Repeat(input, 5));
     }
 
     [SwaggerOperation(
-      Description = "Returns the 5 closest deals to value by name",
-      OperationId = "SearchDeals")]
-    [HttpGet("deals")]
+    Description = "Returns the n most recent searches",
+    OperationId = "recent-search")]
+    [HttpGet("recent-search")]
     public IEnumerable<string> SearchDeals(string value)
     {
       return Enumerable.Repeat(value, 5);

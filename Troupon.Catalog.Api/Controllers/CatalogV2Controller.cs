@@ -28,9 +28,9 @@ namespace Troupon.Catalog.Api.Controllers
     [SwaggerOperation(
       Description = "Returns all active Deals",
       OperationId = "SearchDeals",
-      Tags = new[] { "Search" })]
+      Tags = new[] { "CatalogV2 (?)" })]
     [HttpPost("search")]
-    public async Task<ActionResult<IEnumerable<DealDto>>> Search([FromBody] SearchDealsFilter filter, CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<DealDetailsDto>>> Search([FromBody] DealsSearchFilter filter, CancellationToken cancellationToken)
     {
       try
       {

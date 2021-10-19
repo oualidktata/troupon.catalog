@@ -23,11 +23,8 @@ namespace Portal.Api.Controllers
 
     [SwaggerOperation(
        Description = "Authenticate the API",
-       OperationId = "GetAccessToken",
-       Tags = new[] { "*GetToken 1st*" })]
+       OperationId = "GetAccessToken")]
     [ApiVersion("1.0")]
-    [ApiVersion("2.0")]
-    [ApiVersion("3.0")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("token")]

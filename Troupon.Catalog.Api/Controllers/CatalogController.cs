@@ -30,10 +30,10 @@ namespace Troupon.Catalog.Api.Controllers
     [SwaggerOperation(
       Description = "Returns all active Deals",
       OperationId = "SearchDeals",
-      Tags = new[] { "Search" })]
+      Tags = new[] { "CatalogV1 post search (?)" })]
     [Authorize(Policy = "tenant-policy")]
     [HttpPost("search")]
-    public async Task<ActionResult<IEnumerable<SearchDealResponseDto>>> Search([FromBody, BindRequired] SearchDealsFilter filter, CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<DealDto>>> Search([FromBody, BindRequired] DealsSearchFilter filter, CancellationToken cancellationToken)
     {
       try
       {
@@ -56,13 +56,13 @@ namespace Troupon.Catalog.Api.Controllers
     [SwaggerOperation(
       Description = "Returns the Deal specified by Id",
       OperationId = "GetOneDeal",
-      Tags = new[] { "One Deal" })]
+      Tags = new[] { "CatalogV1 get (?)" })]
     [HttpGet("{id}")]
-    public async Task<ActionResult<IEnumerable<DealDto>>> Get([BindRequired] Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<DealDetailsDto>>> Get([BindRequired] Guid id, CancellationToken cancellationToken)
     {
       try
       {
-        var result = await Mediator.Send<DealDto>(
+        var result = await Mediator.Send<DealDetailsDto>(
           new GetOneDealQuery() { Id = id },
           cancellationToken);
         if (result is null)

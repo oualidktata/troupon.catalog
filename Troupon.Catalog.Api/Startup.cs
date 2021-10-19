@@ -92,8 +92,8 @@ namespace Troupon.Catalog.Api
       // app.UsePathBase("/graphql");
 
       // catalogDbContext.Database.EnsureDeleted();
-      var catalogDbContext = dbContextFactory.CreateDbContext();
-      catalogDbContext.Database.Migrate();
+      // var catalogDbContext = dbContextFactory.CreateDbContext();
+      // catalogDbContext.Database.Migrate();
 
       // app.UsePlayground();
       app.UseSwagger();

@@ -11,7 +11,7 @@ using Troupon.Catalog.Core.Domain.Entities.Deal;
 namespace Troupon.DealManagement.Core.Application.Commands
 {
   //TODO: (But more a comment)In the Catalog the DetailView is our Entity, it's a flat representation of a deal(optimized for viewing). Soucrce could be Elastik Search 
-  public class UpdateDealViewCommand : IRequest<DealDto>
+  public class UpdateDealViewCommand : IRequest<DealDetailsDto>
   {
     public string Description { get; set; }
     public string Title { get; set; }
@@ -19,7 +19,7 @@ namespace Troupon.DealManagement.Core.Application.Commands
     public int Limitation { get; set; }
     public string OtherConditions { get; set; }
 
-    public class UpdateDealViewCommandHandler : IRequestHandler<UpdateDealViewCommand, DealDto>
+    public class UpdateDealViewCommandHandler : IRequestHandler<UpdateDealViewCommand, DealDetailsDto>
     {
       private readonly IWriteRepository<DealView> _dealWriteRepo;
       private readonly IMapper _mapper;
@@ -32,16 +32,16 @@ namespace Troupon.DealManagement.Core.Application.Commands
         _mapper = mapper;
       }
 
-      public async Task<DealDto> Handle(
+      public async Task<DealDetailsDto> Handle(
         UpdateDealViewCommand request,
         CancellationToken cancellationToken)
       {
         var dealToAdd = _mapper.Map<UpdateDealViewCommand, DealView>(request);
-        var dealOption = new DealOption("Default Option");
+        var dealOption = new Catalog.Core.Domain.Entities.Deal.DealOption("Default Option");
         dealOption.SetPrice(new DealPrice(new Currency("USD"),new Price(150,new Currency("USD")),new Price(100,new Currency("USD"))));
         dealToAdd.AddDealOption(dealOption);
         var addedDealView = _dealWriteRepo.Create(dealToAdd);
-        var dealDto = _mapper.Map<DealView, DealDto>(addedDealView);
+        var dealDto = _mapper.Map<DealView, DealDetailsDto>(addedDealView);
 
         return await Task.FromResult(dealDto);
       }

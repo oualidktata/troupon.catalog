@@ -24,7 +24,7 @@ namespace Troupon.Catalog.Api.Controllers
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [HttpPost("HandleDealEventPublished")]
-    public async Task<ActionResult<DealDto>> Post([FromBody] UpdateDealViewCommand model, CancellationToken cancellationToken)
+    public async Task<ActionResult<DealDetailsDto>> Post([FromBody] UpdateDealViewCommand model, CancellationToken cancellationToken)
     {
       try
       {
