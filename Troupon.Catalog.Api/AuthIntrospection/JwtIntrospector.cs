@@ -3,6 +3,7 @@ using System.Linq;
 using Infra.oAuthService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
+using Troupon.Catalog.Api.Authentication;
 
 namespace Troupon.Catalog.Api.AuthIntrospection
 {
@@ -31,30 +32,17 @@ namespace Troupon.Catalog.Api.AuthIntrospection
 
     public JwtIntrospection GetJwtIntrospection()
     {
-      var authorizationHeader = GetAuthorizationHeader();
+      var authorizationHeader = HttpContextAccessor.HttpContext?.GetRequestAuthorizationHeader();
       if (!AuthorizationExists(authorizationHeader))
       {
         throw JwtIntrospectionException.AuthorizationHeaderMissing();
       }
 
-      string accessToken = GetAccessToken(authorizationHeader);
+      string accessToken = GetAccessToken(authorizationHeader!);
       return new JwtIntrospection(accessToken, OAuthSettings.ClientId);
     }
 
-    private string GetAuthorizationHeader()
-    {
-      if (HttpContextAccessor.HttpContext != null)
-      {
-        if (HttpContextAccessor.HttpContext.Request.Headers.TryGetValue(HeaderNames.Authorization, out Microsoft.Extensions.Primitives.StringValues value))
-        {
-          return value.ToString();
-        }
-      }
-
-      return string.Empty;
-    }
-
-    private static bool AuthorizationExists(string authorizationHeader)
+    private static bool AuthorizationExists(string? authorizationHeader)
     {
       return string.IsNullOrEmpty(authorizationHeader);
     }
