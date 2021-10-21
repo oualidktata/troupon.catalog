@@ -44,7 +44,7 @@ namespace Troupon.Catalog.Api.AuthIntrospection
 
     private static bool AuthorizationExists(string? authorizationHeader)
     {
-      return string.IsNullOrEmpty(authorizationHeader);
+      return !string.IsNullOrEmpty(authorizationHeader);
     }
 
     private static string GetAccessToken(string authorizationHeader)
@@ -60,7 +60,7 @@ namespace Troupon.Catalog.Api.AuthIntrospection
 
     private static string GetAuthorizationScheme(string authorizationHeader)
     {
-      return GetAuthorizationHeaderPart(authorizationHeader, SchemePart);
+      return GetAuthorizationHeaderPart(authorizationHeader, SchemePart).ToLower();
     }
 
     private static string GetAuthorizationAccessToken(string authorizationHeader)
@@ -71,7 +71,7 @@ namespace Troupon.Catalog.Api.AuthIntrospection
     private static string GetAuthorizationHeaderPart(string authorizationHeader, int index)
     {
       var authorizationHeaderParts = authorizationHeader.Split(' ');
-      return authorizationHeaderParts[index].ToLower();
+      return authorizationHeaderParts[index];
     }
 
     private static bool SupportedAuthorizationScheme(string authorizationScheme)

@@ -1,22 +1,25 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
+using System.Threading;
 using System.Threading.Tasks;
 using Infra.oAuthService;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Troupon.Catalog.Api.Authentication
 {
   public class GenericAuthenticationHandler : AuthenticationHandler<TokenAuthenticationOptions>
   {
-    private const string SECURITYKEY = "key here";
-
     public GenericAuthenticationHandler(
       IOptionsMonitor<TokenAuthenticationOptions> options,
       ILoggerFactory logger,
@@ -35,7 +38,7 @@ namespace Troupon.Catalog.Api.Authentication
     {
       try
       {
-        var success = Authenticate(token);
+        var success = await Authenticate(token);
         return AuthenticateResult.Success(success);
       }
 
@@ -46,38 +49,39 @@ namespace Troupon.Catalog.Api.Authentication
       }
     }
 
-    private AuthenticationTicket Authenticate(string token)
+    private async Task<AuthenticationTicket> Authenticate(string token)
     {
-      var jwt = ValidateToken(token);
-
-      var claims = GetClaims(jwt);
-      ValidateClaims(claims);
-
-      return GenerateAuthenticationTicket(claims);
+      var jwt = await ValidateToken(token);
+      DefaultAuthorizationFromClaims(jwt.Claims);
+      return GenerateAuthenticationTicket(jwt.Claims);
     }
 
-    private void ValidateClaims(Claim[] claims)
+    private void DefaultAuthorizationFromClaims(IEnumerable<Claim> claims)
     {
-      // SOME LOGIC TO SAY
-      // OK IT'S GOOD TO GO
+      var scopes = claims.Where(c => c.Type == "scp");
+
+      // TODO: EXAMPLE ONLY
+      // Should be changed to be configurable
+      if (!scopes.Any(s => s.Value == "admin"))
+      {
+        throw new Exception("Need \"admin\" scope to be authorized");
+      }
+
+      if (!scopes.Any(s => s.Value == "openid"))
+      {
+        throw new Exception("Need \"openid\" scope to be authorized");
+      }
     }
 
-    private JwtSecurityToken ValidateToken(string token)
+    private async Task<JwtSecurityToken> ValidateToken(string token)
     {
       if (string.IsNullOrEmpty(token))
       {
         throw new Exception("The provided token is null");
       }
 
-      var key = GetSecurityKey();
-      var validationParameters = SetupValidationParameters(key);
-
-      if (!TryValidateToken(token, validationParameters, out JwtSecurityToken? jwtSecurityToken))
-      {
-        throw new Exception($"Could not validate the token");
-      }
-
-      return jwtSecurityToken!;
+      var validationParameters = await SetupValidationParameters();
+      return ValidationWithParameters(token, validationParameters);
     }
 
     private string GetToken()
@@ -99,7 +103,7 @@ namespace Troupon.Catalog.Api.Authentication
       return authorizationHeader.Substring(authorizationScheme.Length).Trim();
     }
 
-    private AuthenticationTicket GenerateAuthenticationTicket(Claim[] claims)
+    private AuthenticationTicket GenerateAuthenticationTicket(IEnumerable<Claim> claims)
     {
       var identity = new ClaimsIdentity(claims);
       var principal = new ClaimsPrincipal(identity);
@@ -107,64 +111,58 @@ namespace Troupon.Catalog.Api.Authentication
       return new AuthenticationTicket(principal, properties, Scheme.Name);
     }
 
-    private static Claim[] GetClaims(JwtSecurityToken jwt)
+    // https://developer.okta.com/code/dotnet/jwt-validation/#validate-a-token
+    private async Task<TokenValidationParameters> SetupValidationParameters()
     {
-      /*
+      var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
+          Options.ValidIssuer + "/.well-known/oauth-authorization-server",
+          new OpenIdConnectConfigurationRetriever(),
+          new HttpDocumentRetriever());
 
-      // Create Identity
-      var claims = new[]
+      var discoveryDocument = await configurationManager.GetConfigurationAsync();
+      var signingKeys = discoveryDocument.SigningKeys;
+
+      var validationParameters = new TokenValidationParameters
       {
-          new Claim(
-            "token",
-            token),
-          new Claim(
-            "TenantId",
-            "pwc"),
+        // Clock skew compensates for server time drift.
+        // We recommend 5 minutes or less:
+        ClockSkew = TimeSpan.FromMinutes(5),
 
-          // new Claim(
-          //  ClaimTypes.Role,
-          //  "admin"),//consult DB to get Role claims and add them to the identity
-          // new Claim(ClaimTypes.NameIdentifier,new Guid().ToString())
-        };
-
-      return claims;3
-      */
-
-      return jwt.Claims.ToArray();
-    }
-
-    private TokenValidationParameters SetupValidationParameters(SymmetricSecurityKey key)
-    {
-      return new TokenValidationParameters
-      {
+        // Specify the key used to sign the token:
         ValidateIssuerSigningKey = true,
-        ValidateIssuer = true,
+        IssuerSigningKeys = signingKeys,
+        RequireSignedTokens = true,
+
+        // Ensure the token hasn't expired:
+        RequireExpirationTime = true,
+        ValidateLifetime = true,
+
+        // Ensure the token audience matches our audience value (default true):
         ValidateAudience = true,
-        ValidIssuers = Options.ValidIssuers,
         ValidAudiences = Options.ValidAudiences,
-        IssuerSigningKey = key,
+
+        // Ensure the token was issued by a trusted authorization server (default true):
+        ValidateIssuer = true,
+        ValidIssuer = Options.ValidIssuer,
       };
+
+      return validationParameters;
     }
 
-    private static SymmetricSecurityKey GetSecurityKey()
+    private static JwtSecurityToken ValidationWithParameters(string token, TokenValidationParameters validationParameters)
     {
-      return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SECURITYKEY));
-    }
+      var handler = new JwtSecurityTokenHandler();
+      handler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
+      var validatedJwt = (JwtSecurityToken)securityToken;
 
-    private static bool TryValidateToken(string token, TokenValidationParameters validationParameters, out JwtSecurityToken? validatedJwt)
-    {
-      validatedJwt = null;
-      try
+      // Okta uses RS256
+      var expectedAlg = SecurityAlgorithms.RsaSha256;
+      if (validatedJwt.Header?.Alg == null || validatedJwt.Header?.Alg != expectedAlg)
       {
-        new JwtSecurityTokenHandler().ValidateToken(token, validationParameters, out SecurityToken securityToken);
-        validatedJwt = (JwtSecurityToken)securityToken;
+        throw new SecurityTokenValidationException("The alg must be RS256.");
+      }
 
-        return true;
-      }
-      catch
-      {
-        return false;
-      }
+      return validatedJwt;
     }
   }
 }

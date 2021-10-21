@@ -78,7 +78,7 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
           options =>
           {
             options.ValidAudiences = authenticationService.Settings.Audiences;
-            options.ValidIssuers = authenticationService.Settings.Issuers;
+            options.ValidIssuer = authenticationService.Settings.Issuer;
           });
 
       //    .AddJwtBearer(o =>
