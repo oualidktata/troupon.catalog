@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using Infra.oAuthService;
 using Infra.Persistence.Dapper.Extensions;
@@ -6,7 +7,6 @@ using Infra.Persistence.EntityFramework.Extensions;
 using Infra.Persistence.SqlServer.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +15,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Troupon.Catalog.Api.AuthIntrospection;
 using Troupon.Catalog.Api.Authorization;
-using Troupon.Catalog.Api.Authorization.RequirementHandlers;
+using Troupon.Catalog.Api.Authorization.Policies;
+using Troupon.Catalog.Api.Authorization.Policies.Requirements;
+using Troupon.Catalog.Api.Authorization.Policies.Requirements.Base;
 using Troupon.Catalog.Api.DependencyInjectionExtensions;
 using Troupon.Catalog.Infra.Persistence;
 
@@ -36,22 +38,18 @@ namespace Troupon.Catalog.Api
       services.AddHttpContextAccessor();
       services.AddScoped<IJwtIntrospector, JwtIntrospector>();
 
-      services.AddSingleton<IOAuthSettingsFactory>(sp => new OAuthSettingsFactory(Configuration, "Auth"));
-      services.AddScoped<IMachineToMachineOAuthService, MachineToMachineOAuthService>();
+      services.AddSingleton<IOAuthSettingsFactory>(sp => new OAuthSettingsFactory(Configuration));
+      services.AddScoped<IM2MOAuthFlowService, M2MOAuthFlowService>();
       services.AddAuthenticationToApplication();
 
       services.AddAuthorization(options =>
-       {
-         // var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder("Bearer");
-         // defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
-         // options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
-         options.AddPolicy("tenant-policy", pb => pb.AddTenantPolicy("pwc"));
+      {
+        options.AddPolicy(TenantPolicy.Key, pb => pb.AddTenantPolicy("pwc"));
+        options.AddPolicy(AdminOnlyPolicy.Key, pb => pb.AddAdminOnlyPolicy());
+      });
 
-         // options.AddPolicy("admin-policy", p => p.AddAdminPolicy());
-       });
+      services.AddPolicyHandlers(Assembly.GetExecutingAssembly());
 
-      // services.AddScoped<RequireTenantClaimHandler>();
-      // services.AddScoped<RequireAdminClaimHandler>();
       services.AddAutoMapper(typeof(AutomapperProfile));
 
       services.AddMediator();

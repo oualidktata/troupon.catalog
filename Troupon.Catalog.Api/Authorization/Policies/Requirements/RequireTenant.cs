@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+using Troupon.Catalog.Api.Authorization.Policies.Requirements.Base;
 
-namespace Troupon.Catalog.Api.Authorization.Requirements
+namespace Troupon.Catalog.Api.Authorization.Policies.Requirements
 {
   /// <summary>
-  /// Request to Authorize ARAI Calls.
+  /// RequireTenant defined how the requirement is met.
   /// </summary>
-  public class RequireTenant : IAuthorizationRequirement
+  public partial class RequireTenant : BaseRequirement
   {
     public RequireTenant(string claimType, string tenantId)
     {
@@ -20,7 +20,7 @@ namespace Troupon.Catalog.Api.Authorization.Requirements
 
     private string TenantId { get; }
 
-    public bool IsMet(IEnumerable<Claim> claims)
+    public override bool IsMet(IEnumerable<Claim> claims)
     {
       return claims.Any(t => t.Type == ClaimType && t.Value == TenantId);
     }

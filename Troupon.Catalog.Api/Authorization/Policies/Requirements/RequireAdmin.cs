@@ -2,10 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Troupon.Catalog.Api.Authorization.Policies.Requirements.Base;
 
-namespace Troupon.Catalog.Api.Authorization.Requirements
+namespace Troupon.Catalog.Api.Authorization.Policies.Requirements
 {
-  public class RequireAdmin : IAuthorizationRequirement
+  /// <summary>
+  /// RequireAdmin defined how the requirement is met.
+  /// </summary>
+  public partial class RequireAdmin : BaseRequirement
   {
     public RequireAdmin()
     {
@@ -15,7 +19,7 @@ namespace Troupon.Catalog.Api.Authorization.Requirements
 
     private string ClaimValue { get; } = "admin";
 
-    internal bool IsMet(IEnumerable<Claim> claims)
+    public override bool IsMet(IEnumerable<Claim> claims)
     {
       return claims.Any(t => t.Type == ClaimType && t.Value == ClaimValue);
     }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text.Json.Serialization;
-using Troupon.Catalog.Api.Authentication;
+using Troupon.Catalog.Api.Authentication.Jwt;
 
 namespace Troupon.Catalog.Api.AuthIntrospection
 {

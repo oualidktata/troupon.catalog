@@ -12,6 +12,7 @@ using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using Troupon.Catalog.Api.AuthIntrospection;
+using Troupon.Catalog.Api.Authorization.Policies;
 using Troupon.Catalog.Api.Conventions;
 
 namespace Portal.Api.Controllers
@@ -22,11 +23,11 @@ namespace Portal.Api.Controllers
   [ApiConventionType(typeof(PwcApiConventions))]
   public class OAuthController : ControllerBase
   {
-    private IMachineToMachineOAuthService TokenService { get; }
+    private IM2MOAuthFlowService TokenService { get; }
 
     private IJwtIntrospector JwtIntrospector { get; }
 
-    public OAuthController(IMachineToMachineOAuthService tokenService, IJwtIntrospector jwtIntrospector)
+    public OAuthController(IM2MOAuthFlowService tokenService, IJwtIntrospector jwtIntrospector)
     {
       TokenService = tokenService;
       JwtIntrospector = jwtIntrospector;
@@ -41,9 +42,7 @@ namespace Portal.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("token")]
-
-    // (Policy = "admin-policy")
-    [Authorize]
+    [Authorize(Policy = AdminOnlyPolicy.Key)]
     public async Task<IActionResult> GetToken()
     {
       try
