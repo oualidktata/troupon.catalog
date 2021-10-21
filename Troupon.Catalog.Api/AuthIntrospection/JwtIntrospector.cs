@@ -2,18 +2,10 @@ using System;
 using System.Linq;
 using Infra.oAuthService;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Net.Http.Headers;
 using Troupon.Catalog.Api.Authentication;
 
 namespace Troupon.Catalog.Api.AuthIntrospection
 {
-#pragma warning disable SA1649 // File name should match first type name
-  public interface IJwtIntrospector
-#pragma warning restore SA1649 // File name should match first type name
-  {
-    JwtIntrospection GetJwtIntrospection();
-  }
-
   public class JwtIntrospector : IJwtIntrospector
   {
     private static readonly string[] SupportedAuthorizationSchemes = { "Bearer", "SSWS" };
