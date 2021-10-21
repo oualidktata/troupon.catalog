@@ -14,18 +14,23 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
+using Troupon.Catalog.Api.Authentication.Jwt;
 
 namespace Troupon.Catalog.Api.Authentication
 {
   public class GenericAuthenticationHandler : AuthenticationHandler<TokenAuthenticationOptions>
   {
+    private IOAuthSettingsFactory AuthSettingsFactory { get; }
+
     public GenericAuthenticationHandler(
       IOptionsMonitor<TokenAuthenticationOptions> options,
       ILoggerFactory logger,
       UrlEncoder encoder,
-      ISystemClock clock)
+      ISystemClock clock,
+      IOAuthSettingsFactory authSettingsFactory)
       : base(options, logger, encoder, clock)
     {
+      AuthSettingsFactory = authSettingsFactory;
     }
 
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -72,46 +77,42 @@ namespace Troupon.Catalog.Api.Authentication
         throw new SecurityTokenValidationException("Should provide token");
       }
 
-      var validationParameters = await GetValidationParameters();
+      string issuer = GetTokenIssuer(token);
+
+      var validationParameters = await GetValidationParameters(issuer);
       return ValidationWithParameters(token, validationParameters);
     }
 
-    private async Task<TokenValidationParameters> GetValidationParameters()
+    private string GetTokenIssuer(string token)
     {
-      // https://developer.okta.com/code/dotnet/jwt-validation/#validate-a-token
-      return new TokenValidationParameters
-      {
-        // Clock skew compensates for server time drift.
-        // We recommend 5 minutes or less:
-        ClockSkew = TimeSpan.FromMinutes(5),
-
-        // Specify the key used to sign the token:
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKeys = await GetSigningKeys(),
-        RequireSignedTokens = true,
-
-        // Ensure the token hasn't expired:
-        RequireExpirationTime = true,
-        ValidateLifetime = true,
-
-        // Ensure the token audience matches our audience value (default true):
-        ValidateAudience = true,
-        ValidAudiences = Options.ValidAudiences,
-
-        // Ensure the token was issued by a trusted authorization server (default true):
-        ValidateIssuer = true,
-        ValidIssuer = Options.ValidIssuer,
-      };
+      var handler = new JwtSecurityTokenHandler();
+      var jwt = handler.ReadJwtToken(token);
+      return jwt.Issuer;
     }
 
-    private async Task<ICollection<SecurityKey>> GetSigningKeys()
+    private async Task<TokenValidationParameters> GetValidationParameters(string issuer)
+    {
+      var settings = AuthSettingsFactory.GetProviderForIssuer(issuer);
+
+      return TokenValidationParametersBuilder.Create()
+        .DefaultClockSkew()
+        .ValidateExpiration()
+        .ValidateSigninKey(await GetSigningKeys(issuer)) // TODO: Give the possibility to configure how to get signingKey
+        .ValidateAudiences(settings.Audiences)
+        .ValidateIssuers(settings.Issuer)
+        .Build();
+    }
+
+    // TODO: Make it possible to Cache the result
+    private async Task<IEnumerable<SecurityKey>> GetSigningKeys(string issuer)
     {
       var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
-                Options.ValidIssuer + "/.well-known/oauth-authorization-server",
+                issuer + "/.well-known/oauth-authorization-server",
                 new OpenIdConnectConfigurationRetriever(),
                 new HttpDocumentRetriever());
 
       var discoveryDocument = await configurationManager.GetConfigurationAsync();
+
       return discoveryDocument.SigningKeys;
     }
 
@@ -136,7 +137,7 @@ namespace Troupon.Catalog.Api.Authentication
       var expectedAlg = SecurityAlgorithms.RsaSha256;
       if (validatedJwt.Header?.Alg == null || validatedJwt.Header?.Alg != expectedAlg)
       {
-        throw new SecurityTokenValidationException("The alg must be RS256");
+        throw new SecurityTokenValidationException("The security algorithm must be RsaSha256");
       }
     }
 
@@ -144,25 +145,31 @@ namespace Troupon.Catalog.Api.Authentication
     {
       var scopes = claims.ExtractScopes();
 
-      // TODO: EXAMPLE ONLY
-      // Should be changed to be configurable
-      if (!scopes.Contains("admin"))
+      // TODO: Give the possibility to be configurable, by adding validation, based on the application
+      if (!scopes.Contains("arai"))
       {
-        throw new SecurityTokenValidationException("Need \"admin\" scope to be authorized");
-      }
-
-      if (!scopes.Contains("openid"))
-      {
-        throw new SecurityTokenValidationException("Need \"openid\" scope to be authorized");
+        throw new SecurityTokenValidationException("Need \"arai\" scope to be authorized");
       }
     }
 
-    private AuthenticationTicket GenerateAuthenticationTicket(IEnumerable<Claim> claims)
+    private AuthenticationTicket GenerateAuthenticationTicket(IEnumerable<Claim> tokenClaims)
     {
-      var identity = new ClaimsIdentity(claims);
+      var claims = tokenClaims.ToList();
+
+      // TODO: Give possibility to be configurable, by adding claims, based on the applicaiton
+      claims.Add(new Claim("TenantId", "pwc"));
+      if (claims.Any(c => c.Type == "scp" && c.Value == "admin"))
+      {
+        claims.Add(new Claim(ClaimTypes.Role, "admin"));
+      }
+      else
+      {
+        claims.Add(new Claim(ClaimTypes.Role, "user"));
+      }
+
+      var identity = new ClaimsIdentity(claims, Scheme.Name);
       var principal = new ClaimsPrincipal(identity);
-      var properties = new AuthenticationProperties();
-      return new AuthenticationTicket(principal, properties, Scheme.Name);
+      return new AuthenticationTicket(principal, Scheme.Name);
     }
   }
 }

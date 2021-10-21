@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 
-namespace Troupon.Catalog.Api.Authentication
+namespace Troupon.Catalog.Api.Authentication.Jwt
 {
   public static class JwtUtils
   {

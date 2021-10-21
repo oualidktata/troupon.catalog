@@ -1,27 +1,28 @@
 using System;
 using System.Collections.Generic;
 using Infra.oAuthService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Troupon.Catalog.Api.Authentication
 {
   public static class BearerOpenApiExtensions
   {
-    public static void AddBearerAuthentication(
-      this Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions setup,
-      IOAuthSettings oAuthSettings)
+    public static void AddBearerAuthentication(this SwaggerGenOptions setup)
     {
       setup.AddSecurityDefinition(
-        oAuthSettings.Scheme,
+        JwtBearerDefaults.AuthenticationScheme,
         new OpenApiSecurityScheme
         {
           Type = SecuritySchemeType.Http,
-          Name = oAuthSettings.AuthHeaderName,
+          Name = HeaderNames.Authorization,
           In = ParameterLocation.Header,
 
           // BearerFormat = "JWT",
-          Scheme = oAuthSettings.Scheme,
+          Scheme = JwtBearerDefaults.AuthenticationScheme,
           Description =
             "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer'[space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
         });
@@ -35,7 +36,7 @@ namespace Troupon.Catalog.Api.Authentication
               Reference = new OpenApiReference
               {
                 Type = ReferenceType.SecurityScheme,
-                Id = oAuthSettings.Scheme,
+                Id = JwtBearerDefaults.AuthenticationScheme,
               },
             },
             new List<string>()
@@ -43,25 +44,25 @@ namespace Troupon.Catalog.Api.Authentication
         });
     }
 
-    public static void AddOAuthSecurity(this Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions setup, IOAuthSettings oauthSettings)
+    public static void AddOAuthSecurity(this SwaggerGenOptions setup, IOAuthSettings oauthSettings)
     {
       var flows = new OpenApiOAuthFlows();
       flows.ClientCredentials = new OpenApiOAuthFlow()
       {
-        TokenUrl = new Uri(oauthSettings.TokenUrl, UriKind.Relative),
+        TokenUrl = new Uri(oauthSettings.AuthorizeEndpoint, UriKind.Relative),
         Scopes = oauthSettings.Scopes,
       };
       var oauthScheme = new OpenApiSecurityScheme()
       {
         Type = SecuritySchemeType.OAuth2,
         Description = "OAuth2 Description",
-        Name = oauthSettings.AuthHeaderName,
+        Name = HeaderNames.Authorization,
         In = ParameterLocation.Query,
         Flows = flows,
         Scheme = oauthSettings.Scheme,
       };
 
-      setup.AddSecurityDefinition("Bearer", oauthScheme);
+      setup.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, oauthScheme);
 
       var securityrRequirements = new OpenApiSecurityRequirement();
       securityrRequirements.Add(oauthScheme, new List<string>() { });

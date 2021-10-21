@@ -22,11 +22,11 @@ namespace Portal.Api.Controllers
   [ApiConventionType(typeof(PwcApiConventions))]
   public class OAuthController : ControllerBase
   {
-    private IAuthService TokenService { get; }
+    private IMachineToMachineOAuthService TokenService { get; }
 
     private IJwtIntrospector JwtIntrospector { get; }
 
-    public OAuthController(IAuthService tokenService, IJwtIntrospector jwtIntrospector)
+    public OAuthController(IMachineToMachineOAuthService tokenService, IJwtIntrospector jwtIntrospector)
     {
       TokenService = tokenService;
       JwtIntrospector = jwtIntrospector;
@@ -41,7 +41,9 @@ namespace Portal.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("token")]
-    [AllowAnonymous]
+
+    // (Policy = "admin-policy")
+    [Authorize]
     public async Task<IActionResult> GetToken()
     {
       try

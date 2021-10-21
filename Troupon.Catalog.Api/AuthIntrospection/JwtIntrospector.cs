@@ -14,10 +14,10 @@ namespace Troupon.Catalog.Api.AuthIntrospection
 
     private IOAuthSettings OAuthSettings { get; }
 
-    public JwtIntrospector(IHttpContextAccessor httpContextAccessor, IOAuthSettings oAuthSettings)
+    public JwtIntrospector(IHttpContextAccessor httpContextAccessor, IOAuthSettingsFactory authSettingsFactory)
     {
       HttpContextAccessor = httpContextAccessor;
-      OAuthSettings = oAuthSettings;
+      OAuthSettings = authSettingsFactory.GetDefaultPkce();
     }
 
     public JwtIntrospection GetJwtIntrospection()

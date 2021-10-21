@@ -20,8 +20,8 @@ namespace Troupon.Catalog.Api.AuthIntrospection
     [JsonPropertyName("client_id")]
     public string ClientId { get; }
 
-    [JsonPropertyName("username")]
-    public string Username { get; }
+    [JsonPropertyName("subject")]
+    public string Subject { get; }
 
     [JsonPropertyName("exp")]
     public int Expiration { get; }
@@ -33,7 +33,7 @@ namespace Troupon.Catalog.Api.AuthIntrospection
         var jwt = ParseToken(accessToken);
         Active = jwt.IsActive();
         Expiration = jwt.ExtractExpirationValue();
-        Username = jwt.ExtractSubjectValue();
+        Subject = jwt.ExtractSubjectValue();
         Scopes = FormatScopes(jwt.Claims.ExtractScopes());
       }
       catch (Exception)

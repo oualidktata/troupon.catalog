@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Troupon.Catalog.Api
+namespace Troupon.Catalog.Api.Authorization.Requirements
 {
   /// <summary>
   /// Request to Authorize ARAI Calls.
@@ -17,8 +16,13 @@ namespace Troupon.Catalog.Api
       TenantId = tenantId;
     }
 
-    public string ClaimType { get; }
+    private string ClaimType { get; }
 
-    public string TenantId { get; }
+    private string TenantId { get; }
+
+    public bool IsMet(IEnumerable<Claim> claims)
+    {
+      return claims.Any(t => t.Type == ClaimType && t.Value == TenantId);
+    }
   }
 }
