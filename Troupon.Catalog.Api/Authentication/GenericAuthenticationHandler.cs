@@ -7,6 +7,8 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Infra.oAuthService;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Protocols;
@@ -28,8 +30,19 @@ namespace Troupon.Catalog.Api.Authentication
 
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
+      if (AllowAnonymous())
+      {
+        return AuthenticateResult.NoResult();
+      }
+
       var token = Request.GetAuthorizationToken();
       return await GenerateAuthenticationResult(token);
+    }
+
+    private bool AllowAnonymous()
+    {
+      var endpoint = Context.GetEndpoint();
+      return endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() != null;
     }
 
     private async Task<AuthenticateResult> GenerateAuthenticationResult(string token)

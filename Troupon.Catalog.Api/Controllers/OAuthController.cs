@@ -41,6 +41,7 @@ namespace Portal.Api.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("token")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetToken()
     {
       try

@@ -33,12 +33,13 @@ namespace Troupon.Catalog.Api
     {
       Configuration = configuration;
       HostEnvironment = hostEnvironment;
-      AuthSettings = new OAuthSettings();
+
+      DefaultAuthProviderSettings = new OAuthSettings();
       Configuration.GetSection($"Auth:{Configuration.GetValue<string>("Auth:DefaultAuthProvider")}")
-        .Bind(AuthSettings);
+        .Bind(DefaultAuthProviderSettings);
     }
 
-    private IOAuthSettings AuthSettings { get; }
+    private IOAuthSettings DefaultAuthProviderSettings { get; }
 
     private IConfiguration Configuration { get; }
 
@@ -48,12 +49,12 @@ namespace Troupon.Catalog.Api
     public void ConfigureServices(
       IServiceCollection services)
     {
-      services.AddScoped<IOAuthSettings>(sp => AuthSettings);
+      services.AddScoped<IOAuthSettings>(sp => DefaultAuthProviderSettings);
 
       services.AddHttpContextAccessor();
       services.AddScoped<IJwtIntrospector, JwtIntrospector>();
 
-      services.AddScoped<IAuthService>(service => new AuthService(AuthSettings));
+      services.AddScoped<IAuthService>(service => new AuthService(DefaultAuthProviderSettings));
       IAuthService authService = services.BuildServiceProvider().GetRequiredService<IAuthService>(); // TODO: Try another way to avoid BuildServiceProvider(not a priority)...
       services.AddAuthenticationToApplication(authService, Configuration, HostEnvironment);
       services.AddAuthorization(
@@ -75,7 +76,7 @@ namespace Troupon.Catalog.Api
         .AddNewtonsoftJson();
       services.AddEfReadRepository<CatalogDbContext>();
       services.AddEfWriteRepository<CatalogDbContext>();
-      services.AddOpenApi(AuthSettings);
+      services.AddOpenApi(DefaultAuthProviderSettings);
       services.AddMetrics();
       services.AddFluentValidaton();
       services.AddMemoryCache();
@@ -103,7 +104,7 @@ namespace Troupon.Catalog.Api
 
       // app.UsePlayground();
       app.UseSwagger();
-      app.ConfigureSwaggerUI(apiVersionDescriptionProvider, AuthSettings);
+      app.ConfigureSwaggerUI(apiVersionDescriptionProvider, DefaultAuthProviderSettings);
       app.UseRouting();
       app.UseAuthentication();
       app.UseAuthorization();
