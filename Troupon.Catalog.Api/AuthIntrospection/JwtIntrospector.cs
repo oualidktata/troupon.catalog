@@ -16,9 +16,7 @@ namespace Troupon.Catalog.Api.AuthIntrospection
 
   public class JwtIntrospector : IJwtIntrospector
   {
-    private const int SchemePart = 0;
-    private const int TokenPart = 1;
-    private static readonly string[] SupportedAuthorizationSchemes = { "bearer", "ssws" };
+    private static readonly string[] SupportedAuthorizationSchemes = { "Bearer", "SSWS" };
 
     private IHttpContextAccessor HttpContextAccessor { get; }
 
@@ -49,29 +47,13 @@ namespace Troupon.Catalog.Api.AuthIntrospection
 
     private static string GetAccessToken(string authorizationHeader)
     {
-      var authorizationScheme = GetAuthorizationScheme(authorizationHeader);
+      var authorizationScheme = authorizationHeader.ExtractAuthorizationScheme();
       if (!SupportedAuthorizationScheme(authorizationScheme))
       {
         throw JwtIntrospectionException.UnsupportedAuthorizationSchemes(SupportedAuthorizationSchemes);
       }
 
-      return GetAuthorizationAccessToken(authorizationHeader);
-    }
-
-    private static string GetAuthorizationScheme(string authorizationHeader)
-    {
-      return GetAuthorizationHeaderPart(authorizationHeader, SchemePart).ToLower();
-    }
-
-    private static string GetAuthorizationAccessToken(string authorizationHeader)
-    {
-      return GetAuthorizationHeaderPart(authorizationHeader, TokenPart);
-    }
-
-    private static string GetAuthorizationHeaderPart(string authorizationHeader, int index)
-    {
-      var authorizationHeaderParts = authorizationHeader.Split(' ');
-      return authorizationHeaderParts[index];
+      return authorizationHeader.ExtractAuthorizationToken(authorizationScheme);
     }
 
     private static bool SupportedAuthorizationScheme(string authorizationScheme)

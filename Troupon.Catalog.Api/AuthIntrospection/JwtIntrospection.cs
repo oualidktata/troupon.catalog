@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text.Json.Serialization;
+using Troupon.Catalog.Api.Authentication;
 
 namespace Troupon.Catalog.Api.AuthIntrospection
 {
@@ -10,8 +12,6 @@ namespace Troupon.Catalog.Api.AuthIntrospection
   /// </summary>
   public class JwtIntrospection
   {
-    private JwtSecurityToken Jwt { get; set; }
-
     [JsonPropertyName("active")]
     public bool Active { get; }
 
@@ -31,22 +31,17 @@ namespace Troupon.Catalog.Api.AuthIntrospection
     {
       try
       {
-        Jwt = ParseToken(accessToken);
-        Active = IsActive();
-        Expiration = ExtractExpirationValue();
-        Username = ExtractSubjectValue();
-        Scopes = ExtractScopes();
+        var jwt = ParseToken(accessToken);
+        Active = jwt.IsActive();
+        Expiration = jwt.ExtractExpirationValue();
+        Username = jwt.ExtractSubjectValue();
+        Scopes = FormatScopes(jwt.Claims.ExtractScopes());
       }
       catch (Exception)
       {
       }
 
       ClientId = clientId;
-    }
-
-    private bool IsActive()
-    {
-      return Jwt.ValidTo > DateTime.Now;
     }
 
     private static JwtSecurityToken ParseToken(string accessToken)
@@ -56,27 +51,9 @@ namespace Troupon.Catalog.Api.AuthIntrospection
       return jwt;
     }
 
-    private string ExtractScopes()
+    private static string FormatScopes(IEnumerable<string> scopes)
     {
-      var scopeClaims = Jwt.Claims.Where(c => c.Type == "scp");
-      var scopes = string.Join(" ", scopeClaims.Select(sc => sc.Value));
-      return scopes;
-    }
-
-    private string ExtractSubjectValue()
-    {
-      return ExtractClaimValue<string>("sub");
-    }
-
-    private int ExtractExpirationValue()
-    {
-      return ExtractClaimValue<int>("exp");
-    }
-
-    private T ExtractClaimValue<T>(string claimType)
-    {
-      var value = Jwt.Claims.Where(c => c.Type == claimType).First().Value;
-      return (T)Convert.ChangeType(value, typeof(T));
+      return string.Join(" ", scopes);
     }
   }
 }
