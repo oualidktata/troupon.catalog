@@ -25,9 +25,9 @@ namespace Troupon.Catalog.Api.Controllers
       Description = "Get all categories",
       OperationId = "top-categories")]
     [HttpGet]
-    public Task<IEnumerable<TopCategoryDTO>> Get()
+    public Task<IEnumerable<TopCategoryDto>> Get()
     {
-      return Task.FromResult(Enumerable.Repeat(new TopCategoryDTO(), 3));
+      return Task.FromResult(Enumerable.Repeat(new TopCategoryDto(), 3));
     }
   }
 }

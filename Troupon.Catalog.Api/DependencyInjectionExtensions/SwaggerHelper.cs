@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -12,7 +11,6 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using Troupon.Catalog.Api.Authentication;
@@ -28,6 +26,7 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
       {
         cfg.AssumeDefaultVersionWhenUnspecified = true;
         cfg.DefaultApiVersion = new ApiVersion(1, 0);
+        cfg.ReportApiVersions = true;
       });
       services.AddVersionedApiExplorer();
 

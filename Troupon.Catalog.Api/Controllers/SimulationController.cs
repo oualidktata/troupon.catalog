@@ -22,30 +22,30 @@ namespace Troupon.Catalog.Api.Controllers
     {
     }
 
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpPost("HandleDealEventPublished")]
-    public async Task<ActionResult<DealDetailsDto>> Post([FromBody] UpdateDealViewCommand model, CancellationToken cancellationToken)
-    {
-      try
-      {
-        var result = await Mediator.Send(model, cancellationToken);
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    // [HttpPost("HandleDealEventPublished")]
+    // public async Task<ActionResult<DealDetailsDto>> Post([FromBody] UpdateDealViewCommand model, CancellationToken cancellationToken)
+    // {
+    //  try
+    //  {
+    //    var result = await Mediator.Send(model, cancellationToken);
 
-        // await Mediator.Publish<DealCreatedEvent>(new DealCreatedEvent());
-        // await DomainEvents.Raise(new DealCreatedEvent());
-        var idResult = new { id = result.Id };
-        return CreatedAtAction(
-            nameof(CatalogController.Get),
-            nameof(CatalogController),
-            idResult,
-            result);
-      }
-      catch (Exception exception)
-      {
-        return await Task.FromResult(
-          StatusCode(
-            StatusCodes.Status500InternalServerError,
-            exception));
-      }
-    }
+    // await Mediator.Publish<DealCreatedEvent>(new DealCreatedEvent());
+    //    await DomainEvents.Raise(new DealCreatedEvent());
+    //    var idResult = new { id = result.Id };
+    //    return CreatedAtAction(
+    //        nameof(CatalogController.Get),
+    //        nameof(CatalogController),
+    //        idResult,
+    //        result);
+    //  }
+    //  catch (Exception exception)
+    //  {
+    //    return await Task.FromResult(
+    //      StatusCode(
+    //        StatusCodes.Status500InternalServerError,
+    //        exception));
+    //  }
+    // }
   }
 }

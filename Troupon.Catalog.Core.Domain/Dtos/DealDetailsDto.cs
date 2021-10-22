@@ -8,22 +8,22 @@ namespace Troupon.Catalog.Core.Domain.Dtos
 {
   public record DealDetailsDto
   {
-    public Guid Id { get; set; }
-    public string Title { get; set; } = "";
-    public string Subtitle { get; set; } = "";
-    public string Highlights { get; set; } = "";
-    public string Description { get; set; } = "";
-    public IEnumerable<MultimediaDto> Images { get; set; } = Enumerable.Empty<MultimediaDto>();
-    public DateTime ExpirationDate { get; set; }
-    public DealStatus Status { get; set; }
-    public Guid AccountId { get; set; }
-    public string MerchantName { get; set; } = "";
-    public string Address { get; set; } = "";
-    public IEnumerable<CustomerReviewDto> CustomerReviews { get; set; } = Enumerable.Empty<CustomerReviewDto>();
-    public Position? Position { get; set; }
-    public string? Website { get; set; }
-    public IEnumerable<DealOptionDto> DealOptions { get; set; } = Enumerable.Empty<DealOptionDto>();
-    public int Views { get; set; }
+    public Guid Id { get; init; }
+    public string Title { get; init; } = "";
+    public string Subtitle { get; init; } = "";
+    public string Highlights { get; init; } = "";
+    public string Description { get; init; } = "";
+    public IEnumerable<MultimediaDto> Images { get; init; } = Enumerable.Empty<MultimediaDto>();
+    public DateTime ExpirationDate { get; init; }
+    public DealStatus Status { get; init; }
+    public Guid AccountId { get; init; }
+    public string MerchantName { get; init; } = "";
+    public string Address { get; init; } = "";
+    public IEnumerable<CustomerReviewDto> CustomerReviews { get; init; } = Enumerable.Empty<CustomerReviewDto>();
+    public Position? Position { get; init; }
+    public string? Website { get; init; }
+    public IEnumerable<DealOptionDto> DealOptions { get; init; } = Enumerable.Empty<DealOptionDto>();
+    public int Views { get; init; }
   }
 
   public record CustomerReviewDto

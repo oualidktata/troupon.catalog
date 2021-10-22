@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Troupon.Catalog.Core.Domain.Dtos
 {
-  public class TopCategoryDTO
+  public class TopCategoryDto
   {
     public string Description { get; set; } = "";
     public IEnumerable<CategoryDto> Categories { get; set; } = Enumerable.Empty<CategoryDto>();

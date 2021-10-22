@@ -1,23 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
-using Troupon.Catalog.Core.Domain.Dtos;
 using Troupon.Catalog.Core.Domain.Entities.Common;
 
 namespace Troupon.Catalog.Core.Domain.InputModels
-{   
-  public record DealsSearchFilter
-  (
-    string Location,
-    string? Query,    
-    IEnumerable<string>? Categories,
-    IEnumerable<string>? Cities,
-    IEnumerable<MinMax>? PriceRanges,
-    IEnumerable<MinMax>? DistanceRanges,
-    float? Rating,
-    bool? WithMapView,
-    DealsSortByEnum? SortBy,
-    IEnumerable<DealOptionDto>? DealOptions
-  );
+{
+  public record DealsSearchFilter : PaginatedFilter
+  {
+      public string Location { get; init; } = "";
+      public string? Query { get; init; }
+      public IEnumerable<string>? Categories { get; init; }
+      public IEnumerable<string>? Cities { get; init; }
+      public IEnumerable<MinMax>? PriceRanges { get; init; }
+      public IEnumerable<MinMax>? DistanceRanges { get; init; }
+      public float? Rating { get; init; }
+      public bool? WithMapView { get; init; }
+      public DealsSortByEnum? SortBy { get; init; }
+  }
+
 
   public enum DealsSortByEnum
   {
