@@ -21,8 +21,7 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
 {
   public static class SwaggerHelper
   {
-    public static IServiceCollection AddOpenApi(
-      this IServiceCollection services, IOAuthSettings apiKeySettings)
+    public static IServiceCollection AddOpenApi(this IServiceCollection services)
     {
       services.AddApiVersioning(cfg =>
       {
@@ -68,7 +67,7 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
           return true;
         });
 
-        Auth2FiltersAndSecurity(apiKeySettings, setup);
+        Auth2FiltersAndSecurity(setup);
 
         setup.EnableAnnotations();
         setup.IgnoreObsoleteActions();
@@ -97,13 +96,14 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
       return services;
     }
 
-    private static void Auth2FiltersAndSecurity(IOAuthSettings apiKeySettings, SwaggerGenOptions setup)
+    private static void Auth2FiltersAndSecurity(SwaggerGenOptions setup)
     {
       setup.SchemaFilter<SchemaFilter>();
 
       setup.MapType<FileContentResult>(() => new OpenApiSchema { Type = "string", Format = "binary" });
       setup.MapType<IFormFile>(() => new OpenApiSchema { Type = "string", Format = "binary" });
-      setup.AddBearerAuthentication(apiKeySettings);
+
+      setup.AddBearerAuthentication();
     }
 
     private static void ConfigureSwaggerGenPerVersion(SwaggerGenOptions setup, ApiVersionDescription description)

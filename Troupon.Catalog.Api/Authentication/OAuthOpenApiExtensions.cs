@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Infra.oAuthService;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 
 namespace Troupon.Catalog.Api.Authentication
@@ -16,7 +17,7 @@ namespace Troupon.Catalog.Api.Authentication
       flows.ClientCredentials = new OpenApiOAuthFlow()
       {
         TokenUrl = new Uri(
-          oAuthSettings.TokenUrl,
+          oAuthSettings.AuthorizeEndpoint,
           UriKind.Relative),
         Scopes = new Dictionary<string, string>()
         {
@@ -27,7 +28,7 @@ namespace Troupon.Catalog.Api.Authentication
       {
         Type = SecuritySchemeType.OAuth2,
         Description = "OAuth2 Description",
-        Name = oAuthSettings.AuthHeaderName,
+        Name = HeaderNames.Authorization,
         In = ParameterLocation.Query,
         Flows = flows,
         Scheme = oAuthSettings.Scheme,

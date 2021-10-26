@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -6,86 +7,169 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Infra.oAuthService;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
+using Troupon.Catalog.Api.Authentication.Jwt;
 
 namespace Troupon.Catalog.Api.Authentication
 {
   public class GenericAuthenticationHandler : AuthenticationHandler<TokenAuthenticationOptions>
   {
+    private IOAuthSettingsFactory AuthSettingsFactory { get; }
+
     public GenericAuthenticationHandler(
       IOptionsMonitor<TokenAuthenticationOptions> options,
       ILoggerFactory logger,
       UrlEncoder encoder,
-      ISystemClock clock)
-      : base(
-        options,
-        logger,
-        encoder,
-        clock)
+      ISystemClock clock,
+      IOAuthSettingsFactory authSettingsFactory)
+      : base(options, logger, encoder, clock)
     {
+      AuthSettingsFactory = authSettingsFactory;
     }
 
-    protected override Task<AuthenticateResult> HandleAuthenticateAsync()
+    protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
-      var headers = Request.Headers;
-
-      // TODO: was OAuthSettings.HeaderName, to inject once tested
-      var rawToken = headers.FirstOrDefault(x => x.Key == "Authorization");
-      var token = rawToken.Value;
-
-      if (string.IsNullOrEmpty(token))
+      if (AllowAnonymous())
       {
-        return Task.FromResult(AuthenticateResult.Fail("The provided token is null"));
+        return AuthenticateResult.NoResult();
       }
 
+      var token = Request.GetAuthorizationToken();
+      return await GenerateAuthenticationResult(token);
+    }
+
+    private bool AllowAnonymous()
+    {
+      var endpoint = Context.GetEndpoint();
+      return endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() != null;
+    }
+
+    private async Task<AuthenticateResult> GenerateAuthenticationResult(string token)
+    {
       try
       {
-        var validationParameters = new TokenValidationParameters();
-        validationParameters.ValidAudiences = this.Options.ValidAudiences;
-        validationParameters.ValidIssuer = this.Options.ValidIssuer;
-
-        var jwt = token.ToString()
-          .Replace(
-            "Bearer ",
-            string.Empty);
-        var securityToken = new JwtSecurityToken(jwt);
-
-        // var handler = new JwtSecurityTokenHandler();
-        if (securityToken.Issuer != validationParameters.ValidIssuer ||
-            securityToken.Audiences.All(c => !validationParameters.ValidAudiences.Contains(c)))
-        {
-          return Task.FromResult(AuthenticateResult.Fail($"Could not validate the token : for token={securityToken}"));
-        }
-
-        // Create Identity
-        var claims = new[]
-        {
-          new Claim(
-            "token",
-            token),
-          new Claim(
-            "TenantId",
-            "pwc"),
-
-          // new Claim(
-          //  ClaimTypes.Role,
-          //  "admin"),//consult DB to get Role claims and add them to the identity
-          // new Claim(ClaimTypes.NameIdentifier,new Guid().ToString())
-        };
-        var identity = new ClaimsIdentity(claims);
-
-        var ticket = new AuthenticationTicket(
-          new ClaimsPrincipal(identity),
-          new AuthenticationProperties(),
-          this.Scheme.Name);
-        return Task.FromResult(AuthenticateResult.Success(ticket));
+        var success = await Authenticate(token);
+        return AuthenticateResult.Success(success);
       }
-      catch (Exception ex)
+      catch (SecurityTokenValidationException ex)
       {
-        return Task.FromResult(AuthenticateResult.Fail($"Authentication Failed {ex.Message}"));
+        return AuthenticateResult.Fail(ex.Message);
       }
+    }
+
+    private async Task<AuthenticationTicket> Authenticate(string token)
+    {
+      var jwt = await ValidateToken(token);
+      AuthorizeClaims(jwt.Claims);
+      return GenerateAuthenticationTicket(jwt.Claims);
+    }
+
+    private async Task<JwtSecurityToken> ValidateToken(string token)
+    {
+      if (string.IsNullOrEmpty(token))
+      {
+        throw new SecurityTokenValidationException("Should provide token");
+      }
+
+      string issuer = GetTokenIssuer(token);
+
+      var validationParameters = await GetValidationParameters(issuer);
+      return ValidationWithParameters(token, validationParameters);
+    }
+
+    private string GetTokenIssuer(string token)
+    {
+      var handler = new JwtSecurityTokenHandler();
+      var jwt = handler.ReadJwtToken(token);
+      return jwt.Issuer;
+    }
+
+    private async Task<TokenValidationParameters> GetValidationParameters(string issuer)
+    {
+      var settings = AuthSettingsFactory.GetProviderForIssuer(issuer);
+
+      return TokenValidationParametersBuilder.Create()
+        .DefaultClockSkew()
+        .ValidateExpiration()
+        .ValidateSigninKey(await GetSigningKeys(issuer)) // TODO: Give the possibility to configure how to get signingKey
+        .ValidateAudiences(settings.Audiences)
+        .ValidateIssuers(settings.Issuer)
+        .Build();
+    }
+
+    // TODO: Make it possible to Cache the result
+    private async Task<IEnumerable<SecurityKey>> GetSigningKeys(string issuer)
+    {
+      var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
+                issuer + "/.well-known/oauth-authorization-server",
+                new OpenIdConnectConfigurationRetriever(),
+                new HttpDocumentRetriever());
+
+      var discoveryDocument = await configurationManager.GetConfigurationAsync();
+
+      return discoveryDocument.SigningKeys;
+    }
+
+    private static JwtSecurityToken ValidationWithParameters(string token, TokenValidationParameters validationParameters)
+    {
+      var validatedJwt = ValidateWithJwtSecurityTokenHandler(token, validationParameters);
+      EnsureSignedWithSha256(validatedJwt);
+      return validatedJwt;
+    }
+
+    private static JwtSecurityToken ValidateWithJwtSecurityTokenHandler(string token, TokenValidationParameters validationParameters)
+    {
+      var handler = new JwtSecurityTokenHandler();
+      handler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
+      return (JwtSecurityToken)securityToken;
+    }
+
+    private static void EnsureSignedWithSha256(JwtSecurityToken validatedJwt)
+    {
+      // Okta uses RS256
+      // https://developer.okta.com/code/dotnet/jwt-validation/#additional-validation-for-access-tokens
+      var expectedAlg = SecurityAlgorithms.RsaSha256;
+      if (validatedJwt.Header?.Alg == null || validatedJwt.Header?.Alg != expectedAlg)
+      {
+        throw new SecurityTokenValidationException("The security algorithm must be RsaSha256");
+      }
+    }
+
+    private void AuthorizeClaims(IEnumerable<Claim> claims)
+    {
+      var scopes = claims.ExtractScopes();
+
+      // TODO: Give the possibility to be configurable, by adding validation, based on the application
+      if (!scopes.Contains("arai"))
+      {
+        throw new SecurityTokenValidationException("Need \"arai\" scope to be authorized");
+      }
+    }
+
+    private AuthenticationTicket GenerateAuthenticationTicket(IEnumerable<Claim> tokenClaims)
+    {
+      var claims = tokenClaims.ToList();
+
+      // TODO: Give possibility to be configurable, by adding claims, based on the applicaiton
+      claims.Add(new Claim("TenantId", "pwc"));
+      if (claims.Any(c => c.Type == "scp" && c.Value == "admin"))
+      {
+        claims.Add(new Claim(ClaimTypes.Role, "admin"));
+      }
+      else
+      {
+        claims.Add(new Claim(ClaimTypes.Role, "user"));
+      }
+
+      var identity = new ClaimsIdentity(claims, Scheme.Name);
+      var principal = new ClaimsPrincipal(identity);
+      return new AuthenticationTicket(principal, Scheme.Name);
     }
   }
 }

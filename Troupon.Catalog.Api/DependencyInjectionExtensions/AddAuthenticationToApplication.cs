@@ -3,9 +3,6 @@
 
 using Infra.oAuthService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Troupon.Catalog.Api.Authentication;
 
@@ -17,7 +14,7 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
     //{
 
     //    var apiKeySettings = new OAuthSettings ();
-    //    configuration.GetSection("Auth:KeyCloackProvider").Bind(apiKeySettings);
+    //    configuration.GetSection("OAuth:KeyCloackProvider").Bind(apiKeySettings);
 
     //    services.AddScoped<IAuthService>(service => new KeyCloackAuthService(apiKeySettings));
 
@@ -59,50 +56,14 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
 
     //    return services;
     //}
-    public static IServiceCollection AddAuthenticationToApplication(
-      this IServiceCollection services,
-      IAuthService authenticationService,
-      IConfiguration configuration,
-      IWebHostEnvironment env)
+    public static IServiceCollection AddAuthenticationToApplication(this IServiceCollection services)
     {
-      services.AddAuthentication(
-          options =>
-          {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-          })
-        .AddScheme<TokenAuthenticationOptions, GenericAuthenticationHandler>(
-          authenticationService.Settings.Scheme,
-          options =>
-          {
-            options.ValidAudiences = authenticationService.Settings.Audiences;
-            options.ValidIssuer = authenticationService.Settings.Issuer;
-          });
-
-      //    .AddJwtBearer(o =>
-      //{
-      //  o.Authority = configuration["Jwt:Authority"];
-      //  o.Audience = configuration["Jwt:Audience"];
-      //  o.RequireHttpsMetadata = false;
-
-      //  o.Events = new JwtBearerEvents()
-      //  {
-      //    OnAuthenticationFailed = c =>
-      //    {
-      //      c.NoResult();
-
-      //      c.Response.StatusCode = 500;
-      //      c.Response.ContentType = "text/plain";
-
-      //      //if (env.IsDevelopment())
-      //      //{
-      //      //  return c.Response.WriteAsync(c.Exception.ToString());
-      //      //}
-
-      //      return c.Response.WriteAsync("An error occured processing your authentication with KeyCloak (RedHatSSO).");
-      //    }
-      //  };
-      //});
+      services.AddAuthentication(options =>
+      {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      })
+      .AddScheme<TokenAuthenticationOptions, GenericAuthenticationHandler>(JwtBearerDefaults.AuthenticationScheme, null);
 
       return services;
     }
