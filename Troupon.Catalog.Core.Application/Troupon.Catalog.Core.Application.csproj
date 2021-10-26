@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Troupon.Catalog.Infra.Persistance\Troupon.Catalog.Infra.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Behaviors\" />
+  </ItemGroup>
+
 </Project>

@@ -13,18 +13,15 @@ using FluentResults;
 using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Troupon.Catalog.Integration.Tests;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Troupon.Catalog.Infra.Persistence;
 using Respawn;
 using System.Linq;
-using Infra.Persistence.SqlServer.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 public class SetupFixture : IClassFixture<WebApplicationFactory<Startup>>
 {
-
   protected string BaseUri => "https://localhost:5001/api/catalog";
   protected readonly WebApplicationFactory<Startup> Factory;
   protected static IServiceScopeFactory _scopeFactory;
