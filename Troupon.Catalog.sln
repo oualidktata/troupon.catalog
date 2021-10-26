@@ -63,6 +63,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Persistence.Dapper", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Persistence.Dapper.Extensions", "Infrastructure\Infra.Persistence\Infra.Persistence.Dapper.Extensions\Infra.Persistence.Dapper.Extensions.csproj", "{97A1F02B-6F33-4914-BD4C-4A40A324E55C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exceptions", "Exceptions", "{3C7F1572-041F-4574-96AC-AA2D66B86C1F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Exceptions.ExceptionHandling.Extensions", "Infra.Exceptions.ExceptionHandling.Extensions\Infra.Exceptions.ExceptionHandling.Extensions.csproj", "{B02115FD-8EAA-48A3-BF91-10A701CEB92F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Exceptions.ExceptionHandling", "Infra.Exceptions.ExceptionHandling\Infra.Exceptions.ExceptionHandling.csproj", "{1417F516-157F-4D9D-A301-E46F83A054C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -161,6 +167,14 @@ Global
 		{97A1F02B-6F33-4914-BD4C-4A40A324E55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97A1F02B-6F33-4914-BD4C-4A40A324E55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97A1F02B-6F33-4914-BD4C-4A40A324E55C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B02115FD-8EAA-48A3-BF91-10A701CEB92F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B02115FD-8EAA-48A3-BF91-10A701CEB92F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B02115FD-8EAA-48A3-BF91-10A701CEB92F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B02115FD-8EAA-48A3-BF91-10A701CEB92F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1417F516-157F-4D9D-A301-E46F83A054C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1417F516-157F-4D9D-A301-E46F83A054C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1417F516-157F-4D9D-A301-E46F83A054C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1417F516-157F-4D9D-A301-E46F83A054C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -192,6 +206,9 @@ Global
 		{118D9665-D815-40D8-BCE6-4AD3DD958E9F} = {E28A09B9-E9C8-4966-8C7A-59E8DBB83FA1}
 		{00C9F16D-BE45-495A-B79D-B82FA017F7B6} = {44F08FF2-DFC3-49E2-A0CF-88AD3B572B78}
 		{97A1F02B-6F33-4914-BD4C-4A40A324E55C} = {44F08FF2-DFC3-49E2-A0CF-88AD3B572B78}
+		{3C7F1572-041F-4574-96AC-AA2D66B86C1F} = {2AAC66A3-6D24-43DB-9E0F-23A8FDB05DFC}
+		{B02115FD-8EAA-48A3-BF91-10A701CEB92F} = {3C7F1572-041F-4574-96AC-AA2D66B86C1F}
+		{1417F516-157F-4D9D-A301-E46F83A054C8} = {3C7F1572-041F-4574-96AC-AA2D66B86C1F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63F4EA02-B9BA-404B-9773-D9585A8D5964}

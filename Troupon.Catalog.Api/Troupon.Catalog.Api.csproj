@@ -99,6 +99,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Infra.Exceptions.ExceptionHandling.Extensions\Infra.Exceptions.ExceptionHandling.Extensions.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Authentication.Service\Infra.OAuthService\Infra.oAuthService.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Caching.Extensions\Infra.MediatR.Caching.Extensions.csproj" />
@@ -135,6 +136,10 @@
     <None Include="$(SolutionDir)\Infrastructure\StyleCop\stylecop.json">
       <Link>stylecop.json</Link>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ErrorHandling\" />
   </ItemGroup>
 
 </Project>

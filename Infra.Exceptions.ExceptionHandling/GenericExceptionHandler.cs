@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Troupon.Catalog.Api.ErrorHandling
+namespace Infra.Exceptions.ExceptionHandling
 {
   public class GenericExceptionHandler : IGenericExceptionHandler
   {
@@ -17,19 +12,21 @@ namespace Troupon.Catalog.Api.ErrorHandling
       this.serviceProvider = serviceProvider;
     }
 
-    public ProblemDetails Handle(HttpContext httpContext)
+    ProblemDetails IGenericExceptionHandler.Handle(Exception? exception)
     {
-      var context = httpContext.Features.Get<IExceptionHandlerPathFeature>();
-      var error = context?.Error;
+      throw new NotImplementedException();
+    }
 
+    public ProblemDetails Handle(Exception? exception)
+    {
       // error should never be null but we have to check anyway
-      if (error != null && error is DomainException)
+      if (exception != null && exception is DomainException)
       {
-        return HandleDomainExceptions((DomainException)error);
+        return HandleDomainExceptions((DomainException)exception);
       }
       else
       {
-        return HandleOtherExceptions(error);
+        return HandleOtherExceptions(exception);
       }
     }
 
@@ -47,14 +44,9 @@ namespace Troupon.Catalog.Api.ErrorHandling
       return specificHandler.Handle(exception);
     }
 
-    public ProblemDetails HandleOtherExceptions(Exception exception)
+    public static ProblemDetails HandleOtherExceptions(Exception? exception)
     {
       return new ProblemDetails();
     }
-  }
-
-  public interface IGenericExceptionHandler
-  {
-    ProblemDetails Handle(HttpContext httpContext);
   }
 }

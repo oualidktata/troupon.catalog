@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 using HealthChecks.UI.Client;
+using Infra.Exceptions.ExceptionHandling.Extensions;
 using Infra.oAuthService;
 using Infra.Persistence.Dapper.Extensions;
 using Infra.Persistence.EntityFramework.Extensions;
@@ -57,6 +58,8 @@ namespace Troupon.Catalog.Api
           options.AddPolicy("tenant-policy", pb => pb.AddTenantPolicy("pwc"));
         });
 
+      // TODO: Ajouter le bon assembly ici
+      services.AddDomainExceptionHandlers(TelHandler.Assembly);
       services.AddScoped<IAuthorizationHandler, RequireTenantClaimHandler>();
       services.AddAutoMapper(
         typeof(AutomapperProfile));
@@ -83,10 +86,10 @@ namespace Troupon.Catalog.Api
       });
     }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
-      app.UseExceptionHandler("/error");
+      app.UseErrorHandling();
 
       app.UseHttpsRedirection();
       app.UseSerilogRequestLogging();
