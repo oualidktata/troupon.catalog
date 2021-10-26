@@ -1,8 +1,7 @@
-﻿using FluentValidation;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using Troupon.Catalog.Core.Domain.InputModels;
 
-namespace Troupon.Catalog.Api.DependencyInjectionExtensions
+namespace Troupon.Catalog.Api.FluentValidatonToMove
 {
   public static class AddFluentValidatonExtensions
   {

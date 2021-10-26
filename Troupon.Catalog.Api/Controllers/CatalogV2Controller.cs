@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Infra.Api.Conventions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Troupon.Catalog.Api.Conventions;
 using Troupon.Catalog.Core.Application.Queries.Deals;
 using Troupon.Catalog.Core.Domain.Dtos;
 using Troupon.Catalog.Core.Domain.InputModels;
@@ -18,7 +18,7 @@ namespace Troupon.Catalog.Api.Controllers
   [Route("api/v{version:apiVersion}/[controller]")]
   [ApiVersion("2.0")]
   [ApiConventionType(typeof(PwcApiConventions))]
-  public class CatalogV2Controller : BaseController
+  public class CatalogV2Controller : PwcBaseController
   {
     public CatalogV2Controller(IMapper mapper, IMediator mediator)
         : base(mediator, mapper)
