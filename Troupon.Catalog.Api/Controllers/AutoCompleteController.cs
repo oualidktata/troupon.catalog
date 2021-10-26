@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Infra.Api;
+using Infra.Api.Conventions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Troupon.Catalog.Api.Conventions;
 
 namespace Troupon.Catalog.Api.Controllers
 {
@@ -12,7 +13,7 @@ namespace Troupon.Catalog.Api.Controllers
   [Route("api/v{version:apiVersion}/[controller]")]
   [ApiVersion("1.0")]
   [ApiConventionType(typeof(PwcApiConventions))]
-  public class AutoCompleteController : BaseController
+  public class AutoCompleteController : PwcBaseController
   {
     public AutoCompleteController(IMediator mediator, IMapper mapper)
         : base(mediator, mapper)

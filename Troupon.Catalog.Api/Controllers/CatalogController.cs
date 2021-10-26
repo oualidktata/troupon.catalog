@@ -4,13 +4,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentResults;
+using Infra.Api;
+using Infra.Api.Conventions;
+using Infra.Authorization.Policies;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Swashbuckle.AspNetCore.Annotations;
-using Troupon.Catalog.Api.Conventions;
 using Troupon.Catalog.Core.Application.Queries.Deals;
 using Troupon.Catalog.Core.Domain.Dtos;
 using Troupon.Catalog.Core.Domain.InputModels;
@@ -20,7 +22,7 @@ namespace Troupon.Catalog.Api.Controllers
   [ApiController]
   [Route("api/v{version:apiVersion}/[controller]")]
   [ApiConventionType(typeof(PwcApiConventions))]
-  public class CatalogController : BaseController
+  public class CatalogController : PwcBaseController
   {
     public CatalogController(IMapper mapper, IMediator mediator)
       : base(mediator, mapper)
@@ -31,7 +33,7 @@ namespace Troupon.Catalog.Api.Controllers
       Description = "Returns all active Deals",
       OperationId = "SearchDeals",
       Tags = new[] { "Search" })]
-    [Authorize(Policy = "tenant-policy")]
+    [Authorize(Policy = TenantPolicy.Key)]
     [HttpPost("search")]
     public async Task<ActionResult<IEnumerable<SearchDealResponseDto>>> Search([FromBody, BindRequired] SearchDealsFilter filter, CancellationToken cancellationToken)
     {
