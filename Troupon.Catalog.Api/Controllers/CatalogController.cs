@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentResults;
+using Infra.Api;
 using Infra.Api.Conventions;
 using Infra.Authorization.Policies;
 using MediatR;

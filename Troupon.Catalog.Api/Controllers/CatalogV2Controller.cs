@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Infra.Api;
 using Infra.Api.Conventions;
 using MediatR;
 using Microsoft.AspNetCore.Http;

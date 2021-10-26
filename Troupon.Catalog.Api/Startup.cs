@@ -58,7 +58,9 @@ namespace Troupon.Catalog.Api
         Assembly.GetExecutingAssembly().GetName().Name);
 
       services.AddControllers()
-       .AddNewtonsoftJson()
+       .AddNewtonsoftJson();
+
+      services.AddControllers()
        .AddApplicationPart(typeof(OAuthController).Assembly)
        .AddControllersAsServices();
 
