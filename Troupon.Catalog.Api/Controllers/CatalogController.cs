@@ -20,6 +20,7 @@ using Troupon.Catalog.Core.Domain.InputModels;
 namespace Troupon.Catalog.Api.Controllers
 {
   [ApiController]
+  [ApiVersion("1.0")]
   [Route("api/v{version:apiVersion}/[controller]")]
   [ApiConventionType(typeof(PwcApiConventions))]
   public class CatalogController : PwcBaseController

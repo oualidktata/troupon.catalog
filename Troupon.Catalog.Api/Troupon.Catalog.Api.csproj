@@ -120,6 +120,7 @@
     <ProjectReference Include="..\Infrastructure\Infra.Persistence\Infra.Persistence.EntityFramework\Infra.Persistence.EntityFramework.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Persistence\Infra.Persistence.SqlServer.Extensions\Infra.Persistence.SqlServer.Extensions.csproj" />
     <ProjectReference Include="..\Troupon.Catalog.Core.Application\Troupon.Catalog.Core.Application.csproj" />
+    <ProjectReference Include="..\Troupon.Catalog.Core.Domain\Troupon.Catalog.Core.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
