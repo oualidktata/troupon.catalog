@@ -7,10 +7,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Infra.Exceptions.ExceptionHandling.Controllers\Infra.Exceptions.ExceptionHandling.Controllers.csproj" />
     <ProjectReference Include="..\Infra.Exceptions.ExceptionHandling\Infra.Exceptions.ExceptionHandling.csproj" />
   </ItemGroup>
 

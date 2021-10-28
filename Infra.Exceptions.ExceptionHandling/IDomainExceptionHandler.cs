@@ -9,6 +9,6 @@ namespace Infra.Exceptions.ExceptionHandling
   public interface IDomainExceptionHandler<T>
     where T : DomainException
   {
-    ProblemDetails Handle(T exception);
+    ProblemDetails Handle(T exception, bool showDetails);
   }
 }

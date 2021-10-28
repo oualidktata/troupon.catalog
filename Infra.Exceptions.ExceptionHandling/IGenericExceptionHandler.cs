@@ -5,6 +5,6 @@ namespace Infra.Exceptions.ExceptionHandling
 {
   public interface IGenericExceptionHandler
   {
-    ProblemDetails Handle(Exception? exception);
+    ProblemDetails Handle(Exception exception);
   }
 }

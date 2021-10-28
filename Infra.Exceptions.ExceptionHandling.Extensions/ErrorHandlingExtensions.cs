@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Reflection;
+using Infra.Exceptions.ExceptionHandling.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +15,11 @@ namespace Infra.Exceptions.ExceptionHandling.Extensions
       {
         services.AddSingleton(type);
       }
+    }
+
+    public static void AddExceptionHandling(this IServiceCollection services)
+    {
+      services.AddSingleton<IGenericExceptionHandler, GenericWebExceptionHandler>();
     }
 
     public static void UseErrorHandling(this IApplicationBuilder app)
