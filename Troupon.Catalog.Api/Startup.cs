@@ -1,6 +1,8 @@
 using System;
 using System.Reflection;
 using Infra.Authorization.Policies;
+using Infra.Exceptions.ExceptionHandling.Controllers;
+using Infra.Exceptions.ExceptionHandling.Extensions;
 using Infra.MediatR;
 using Infra.OAuth;
 using Infra.OAuth.Controllers;
@@ -8,7 +10,9 @@ using Infra.OAuth.Introspection;
 using Infra.Persistence.Dapper.Extensions;
 using Infra.Persistence.EntityFramework.Extensions;
 using Infra.Persistence.SqlServer.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -19,6 +23,7 @@ using Serilog;
 using Troupon.Catalog.Api.DependencyInjectionExtensions;
 using Troupon.Catalog.Api.FluentValidatonToMove;
 using Troupon.Catalog.Core.Application.Queries.Deals;
+using Troupon.Catalog.Core.Domain.Exceptions;
 using Troupon.Catalog.Infra.Persistence;
 
 namespace Troupon.Catalog.Api
@@ -41,9 +46,15 @@ namespace Troupon.Catalog.Api
       services.AddSingleton<IOAuthSettingsFactory>(sp => new OAuthSettingsFactory(Configuration));
       services.AddScoped<IM2MOAuthFlowService, M2MOAuthFlowService>();
       services.AddOAuthGenericAuthentication();
-      // TODO: Ajouter le bon assembly ici
-      services.AddDomainExceptionHandlers(TelHandler.Assembly);
-      services.AddScoped<IAuthorizationHandler, RequireTenantClaimHandler>();
+
+      services.AddExceptionHandling();
+
+      services.AddDomainExceptionHandlers(typeof(POCDomainExceptionHandler).Assembly);
+      services.AddControllers()
+       .AddApplicationPart(typeof(ErrorController).Assembly)
+       .AddControllersAsServices();
+
+      // services.AddScoped<IAuthorizationHandler, RequireTenantClaimHandler>();
       services.AddAutoMapper(
         typeof(AutomapperProfile));
 
@@ -77,7 +88,6 @@ namespace Troupon.Catalog.Api
       services.AddFluentValidaton();
       services.AddMemoryCache();
       services.AddDapperPersistence("mainDatabaseConnStr");
-
       services.Configure<MvcOptions>(o =>
       {
         o.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
@@ -86,10 +96,11 @@ namespace Troupon.Catalog.Api
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
+    public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory, IWebHostEnvironment env)
     {
-      app.UseErrorHandling();
+      app.UseMiddleware<CustomMiddleware>();
 
+      app.UseErrorHandling();
       app.UseHttpsRedirection();
       app.UseSerilogRequestLogging();
 
