@@ -69,9 +69,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.OAuth.Controllers", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Authorization.Policies", "Infrastructure\Infra.Authentication.Service\Infra.Authorization.Policies\Infra.Authorization.Policies.csproj", "{FB3A42A2-6660-470D-A860-90C351EE1BFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Api.SwaggerGen", "Infrastructure\Infra.Api\Infra.Api.SwaggerGen\Infra.Api.SwaggerGen.csproj", "{3CE92E4C-FB61-4A71-AE45-BE4F500892E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Api.SwaggerGen", "Infrastructure\Infra.Api\Infra.Api.SwaggerGen\Infra.Api.SwaggerGen.csproj", "{3CE92E4C-FB61-4A71-AE45-BE4F500892E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.MediatR", "Infrastructure\Infra.MediatR\Infra.MediatR\Infra.MediatR.csproj", "{F97022C1-8D9D-4B42-8CD5-623965C4F971}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.MediatR", "Infrastructure\Infra.MediatR\Infra.MediatR\Infra.MediatR.csproj", "{F97022C1-8D9D-4B42-8CD5-623965C4F971}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{4BD68BC3-FEB3-42FE-989D-6D2319F8FE45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Features", "Infrastructure\Infra.Features\Infra.Features.csproj", "{BB28C434-3398-4197-8473-311346050FEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -187,6 +191,10 @@ Global
 		{F97022C1-8D9D-4B42-8CD5-623965C4F971}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F97022C1-8D9D-4B42-8CD5-623965C4F971}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F97022C1-8D9D-4B42-8CD5-623965C4F971}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB28C434-3398-4197-8473-311346050FEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB28C434-3398-4197-8473-311346050FEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB28C434-3398-4197-8473-311346050FEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB28C434-3398-4197-8473-311346050FEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -223,6 +231,8 @@ Global
 		{FB3A42A2-6660-470D-A860-90C351EE1BFA} = {CB32E531-01E9-480B-B2AD-2D50E1B2EB92}
 		{3CE92E4C-FB61-4A71-AE45-BE4F500892E7} = {C126CB3A-6DBB-46F9-A488-AD783106BB6D}
 		{F97022C1-8D9D-4B42-8CD5-623965C4F971} = {E28A09B9-E9C8-4966-8C7A-59E8DBB83FA1}
+		{4BD68BC3-FEB3-42FE-989D-6D2319F8FE45} = {2AAC66A3-6D24-43DB-9E0F-23A8FDB05DFC}
+		{BB28C434-3398-4197-8473-311346050FEC} = {4BD68BC3-FEB3-42FE-989D-6D2319F8FE45}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63F4EA02-B9BA-404B-9773-D9585A8D5964}
