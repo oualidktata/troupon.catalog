@@ -1,75 +1,76 @@
+using System;
 using System.Reflection;
-using System.Text.Json;
-using System.Threading.Tasks;
-using HealthChecks.UI.Client;
-using Infra.oAuthService;
+using Infra.Authorization.Policies;
+using Infra.MediatR;
+using Infra.OAuth;
+using Infra.OAuth.Controllers;
+using Infra.OAuth.Introspection;
 using Infra.Persistence.Dapper.Extensions;
 using Infra.Persistence.EntityFramework.Extensions;
 using Infra.Persistence.SqlServer.Extensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.FeatureManagement;
 using Serilog;
 using Troupon.Catalog.Api.DependencyInjectionExtensions;
-using Troupon.Catalog.Core.Application;
+using Troupon.Catalog.Api.FluentValidatonToMove;
+using Troupon.Catalog.Core.Application.Queries.Deals;
 using Troupon.Catalog.Infra.Persistence;
 
 namespace Troupon.Catalog.Api
 {
   public class Startup
   {
-    public Startup(
-      IConfiguration configuration,
-      IWebHostEnvironment hostEnvironment)
+    public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
-      HostEnvironment = hostEnvironment;
-      AuthSettings = new OAuthSettings();
-      Configuration.GetSection($"Auth:{Configuration.GetValue<string>("Auth:DefaultAuthProvider")}")
-        .Bind(AuthSettings);
     }
-
-    private IOAuthSettings AuthSettings { get; }
 
     private IConfiguration Configuration { get; }
 
-    private IWebHostEnvironment HostEnvironment { get; }
-
     // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(
-      IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
     {
-      services.AddScoped<IAuthService>(service => new AuthService(AuthSettings));
-      IAuthService authService = services.BuildServiceProvider().GetRequiredService<IAuthService>(); // TODO: Try another way to avoid BuildServiceProvider(not a priority)...
-      services.AddAuthenticationToApplication(authService, Configuration, HostEnvironment);
-      services.AddAuthorization(
-        options =>
-        {
-          options.AddPolicy("tenant-policy", pb => pb.AddTenantPolicy("pwc"));
-        });
+      services.AddHttpContextAccessor();
+      services.AddScoped<IJwtIntrospector, JwtIntrospector>();
 
-      services.AddScoped<IAuthorizationHandler, RequireTenantClaimHandler>();
-      services.AddAutoMapper(
-        typeof(AutomapperProfile));
+      services.AddSingleton<IOAuthSettingsFactory>(sp => new OAuthSettingsFactory(Configuration));
+      services.AddScoped<IM2MOAuthFlowService, M2MOAuthFlowService>();
 
-      services.AddMediator();
+      services.AddFeatureManagement();
+
+      services.AddOAuthGenericAuthentication();
+
+      services.AddAuthorization(options =>
+      {
+        options.AddPolicy(TenantPolicy.Key, pb => pb.AddTenantPolicy("pwc"));
+        options.AddPolicy(AdminOnlyPolicy.Key, pb => pb.AddAdminOnlyPolicy());
+      });
+
+      services.AddPolicyHandlers();
+
+      services.AddAutoMapper(typeof(AutomapperProfile));
+
+      services.AddMediator(typeof(GetDealsQuery).Assembly);
       services.AddSqlServerPersistence<CatalogDbContext>(
         Configuration,
         "mainDatabaseConnStr",
         Assembly.GetExecutingAssembly().GetName().Name);
+
       services.AddControllers()
-        .AddNewtonsoftJson();
+       .AddNewtonsoftJson();
+
+      services.AddControllers()
+       .AddApplicationPart(typeof(OAuthController).Assembly)
+       .AddControllersAsServices();
+
       services.AddEfReadRepository<CatalogDbContext>();
       services.AddEfWriteRepository<CatalogDbContext>();
-      services.AddOpenApi(AuthSettings);
+      services.AddOpenApi(Assembly.GetExecutingAssembly());
       services.AddMetrics();
       services.AddFluentValidaton();
       services.AddMemoryCache();
@@ -83,7 +84,7 @@ namespace Troupon.Catalog.Api
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
+    public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
       app.UseExceptionHandler("/error");
       app.UseHttpsRedirection();
@@ -97,12 +98,20 @@ namespace Troupon.Catalog.Api
 
       // app.UsePlayground();
       app.UseSwagger();
-      app.ConfigureSwaggerUI(apiVersionDescriptionProvider, AuthSettings);
+
+      var factory = serviceProvider.GetRequiredService<IOAuthSettingsFactory>();
+      app.ConfigureSwaggerUI(apiVersionDescriptionProvider, factory.GetDefaultMachineToMachine());
+
       app.UseRouting();
+
       app.UseAuthentication();
       app.UseAuthorization();
+
       app.UseEndpoints(
-        endpoints => { endpoints.MapControllers(); });
+        endpoints =>
+        {
+          endpoints.MapControllers();
+        });
     }
   }
 }

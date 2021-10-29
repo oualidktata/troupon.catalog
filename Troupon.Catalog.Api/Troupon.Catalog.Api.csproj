@@ -63,6 +63,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="2.4.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NSwag.ApiDescription.Client" Version="13.11.0">
@@ -85,8 +86,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -94,12 +93,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\Infra.Authentication.Service\Infra.OAuthService\Infra.oAuthService.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infra.Api\Infra.Api.SwaggerGen\Infra.Api.SwaggerGen.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infra.Api\Infra.Api\Infra.Api.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infra.Authentication.Service\Infra.Authorization.Policies\Infra.Authorization.Policies.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infra.Authentication.Service\Infra.OAuth.Controllers\Infra.OAuth.Controllers.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infra.Authentication.Service\Infra.OAuth\Infra.OAuth.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Caching.Extensions\Infra.MediatR.Caching.Extensions.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Caching\Infra.MediatR.Caching.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Logging.Extensions\Infra.MediatR.Logging.Extensions.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Logging\Infra.MediatR.Logging.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR\Infra.MediatR.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Persistence\Infra.Persistence.Dapper.Extensions\Infra.Persistence.Dapper.Extensions.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Persistence\Infra.Persistence\Infra.Persistence.csproj" />
 
@@ -110,10 +114,6 @@
     <ProjectReference Include="..\Infrastructure\Infra.Persistence\Infra.Persistence.EntityFramework\Infra.Persistence.EntityFramework.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Persistence\Infra.Persistence.SqlServer.Extensions\Infra.Persistence.SqlServer.Extensions.csproj" />
     <ProjectReference Include="..\Troupon.Catalog.Core.Application\Troupon.Catalog.Core.Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="logs\logJson.json" />
   </ItemGroup>
 
   <PropertyGroup>
