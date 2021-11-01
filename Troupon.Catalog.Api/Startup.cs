@@ -89,14 +89,6 @@ namespace Troupon.Catalog.Api
       app.UseExceptionHandler("/error");
       app.UseHttpsRedirection();
       app.UseSerilogRequestLogging();
-
-      // app.UsePathBase("/graphql");
-
-      // catalogDbContext.Database.EnsureDeleted();
-      // var catalogDbContext = dbContextFactory.CreateDbContext();
-      // catalogDbContext.Database.Migrate();
-
-      // app.UsePlayground();
       app.UseSwagger();
 
       var factory = serviceProvider.GetRequiredService<IOAuthSettingsFactory>();

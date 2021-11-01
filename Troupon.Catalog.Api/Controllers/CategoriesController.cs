@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Infra.Api;
+using Infra.Api.Conventions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Troupon.Catalog.Api.Conventions;
 using Troupon.Catalog.Core.Domain.Dtos;
 
 namespace Troupon.Catalog.Api.Controllers
@@ -14,7 +15,7 @@ namespace Troupon.Catalog.Api.Controllers
   [Route("api/v{version:apiVersion}/[controller]")]
   [ApiVersion("1.0")]
   [ApiConventionType(typeof(PwcApiConventions))]
-  public class CategoriesController : BaseController
+  public class CategoriesController : PwcBaseController
   {
     public CategoriesController(IMediator mediator, IMapper mapper)
       : base(mediator, mapper)

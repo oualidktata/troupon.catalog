@@ -3,7 +3,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Infra.oAuthService;
+using Infra.Api.SwaggerGen;
+using Infra.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using Troupon.Catalog.Api.Authentication;
 
 namespace Troupon.Catalog.Api.DependencyInjectionExtensions
 {
@@ -102,7 +102,7 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
 
       setup.MapType<FileContentResult>(() => new OpenApiSchema { Type = "string", Format = "binary" });
       setup.MapType<IFormFile>(() => new OpenApiSchema { Type = "string", Format = "binary" });
-      setup.AddBearerAuthentication(apiKeySettings);
+      setup.AddOAuthSecurity(apiKeySettings);
     }
 
     private static void ConfigureSwaggerGenPerVersion(SwaggerGenOptions setup, ApiVersionDescription description)
@@ -125,55 +125,11 @@ namespace Troupon.Catalog.Api.DependencyInjectionExtensions
       });
     }
 
-    public static void ConfigureSwaggerUI(this IApplicationBuilder app, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IOAuthSettings authSettings)
-    {
-      app.UseSwaggerUI(setup =>
-      {
-        foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
-        {
-          setup.SwaggerEndpoint($"/swagger/{description.ApiVersion}/swagger.json", $"Troupon Catalog Specification{description.ApiVersion.ToString()}");
-          setup.RoutePrefix = string.Empty;
-        }
-
-        setup.RoutePrefix = string.Empty;
-        AddOAuth2(authSettings, setup);
-      });
-    }
-
     private static void AddOAuth2(IOAuthSettings authSettings, SwaggerUIOptions setup)
     {
-      // setup.OAuthUseBasicAuthenticationWithAccessCodeGrant();
-      // setup.OAuth2RedirectUrl(OAuthSettings.ClientId);
       setup.OAuthClientId(authSettings.ClientId);
       setup.OAuthClientSecret(authSettings.ClientSecret);
       setup.OAuthAppName("Portal Api");
-
-      // TODO: remove additional querystring, testing purposes
-      // var clientCreds = System.Text.Encoding.UTF8.GetBytes($"{OAuthSettings.ClientId}:{OAuthSettings.ClientSecret}");
-      // setup.OAuthAdditionalQueryStringParams( new Dictionary<string, string> { { OAuthSettings.AuthHeaderName,$"Basic {System.Convert.ToBase64String(clientCreds)}" } } );
-      // setup.OAuth2RedirectUrl(new Uri(OAuthSettings.CallBackUrl, UriKind.Relative).ToString());
-      // setup.OAuthAdditionalQueryStringParams( new Dictionary<string, string> { { "client_id",OAuthSettings.ClientId } } );
     }
-
-    // private static void ApplyDocInclusions(SwaggerGenOptions swaggerGenOptions)
-    // {
-    //  swaggerGenOptions.DocInclusionPredicate((docName, apiDesc) =>
-    //  {
-    //    var versions = apiDesc.CustomAttributes()
-    //        .OfType<ApiVersionAttribute>()
-    //        .SelectMany(attr => attr.Versions);
-    //    return versions.Any(v => $"v{v.ToString()}" == docName);
-    //  });
-    // }
-    // private static IEnumerable<string> GetApiVersions(Assembly webApiAssembly)
-    // {
-    //  var apiVersion = webApiAssembly.DefinedTypes
-    //      .Where(x => x.IsSubclassOf(typeof(Controller)) && x.GetCustomAttributes<ApiVersionAttribute>().Any())
-    //      .Select(y => y.GetCustomAttribute<ApiVersionAttribute>())
-    //      .SelectMany(v => v.Versions)
-    //      .Distinct()
-    //      .OrderBy(x => x);
-    //  return apiVersion.Select(x => x.ToString());
-    // }
   }
 }
