@@ -3,7 +3,7 @@ using Troupon.Catalog.Core.Domain.Entities.Common;
 
 namespace Troupon.Catalog.Core.Domain.Dtos
 {
-  public record DealDto
+  public class DealDto
   {
     public Guid Id { get; init; }
     public MultimediaDto? Image { get; init; }

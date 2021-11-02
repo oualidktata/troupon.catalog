@@ -3,7 +3,7 @@ using Troupon.Catalog.Core.Domain.Entities.Common;
 
 namespace Troupon.Catalog.Core.Domain.InputModels
 {
-  public record DealsSearchFilter : PaginatedFilter
+  public class DealsSearchFilter : PaginatedFilter
   {
       public string Location { get; init; } = "";
       public string? Query { get; init; }

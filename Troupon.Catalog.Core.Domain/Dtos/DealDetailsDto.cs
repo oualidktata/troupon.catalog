@@ -6,7 +6,7 @@ using Troupon.Catalog.Core.Domain.Enums;
 
 namespace Troupon.Catalog.Core.Domain.Dtos
 {
-  public record DealDetailsDto
+  public class DealDetailsDto
   {
     public Guid Id { get; init; }
     public string Title { get; init; } = "";
