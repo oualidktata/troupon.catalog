@@ -1,9 +1,9 @@
-using System;
 using System.Reflection;
+using Infra.Api.DependencyInjection;
 using Infra.Authorization.Policies;
 using Infra.MediatR;
-using Infra.OAuth;
 using Infra.OAuth.Controllers;
+using Infra.OAuth.DependencyInjection;
 using Infra.OAuth.Introspection;
 using Infra.Persistence.Dapper.Extensions;
 using Infra.Persistence.EntityFramework.Extensions;
@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.FeatureManagement;
 using Serilog;
 using Troupon.Catalog.Api.DependencyInjectionExtensions;
 using Troupon.Catalog.Api.FluentValidatonToMove;
@@ -32,18 +31,13 @@ namespace Troupon.Catalog.Api
 
     private IConfiguration Configuration { get; }
 
-    // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddHttpContextAccessor();
       services.AddScoped<IJwtIntrospector, JwtIntrospector>();
 
-      services.AddSingleton<IOAuthSettingsFactory>(sp => new OAuthSettingsFactory(Configuration));
-      services.AddScoped<IM2MOAuthFlowService, M2MOAuthFlowService>();
-
-      services.AddFeatureManagement();
-
-      services.AddOAuthGenericAuthentication();
+      services.AddOAuthGenericAuthentication(Configuration)
+          .AddOAuthM2MAuthFlow();
 
       services.AddAuthorization(options =>
       {
@@ -76,31 +70,27 @@ namespace Troupon.Catalog.Api
       services.AddMemoryCache();
       services.AddDapperPersistence("mainDatabaseConnStr");
 
-      services.Configure<MvcOptions>(o =>
+      services.Configure<MvcOptions>(opt =>
       {
-        o.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
-        o.Filters.Add(new ConsumesAttribute("application/json", "application/xml"));
+        opt.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
+        opt.Filters.Add(new ConsumesAttribute("application/json", "application/xml"));
       });
+
+      services.AddPwcApiBehaviour();
     }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
+    public void Configure(IApplicationBuilder app, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
       app.UseExceptionHandler("/error");
       app.UseHttpsRedirection();
       app.UseSerilogRequestLogging();
 
-      // app.UsePathBase("/graphql");
-
-      // catalogDbContext.Database.EnsureDeleted();
       var catalogDbContext = dbContextFactory.CreateDbContext();
       catalogDbContext.Database.Migrate();
 
-      // app.UsePlayground();
       app.UseSwagger();
 
-      var factory = serviceProvider.GetRequiredService<IOAuthSettingsFactory>();
-      app.ConfigureSwaggerUI(apiVersionDescriptionProvider, factory.GetDefaultMachineToMachine());
+      app.ConfigureSwaggerUI(apiVersionDescriptionProvider);
 
       app.UseRouting();
 
