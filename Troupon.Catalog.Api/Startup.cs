@@ -93,8 +93,6 @@ namespace Troupon.Catalog.Api
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
-      app.UseMiddleware<CustomMiddleware>();
-
       // exception handling (wrapper for .net userExceptionHandler)
       app.UseErrorHandling();
 
