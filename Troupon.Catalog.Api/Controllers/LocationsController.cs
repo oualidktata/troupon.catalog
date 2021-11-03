@@ -14,9 +14,9 @@ namespace Troupon.Catalog.Api.Controllers
   [Route("api/v{version:apiVersion}/[controller]")]
   [ApiVersion("1.0")]
   [ApiConventionType(typeof(PwcApiConventions))]
-  public class LocationController : PwcBaseController
+  public class LocationsController : PwcBaseController
   {
-    public LocationController(IMediator mediator, IMapper mapper)
+    public LocationsController(IMediator mediator, IMapper mapper)
       : base(mediator, mapper)
     {
     }
