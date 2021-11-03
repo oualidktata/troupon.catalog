@@ -1,4 +1,5 @@
 using Infra.ExceptionHandling;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Troupon.Catalog.Core.Domain.Exceptions
 {

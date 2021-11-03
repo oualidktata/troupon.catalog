@@ -1,8 +1,8 @@
 using System;
 using System.Reflection;
 using Infra.Authorization.Policies;
-using Infra.Exceptions.ExceptionHandling.Controllers;
-using Infra.Exceptions.ExceptionHandling.Extensions;
+using Infra.ExceptionHandling.Controllers;
+using Infra.ExceptionHandling.Extensions;
 using Infra.MediatR;
 using Infra.OAuth;
 using Infra.OAuth.Controllers;

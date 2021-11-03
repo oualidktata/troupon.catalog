@@ -103,6 +103,8 @@
     <ProjectReference Include="..\Infrastructure\Infra.Authentication.Service\Infra.OAuth.Controllers\Infra.OAuth.Controllers.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Authentication.Service\Infra.OAuth\Infra.OAuth.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infra.ExceptionHandling\Infra.ExceptionHandling.Controllers\Infra.ExceptionHandling.Controllers.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infra.ExceptionHandling\Infra.ExceptionHandling.Extensions\Infra.ExceptionHandling.Extensions.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Caching.Extensions\Infra.MediatR.Caching.Extensions.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Caching\Infra.MediatR.Caching.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Logging.Extensions\Infra.MediatR.Logging.Extensions.csproj" />
