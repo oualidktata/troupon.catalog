@@ -1,12 +1,11 @@
-using System;
 using System.Reflection;
+using Infra.Api.DependencyInjection;
 using Infra.Authorization.Policies;
 using Infra.ExceptionHandling.Controllers;
 using Infra.ExceptionHandling.Extensions;
 using Infra.MediatR;
-using Infra.OAuth;
-using Infra.OAuth.Controllers;
-using Infra.OAuth.Introspection;
+using Infra.OAuth.Controllers.DependencyInjection;
+using Infra.OAuth.DependencyInjection;
 using Infra.Persistence.Dapper.Extensions;
 using Infra.Persistence.EntityFramework.Extensions;
 using Infra.Persistence.SqlServer.Extensions;
@@ -18,7 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Troupon.Catalog.Api.DependencyInjectionExtensions;
-using Troupon.Catalog.Api.FluentValidatonToMove;
+using Troupon.Catalog.Api.ToMoveOrRemove;
 using Troupon.Catalog.Core.Application.Queries.Deals;
 using Troupon.Catalog.Core.Domain.Exceptions;
 using Troupon.Catalog.Infra.Persistence;
@@ -27,22 +26,20 @@ namespace Troupon.Catalog.Api
 {
   public class Startup
   {
+    private IConfiguration Configuration { get; }
+
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
     }
 
-    private IConfiguration Configuration { get; }
-
-    // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddHttpContextAccessor();
-      services.AddScoped<IJwtIntrospector, JwtIntrospector>();
+      services.AddOAuthGenericAuthentication(Configuration)
+          .AddOAuthM2MAuthFlow();
 
-      services.AddSingleton<IOAuthSettingsFactory>(sp => new OAuthSettingsFactory(Configuration));
-      services.AddScoped<IM2MOAuthFlowService, M2MOAuthFlowService>();
-      services.AddOAuthGenericAuthentication();
+      services.AddControllers().AddNewtonsoftJson();
+      services.AddOAuthController();
 
       services.AddAutoMapper(
         typeof(AutomapperProfile));
@@ -54,7 +51,8 @@ namespace Troupon.Catalog.Api
       });
 
       services.AddPolicyHandlers();
-      services.AddAutoMapper(typeof(AutomapperProfile));
+
+      services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
       services.AddMediator(typeof(GetDealsQuery).Assembly);
       services.AddSqlServerPersistence<CatalogDbContext>(
@@ -68,14 +66,6 @@ namespace Troupon.Catalog.Api
       services.AddControllers()
        .AddApplicationPart(typeof(ErrorController).Assembly)
        .AddControllersAsServices();
-
-      services.AddControllers()
-       .AddNewtonsoftJson();
-
-      services.AddControllers()
-       .AddApplicationPart(typeof(OAuthController).Assembly)
-       .AddControllersAsServices();
-
       services.AddEfReadRepository<CatalogDbContext>();
       services.AddEfWriteRepository<CatalogDbContext>();
       services.AddOpenApi(Assembly.GetExecutingAssembly());
@@ -83,15 +73,17 @@ namespace Troupon.Catalog.Api
       services.AddFluentValidaton();
       services.AddMemoryCache();
       services.AddDapperPersistence("mainDatabaseConnStr");
-      services.Configure<MvcOptions>(o =>
+
+      services.Configure<MvcOptions>(opt =>
       {
-        o.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
-        o.Filters.Add(new ConsumesAttribute("application/json", "application/xml"));
+        opt.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
+        opt.Filters.Add(new ConsumesAttribute("application/json", "application/xml"));
       });
+
+      services.AddPwcApiBehaviour();
     }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
+    public void Configure(IApplicationBuilder app, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
       // exception handling (wrapper for .net userExceptionHandler)
       app.UseErrorHandling();
@@ -104,19 +96,17 @@ namespace Troupon.Catalog.Api
 
       app.UseSwagger();
 
-      var factory = serviceProvider.GetRequiredService<IOAuthSettingsFactory>();
-      app.ConfigureSwaggerUI(apiVersionDescriptionProvider, factory.GetDefaultMachineToMachine());
+      app.ConfigureSwaggerUI(apiVersionDescriptionProvider);
 
       app.UseRouting();
 
       app.UseAuthentication();
       app.UseAuthorization();
 
-      app.UseEndpoints(
-        endpoints =>
-        {
-          endpoints.MapControllers();
-        });
+      app.UseEndpoints(endpoints =>
+      {
+        endpoints.MapControllers();
+      });
     }
   }
 }
