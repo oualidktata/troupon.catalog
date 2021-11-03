@@ -15,7 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Troupon.Catalog.Api.DependencyInjectionExtensions;
-using Troupon.Catalog.Api.FluentValidatonToMove;
+using Troupon.Catalog.Api.ToMoveOrRemove;
 using Troupon.Catalog.Core.Application.Queries.Deals;
 using Troupon.Catalog.Infra.Persistence;
 
@@ -35,6 +35,7 @@ namespace Troupon.Catalog.Api
       services.AddOAuthGenericAuthentication(Configuration)
           .AddOAuthM2MAuthFlow();
 
+      services.AddControllers().AddNewtonsoftJson();
       services.AddOAuthController();
 
       services.AddAuthorization(options =>
@@ -45,16 +46,13 @@ namespace Troupon.Catalog.Api
 
       services.AddPolicyHandlers();
 
-      services.AddAutoMapper(typeof(AutomapperProfile));
+      services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
       services.AddMediator(typeof(GetDealsQuery).Assembly);
       services.AddSqlServerPersistence<CatalogDbContext>(
         Configuration,
         "mainDatabaseConnStr",
         Assembly.GetExecutingAssembly().GetName().Name);
-
-      services.AddControllers()
-       .AddNewtonsoftJson();
 
       services.AddEfReadRepository<CatalogDbContext>();
       services.AddEfWriteRepository<CatalogDbContext>();
