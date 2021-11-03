@@ -61,11 +61,9 @@ namespace Troupon.Catalog.Api
         Assembly.GetExecutingAssembly().GetName().Name);
 
       // exception handling
-      services.AddWebExceptionHandler();
       services.AddDomainExceptionHandlers(typeof(DealDoesntExistExceptionHandler).Assembly);
-      services.AddControllers()
-       .AddApplicationPart(typeof(ErrorController).Assembly)
-       .AddControllersAsServices();
+      services.AddWebExceptionHandler();
+
       services.AddEfReadRepository<CatalogDbContext>();
       services.AddEfWriteRepository<CatalogDbContext>();
       services.AddOpenApi(Assembly.GetExecutingAssembly());
@@ -85,7 +83,7 @@ namespace Troupon.Catalog.Api
 
     public void Configure(IApplicationBuilder app, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
-      // exception handling (wrapper for .net userExceptionHandler)
+      // exception handling (wrapper for .net useExceptionHandler)
       app.UseErrorHandling();
 
       app.UseHttpsRedirection();
