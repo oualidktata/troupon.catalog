@@ -1,11 +1,10 @@
-using Infra.Exceptions.ExceptionHandling;
-using Microsoft.AspNetCore.Mvc;
+using Infra.ExceptionHandling;
 
 namespace Troupon.Catalog.Core.Domain.Exceptions
 {
-    public class POCDomainExceptionHandler : IDomainExceptionHandler<POCDomainException>
+    public class DealDoesntExistExceptionHandler : DomainExceptionHandler<DealDoesntExistException>
     {
-      public ProblemDetails Handle(POCDomainException exception, bool showDetails)
+      public override ProblemDetails HandleException(DealDoesntExistException exception, bool showDetails)
       {
         return new ProblemDetails
         {
