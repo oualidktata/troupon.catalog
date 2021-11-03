@@ -32,8 +32,7 @@ namespace Troupon.Catalog.Api
 
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddOAuthGenericAuthentication(Configuration)
-          .AddOAuthM2MAuthFlow();
+      services.AddOAuthGenericAuthentication(Configuration).AddOAuthM2MAuthFlow();
 
       services.AddControllers().AddNewtonsoftJson();
       services.AddOAuthController();
@@ -49,10 +48,7 @@ namespace Troupon.Catalog.Api
       services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
       services.AddMediator(typeof(GetDealsQuery).Assembly);
-      services.AddSqlServerPersistence<CatalogDbContext>(
-        Configuration,
-        "mainDatabaseConnStr",
-        Assembly.GetExecutingAssembly().GetName().Name);
+      services.AddSqlServerPersistence<CatalogDbContext>(Configuration, "mainDatabaseConnStr", Assembly.GetExecutingAssembly());
 
       services.AddEfReadRepository<CatalogDbContext>();
       services.AddEfWriteRepository<CatalogDbContext>();
@@ -60,7 +56,6 @@ namespace Troupon.Catalog.Api
       services.AddMetrics();
       services.AddFluentValidaton();
       services.AddMemoryCache();
-      services.AddDapperPersistence("mainDatabaseConnStr");
 
       services.Configure<MvcOptions>(opt =>
       {
@@ -69,19 +64,21 @@ namespace Troupon.Catalog.Api
       });
 
       services.AddPwcApiBehaviour();
+
+      // TO REMOVE ?
+      services.AddDapperPersistence("mainDatabaseConnStr");
     }
 
     public void Configure(IApplicationBuilder app, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
+      var catalogDbContext = dbContextFactory.CreateDbContext();
+      catalogDbContext.Database.Migrate();
+
       app.UseExceptionHandler("/error");
       app.UseHttpsRedirection();
       app.UseSerilogRequestLogging();
 
-      var catalogDbContext = dbContextFactory.CreateDbContext();
-      catalogDbContext.Database.Migrate();
-
       app.UseSwagger();
-
       app.ConfigureSwaggerUI(apiVersionDescriptionProvider);
 
       app.UseRouting();
