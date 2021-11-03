@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infra.Exceptions.ExceptionHandling\Infra.Exceptions.ExceptionHandling.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.DomainDrivenDesign.Base\Infra.DomainDrivenDesign.Base.csproj" />
   </ItemGroup>
