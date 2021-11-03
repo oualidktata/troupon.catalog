@@ -2,9 +2,8 @@ using System.Reflection;
 using Infra.Api.DependencyInjection;
 using Infra.Authorization.Policies;
 using Infra.MediatR;
-using Infra.OAuth.Controllers;
+using Infra.OAuth.Controllers.DependencyInjection;
 using Infra.OAuth.DependencyInjection;
-using Infra.OAuth.Introspection;
 using Infra.Persistence.Dapper.Extensions;
 using Infra.Persistence.EntityFramework.Extensions;
 using Infra.Persistence.SqlServer.Extensions;
@@ -24,20 +23,19 @@ namespace Troupon.Catalog.Api
 {
   public class Startup
   {
+    private IConfiguration Configuration { get; }
+
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
     }
 
-    private IConfiguration Configuration { get; }
-
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddHttpContextAccessor();
-      services.AddScoped<IJwtIntrospector, JwtIntrospector>();
-
       services.AddOAuthGenericAuthentication(Configuration)
           .AddOAuthM2MAuthFlow();
+
+      services.AddOAuthController();
 
       services.AddAuthorization(options =>
       {
@@ -57,10 +55,6 @@ namespace Troupon.Catalog.Api
 
       services.AddControllers()
        .AddNewtonsoftJson();
-
-      services.AddControllers()
-       .AddApplicationPart(typeof(OAuthController).Assembly)
-       .AddControllersAsServices();
 
       services.AddEfReadRepository<CatalogDbContext>();
       services.AddEfWriteRepository<CatalogDbContext>();
@@ -97,11 +91,10 @@ namespace Troupon.Catalog.Api
       app.UseAuthentication();
       app.UseAuthorization();
 
-      app.UseEndpoints(
-        endpoints =>
-        {
-          endpoints.MapControllers();
-        });
+      app.UseEndpoints(endpoints =>
+      {
+        endpoints.MapControllers();
+      });
     }
   }
 }
