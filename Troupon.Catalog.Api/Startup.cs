@@ -10,12 +10,9 @@ using Infra.OAuth.Introspection;
 using Infra.Persistence.Dapper.Extensions;
 using Infra.Persistence.EntityFramework.Extensions;
 using Infra.Persistence.SqlServer.Extensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,14 +44,6 @@ namespace Troupon.Catalog.Api
       services.AddScoped<IM2MOAuthFlowService, M2MOAuthFlowService>();
       services.AddOAuthGenericAuthentication();
 
-      services.AddExceptionHandling();
-
-      services.AddDomainExceptionHandlers(typeof(POCDomainExceptionHandler).Assembly);
-      services.AddControllers()
-       .AddApplicationPart(typeof(ErrorController).Assembly)
-       .AddControllersAsServices();
-
-      // services.AddScoped<IAuthorizationHandler, RequireTenantClaimHandler>();
       services.AddAutoMapper(
         typeof(AutomapperProfile));
 
@@ -65,7 +54,6 @@ namespace Troupon.Catalog.Api
       });
 
       services.AddPolicyHandlers();
-
       services.AddAutoMapper(typeof(AutomapperProfile));
 
       services.AddMediator(typeof(GetDealsQuery).Assembly);
@@ -73,6 +61,13 @@ namespace Troupon.Catalog.Api
         Configuration,
         "mainDatabaseConnStr",
         Assembly.GetExecutingAssembly().GetName().Name);
+
+      // exception handling
+      services.AddWebExceptionHandler();
+      services.AddDomainExceptionHandlers(typeof(DealDoesntExistExceptionHandler).Assembly);
+      services.AddControllers()
+       .AddApplicationPart(typeof(ErrorController).Assembly)
+       .AddControllersAsServices();
 
       services.AddControllers()
        .AddNewtonsoftJson();
@@ -96,11 +91,13 @@ namespace Troupon.Catalog.Api
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
       app.UseMiddleware<CustomMiddleware>();
 
+      // exception handling (wrapper for .net userExceptionHandler)
       app.UseErrorHandling();
+
       app.UseHttpsRedirection();
       app.UseSerilogRequestLogging();
 
