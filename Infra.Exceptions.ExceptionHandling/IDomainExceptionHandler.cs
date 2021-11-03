@@ -2,13 +2,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Infra.Exceptions.ExceptionHandling
 {
-  public interface IDomainExceptionHandler: IDomainExceptionHandler<DomainException>
+  public interface IDomainExceptionHandler
   {
+    ProblemDetails Handle(DomainException exception, bool showDetails);
   }
 
-  public interface IDomainExceptionHandler<T>
+  public abstract class DomainExceptionHandler<T> : IDomainExceptionHandler
     where T : DomainException
   {
-    ProblemDetails Handle(T exception, bool showDetails);
+
+    public ProblemDetails Handle(DomainException e, bool showDetails)
+    {
+      return HandleException((T)e, showDetails);
+    }
+
+    public abstract ProblemDetails HandleException(T exception, bool showDetails);
   }
 }

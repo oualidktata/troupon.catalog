@@ -41,10 +41,13 @@ namespace Infra.Exceptions.ExceptionHandling.Controllers
 
     private IDomainExceptionHandler? GetHandlerForExceptionType(DomainException exception)
     {
-      var genericHandler = typeof(IDomainExceptionHandler<>);
-      genericHandler.MakeGenericType(new Type[] { exception.GetType() });
+      var exceptionType = exception.GetType();
+      var handlerType = typeof(DomainExceptionHandler<>).MakeGenericType(exceptionType);
+      var handler = serviceProvider.GetService(handlerType);
 
-      return serviceProvider.GetService(genericHandler) as IDomainExceptionHandler;
+      var swig = handler as IDomainExceptionHandler;
+
+      return swig;
     }
 
     public ProblemDetails HandleOtherExceptions(Exception exception)
