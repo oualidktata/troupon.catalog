@@ -1,4 +1,5 @@
 using Infra.ExceptionHandling;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Troupon.Catalog.Core.Domain.Exceptions
@@ -11,7 +12,7 @@ namespace Troupon.Catalog.Core.Domain.Exceptions
         {
           Title = exception.Message,
           Detail = showDetails? exception.StackTrace : string.Empty,
-          Status = 400,
+          Status = StatusCodes.Status400BadRequest,
         };
       }
     }
