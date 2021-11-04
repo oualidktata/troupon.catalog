@@ -80,13 +80,9 @@ namespace Troupon.Catalog.Api
 
     public void Configure(IApplicationBuilder app, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
-      var catalogDbContext = dbContextFactory.CreateDbContext();
-      catalogDbContext.Database.Migrate();
-
       app.UseExceptionHandler("/error");
       app.UseHttpsRedirection();
       app.UseSerilogRequestLogging();
-
       app.UseSwagger();
       app.ConfigureSwaggerUI(apiVersionDescriptionProvider);
 

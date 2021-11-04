@@ -15,10 +15,13 @@
   <ItemGroup>
     <Compile Remove="Controllers\EngineTrackerController.cs" />
     <Compile Remove="Controllers\IncidentController.cs" />
+    <Compile Remove="DependencyInjectionExtensions\SwaggerHelper.cs" />
+    <Compile Remove="DependencyInjectionExtensions\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="swagger1.json" />
+    <Content Remove="DependencyInjectionExtensions\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="App.Metrics.AspNetCore" Version="4.1.0" />
@@ -130,6 +133,11 @@
     <None Include="$(SolutionDir)\Infrastructure\StyleCop\stylecop.json">
       <Link>stylecop.json</Link>
     </None>
+    <None Remove="DependencyInjectionExtensions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="DependencyInjectionExtensions\**" />
   </ItemGroup>
 
 </Project>
