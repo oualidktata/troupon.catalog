@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FeatureManagement;
 using Serilog;
 using Troupon.Catalog.Api.DependencyInjectionExtensions;
 using Troupon.Catalog.Api.ToMoveOrRemove;
@@ -36,6 +37,8 @@ namespace Troupon.Catalog.Api
 
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddFeatureManagement();
+
       services.AddOAuthGenericAuthentication(Configuration).AddOAuthM2MAuthFlow();
 
       services.AddControllers().AddNewtonsoftJson();
