@@ -36,18 +36,7 @@ namespace Troupon.Catalog.Api
 
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddOAuthGenericAuthentication(Configuration).AddOAuthM2MAuthFlow();
-
       services.AddControllers().AddNewtonsoftJson();
-      services.AddOAuthController();
-
-      services.AddAuthorization(options =>
-      {
-        options.AddPolicy(TenantPolicy.Key, pb => pb.AddTenantPolicy("pwc"));
-        options.AddPolicy(AdminOnlyPolicy.Key, pb => pb.AddAdminOnlyPolicy());
-      });
-
-      services.AddPolicyHandlers();
 
       services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
@@ -87,9 +76,6 @@ namespace Troupon.Catalog.Api
       app.ConfigureSwaggerUI(apiVersionDescriptionProvider);
 
       app.UseRouting();
-
-      app.UseAuthentication();
-      app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>
       {
