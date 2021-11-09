@@ -73,10 +73,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Api.SwaggerGen", "Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.MediatR", "Infrastructure\Infra.MediatR\Infra.MediatR\Infra.MediatR.csproj", "{F97022C1-8D9D-4B42-8CD5-623965C4F971}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{4BD68BC3-FEB3-42FE-989D-6D2319F8FE45}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Features", "Infrastructure\Infra.Features\Infra.Features.csproj", "{BB28C434-3398-4197-8473-311346050FEC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExceptionHandling", "ExceptionHandling", "{3C7F1572-041F-4574-96AC-AA2D66B86C1F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.ExceptionHandling", "Infrastructure\Infra.ExceptionHandling\Infra.ExceptionHandling\Infra.ExceptionHandling.csproj", "{96F2D817-90CE-41C7-9C7B-DE2BE18FEB07}"

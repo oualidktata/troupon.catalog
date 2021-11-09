@@ -8,7 +8,7 @@ namespace Troupon.Catalog.Infra.Persistence
   {
     public AutomapperProfile()
     {
-      CreateMap<DealView, DealDto>();
+      CreateMap<DealView, DealDetailsDto>();
     }
   }
 }

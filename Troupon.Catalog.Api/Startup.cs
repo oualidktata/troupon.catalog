@@ -1,4 +1,5 @@
 using System.Reflection;
+using HealthChecks.UI.Client;
 using Infra.Api.DependencyInjection;
 using Infra.Authorization.Policies;
 using Infra.ExceptionHandling.Controllers;
@@ -10,8 +11,10 @@ using Infra.Persistence.Dapper.Extensions;
 using Infra.Persistence.EntityFramework.Extensions;
 using Infra.Persistence.SqlServer.Extensions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +24,7 @@ using Troupon.Catalog.Api.ToMoveOrRemove;
 using Troupon.Catalog.Core.Application.Queries.Deals;
 using Troupon.Catalog.Core.Domain.Exceptions;
 using Troupon.Catalog.Infra.Persistence;
+using Troupon.DealManagement.Api.ToMoveOrRemove;
 
 namespace Troupon.Catalog.Api
 {
@@ -35,27 +39,12 @@ namespace Troupon.Catalog.Api
 
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddOAuthGenericAuthentication(Configuration)
-          .AddOAuthM2MAuthFlow();
-
       services.AddControllers().AddNewtonsoftJson();
-      services.AddOAuthController();
-
-      services.AddAuthorization(options =>
-      {
-        options.AddPolicy(TenantPolicy.Key, pb => pb.AddTenantPolicy("pwc"));
-        options.AddPolicy(AdminOnlyPolicy.Key, pb => pb.AddAdminOnlyPolicy());
-      });
-
-      services.AddPolicyHandlers();
 
       services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
       services.AddMediator(typeof(GetDealsQuery).Assembly);
-      services.AddSqlServerPersistence<CatalogDbContext>(
-        Configuration,
-        "mainDatabaseConnStr",
-        Assembly.GetExecutingAssembly().GetName().Name);
+      services.AddSqlServerPersistence<CatalogDbContext>(Configuration, "mainDatabaseConnStr", Assembly.GetExecutingAssembly());
 
       services.AddDomainExceptionHandlers(typeof(DealDoesntExistExceptionHandler).Assembly);
       services.AddWebExceptionHandler();
@@ -66,7 +55,6 @@ namespace Troupon.Catalog.Api
       services.AddMetrics();
       services.AddFluentValidaton();
       services.AddMemoryCache();
-      services.AddDapperPersistence("mainDatabaseConnStr");
 
       services.Configure<MvcOptions>(opt =>
       {
@@ -75,6 +63,14 @@ namespace Troupon.Catalog.Api
       });
 
       services.AddPwcApiBehaviour();
+
+      // TO MOVE ?
+      services.AddHealthChecks(Configuration);
+      services.AddHealthChecksUI();
+      services.AddFluentValidaton();
+
+      // TO REMOVE ?
+      services.AddDapperPersistence("mainDatabaseConnStr");
     }
 
     public void Configure(IApplicationBuilder app, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
@@ -83,23 +79,62 @@ namespace Troupon.Catalog.Api
 
       app.UseHttpsRedirection();
       app.UseSerilogRequestLogging();
-
-      var catalogDbContext = dbContextFactory.CreateDbContext();
-      catalogDbContext.Database.Migrate();
-
       app.UseSwagger();
-
       app.ConfigureSwaggerUI(apiVersionDescriptionProvider);
 
       app.UseRouting();
 
-      app.UseAuthentication();
-      app.UseAuthorization();
-
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
+        ConfigureHealthChecks(endpoints);
       });
+    }
+
+    private void ConfigureHealthChecks(IEndpointRouteBuilder endpoints)
+    {
+      endpoints.MapHealthChecks(
+            "/health",
+            new HealthCheckOptions()
+            {
+              Predicate = (
+                check) => check.Tags.Contains("all"),
+              ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+            });
+      endpoints.MapHealthChecks(
+        "/health/external",
+        new HealthCheckOptions()
+        {
+          Predicate = (
+            check) => check.Tags.Contains("external"),
+          ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+        });
+      endpoints.MapHealthChecks(
+        "/health/db",
+        new HealthCheckOptions()
+        {
+          Predicate = (
+            check) => check.Tags.Contains("db"),
+          ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+        });
+      endpoints.MapHealthChecks(
+        "/health/uri",
+        new HealthCheckOptions()
+        {
+          Predicate = (
+            check) => check.Tags.Contains("uri"),
+          ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+        });
+      endpoints.MapHealthChecks(
+        "/health/internal",
+        new HealthCheckOptions()
+        {
+          Predicate = (
+            check) => check.Tags.Contains("errors") || check.Tags.Contains("db"),
+          ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+        });
+
+      endpoints.MapHealthChecksUI();
     }
   }
 }

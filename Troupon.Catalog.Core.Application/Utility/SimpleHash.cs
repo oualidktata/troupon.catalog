@@ -9,7 +9,7 @@ namespace Troupon.Catalog.Core.Application.Utility
   public static class UtilityMethods
   {
     public static string ToHash(
-      SearchDealsFilter filter)
+      DealsSearchFilter filter)
     {
       using (var algorithm = MD5.Create())
       {
