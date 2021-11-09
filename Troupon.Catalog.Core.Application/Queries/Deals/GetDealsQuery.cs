@@ -15,16 +15,16 @@ using Troupon.Catalog.Core.Domain.InputModels;
 
 namespace Troupon.Catalog.Core.Application.Queries.Deals
 {
-  public class GetDealsQuery : IRequest<IEnumerable<DealDto>>, ICachable
+  public class GetDealsQuery : IRequest<IEnumerable<DealDetailsDto>>, ICachable
   {
     public string CacheKey { get; }
 
-    public GetDealsQuery(SearchDealsFilter filter)
+    public GetDealsQuery(DealsSearchFilter filter)
     {
       CacheKey = $"GetDeal-{UtilityMethods.ToHash(filter)}";
     }
 
-    public class GetDealsQueryHandler : IRequestHandler<GetDealsQuery, IEnumerable<DealDto>>
+    public class GetDealsQueryHandler : IRequestHandler<GetDealsQuery, IEnumerable<DealDetailsDto>>
     {
       private readonly IDapper _dapper;
       private readonly IMapper _mapper;
@@ -35,7 +35,7 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
         _dapper = dapper;
       }
 
-      public async Task<IEnumerable<DealDto>> Handle(GetDealsQuery request, CancellationToken cancellationToken)
+      public async Task<IEnumerable<DealDetailsDto>> Handle(GetDealsQuery request, CancellationToken cancellationToken)
       {
         //Business logic goes here
 
@@ -46,7 +46,7 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
 
         var deals = await Task.FromResult(dealsQuery);
 
-        var dealDtos = _mapper.Map<IEnumerable<DealView>, IEnumerable<DealDto>>(deals);
+        var dealDtos = _mapper.Map<IEnumerable<DealView>, IEnumerable<DealDetailsDto>>(deals);
         return await Task.FromResult(dealDtos);
       }
     }
