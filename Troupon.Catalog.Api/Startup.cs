@@ -41,9 +41,6 @@ namespace Troupon.Catalog.Api
       services.AddControllers().AddNewtonsoftJson();
       services.AddOAuthController();
 
-      services.AddAutoMapper(
-        typeof(AutomapperProfile));
-
       services.AddAuthorization(options =>
       {
         options.AddPolicy(TenantPolicy.Key, pb => pb.AddTenantPolicy("pwc"));
@@ -60,7 +57,6 @@ namespace Troupon.Catalog.Api
         "mainDatabaseConnStr",
         Assembly.GetExecutingAssembly().GetName().Name);
 
-      // exception handling
       services.AddDomainExceptionHandlers(typeof(DealDoesntExistExceptionHandler).Assembly);
       services.AddWebExceptionHandler();
 
@@ -83,7 +79,6 @@ namespace Troupon.Catalog.Api
 
     public void Configure(IApplicationBuilder app, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
-      // exception handling (wrapper for .net useExceptionHandler)
       app.UseErrorHandling();
 
       app.UseHttpsRedirection();
