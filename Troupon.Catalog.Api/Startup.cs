@@ -2,6 +2,8 @@ using System.Reflection;
 using HealthChecks.UI.Client;
 using Infra.Api.DependencyInjection;
 using Infra.Authorization.Policies;
+using Infra.ExceptionHandling.Controllers;
+using Infra.ExceptionHandling.Extensions;
 using Infra.MediatR;
 using Infra.OAuth.Controllers.DependencyInjection;
 using Infra.OAuth.DependencyInjection;
@@ -20,6 +22,7 @@ using Serilog;
 using Troupon.Catalog.Api.DependencyInjectionExtensions;
 using Troupon.Catalog.Api.ToMoveOrRemove;
 using Troupon.Catalog.Core.Application.Queries.Deals;
+using Troupon.Catalog.Core.Domain.Exceptions;
 using Troupon.Catalog.Infra.Persistence;
 using Troupon.DealManagement.Api.ToMoveOrRemove;
 
@@ -36,23 +39,15 @@ namespace Troupon.Catalog.Api
 
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddOAuthGenericAuthentication(Configuration).AddOAuthM2MAuthFlow();
-
       services.AddControllers().AddNewtonsoftJson();
-      services.AddOAuthController();
-
-      services.AddAuthorization(options =>
-      {
-        options.AddPolicy(TenantPolicy.Key, pb => pb.AddTenantPolicy("pwc"));
-        options.AddPolicy(AdminOnlyPolicy.Key, pb => pb.AddAdminOnlyPolicy());
-      });
-
-      services.AddPolicyHandlers();
 
       services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
       services.AddMediator(typeof(GetDealsQuery).Assembly);
       services.AddSqlServerPersistence<CatalogDbContext>(Configuration, "mainDatabaseConnStr", Assembly.GetExecutingAssembly());
+
+      services.AddDomainExceptionHandlers(typeof(DealDoesntExistExceptionHandler).Assembly);
+      services.AddWebExceptionHandler();
 
       services.AddEfReadRepository<CatalogDbContext>();
       services.AddEfWriteRepository<CatalogDbContext>();
@@ -80,20 +75,14 @@ namespace Troupon.Catalog.Api
 
     public void Configure(IApplicationBuilder app, IApiVersionDescriptionProvider apiVersionDescriptionProvider, IDbContextFactory<CatalogDbContext> dbContextFactory)
     {
-      var catalogDbContext = dbContextFactory.CreateDbContext();
-      catalogDbContext.Database.Migrate();
+      app.UseErrorHandling();
 
-      app.UseExceptionHandler("/error");
       app.UseHttpsRedirection();
       app.UseSerilogRequestLogging();
-
       app.UseSwagger();
       app.ConfigureSwaggerUI(apiVersionDescriptionProvider);
 
       app.UseRouting();
-
-      app.UseAuthentication();
-      app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>
       {

@@ -15,10 +15,18 @@
   <ItemGroup>
     <Compile Remove="Controllers\EngineTrackerController.cs" />
     <Compile Remove="Controllers\IncidentController.cs" />
+    <Compile Remove="DependencyInjectionExtensions\SwaggerHelper.cs" />
+    <Compile Remove="DependencyInjectionExtensions\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="swagger1.json" />
+    <Content Remove="DependencyInjectionExtensions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Controllers\NewFile.txt" />
+    <None Remove="Controllers\NotificationController" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="App.Metrics.AspNetCore" Version="4.1.0" />
@@ -99,6 +107,8 @@
     <ProjectReference Include="..\Infrastructure\Infra.Authentication.Service\Infra.OAuth.Controllers\Infra.OAuth.Controllers.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Authentication.Service\Infra.OAuth\Infra.OAuth.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infra.ExceptionHandling\Infra.ExceptionHandling.Controllers\Infra.ExceptionHandling.Controllers.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infra.ExceptionHandling\Infra.ExceptionHandling.Extensions\Infra.ExceptionHandling.Extensions.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Caching.Extensions\Infra.MediatR.Caching.Extensions.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Caching\Infra.MediatR.Caching.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.MediatR\Infra.MediatR.Logging.Extensions\Infra.MediatR.Logging.Extensions.csproj" />
@@ -114,6 +124,7 @@
     <ProjectReference Include="..\Infrastructure\Infra.Persistence\Infra.Persistence.EntityFramework\Infra.Persistence.EntityFramework.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.Persistence\Infra.Persistence.SqlServer.Extensions\Infra.Persistence.SqlServer.Extensions.csproj" />
     <ProjectReference Include="..\Troupon.Catalog.Core.Application\Troupon.Catalog.Core.Application.csproj" />
+    <ProjectReference Include="..\Troupon.Catalog.Core.Domain\Troupon.Catalog.Core.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -130,6 +141,15 @@
     <None Include="$(SolutionDir)\Infrastructure\StyleCop\stylecop.json">
       <Link>stylecop.json</Link>
     </None>
+    <None Remove="DependencyInjectionExtensions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="DependencyInjectionExtensions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ErrorHandling\" />
   </ItemGroup>
 
 </Project>

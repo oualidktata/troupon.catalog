@@ -25,14 +25,22 @@ namespace Troupon.Catalog.Integration.Tests
     {
       //Arrange
       var client = Factory.CreateClient();
-      var filter = new SearchDealsFilter("Search Deal Text", "Location", Enumerable.Empty<string>(), Enumerable.Empty<MinMax>(), Enumerable.Empty<MinMax>());
+      var filter = new DealsSearchFilter
+      {
+        Query = "Search Deal Text",
+        Location = "Location",
+        Categories = Enumerable.Empty<string>(),
+        DistanceRanges = Enumerable.Empty<MinMax>(),
+        PriceRanges = Enumerable.Empty<MinMax>()
+      };
+
       var content = JsonContent.Create(filter);
       using var scope = _scopeFactory.CreateScope();
       //Act
       var response = await client.PostAsync($"{BaseUri}/search", content);
       //Assert
       response.StatusCode.Should().Be(HttpStatusCode.OK);
-      response.Should().NotBeOfType<DealDto[]>();
+      response.Should().NotBeOfType<DealDetailsDto[]>();
     }
 
     [InlineData("6346dfe7-b3bc-4a85-bb6e-d5cdc19a6fbb")]

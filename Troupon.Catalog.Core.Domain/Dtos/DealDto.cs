@@ -1,18 +1,24 @@
-﻿using System;
-using Troupon.Catalog.Core.Domain.Enums;
+using System;
+using Troupon.Catalog.Core.Domain.Entities.Common;
 
 namespace Troupon.Catalog.Core.Domain.Dtos
 {
   public class DealDto
   {
-    public Guid Id { get; set; }
-    public string Description { get; set; }
-    public string Title { get; set; }
-    public DateTime ExpirationDate { get; set; }
-    public int Limitation { get; set; }
-    public string OtherConditions { get; set; }
-    public DealStatus Status { get; set; }
-    public Guid AccountId { get; set; }
-    public string MerchantName { get; set; }
+    public Guid Id { get; init; }
+    public MultimediaDto? Image { get; init; }
+
+    public string Title { get; init; } = "";
+    public string Address { get; init; } = "";
+    public decimal OriginalPrice { get; init; }
+    public decimal CurrentPrice { get; init; }
+    public float AverageRating { get; init; }
+    public int RatingQuantity { get; init; }
+    public float Distance { get; init; }
+    public string Subtitle { get; init; } = "";
+
+    public Position? Position { get; init; }
+    public bool IsTrending { get; init; }
+    public int Views { get; init; }
   }
 }

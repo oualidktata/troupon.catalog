@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infra.Common.Models\Infra.Common.Models.csproj" />
     <ProjectReference Include="..\Infrastructure\Infra.DomainDrivenDesign.Base\Infra.DomainDrivenDesign.Base.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infra.ExceptionHandling\Infra.ExceptionHandling\Infra.ExceptionHandling.csproj" />
   </ItemGroup>
 
 </Project>

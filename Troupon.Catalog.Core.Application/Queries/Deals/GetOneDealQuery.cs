@@ -12,11 +12,11 @@ using Troupon.Catalog.Core.Domain.Entities.Deal;
 
 namespace Troupon.Catalog.Core.Application.Queries.Deals
 {
-  public class GetOneDealQuery : IRequest<DealDto>
+  public class GetOneDealQuery : IRequest<DealDetailsDto>
   {
     public Guid Id { get; set; }
 
-    public class GetOneDealQueryHandler : IRequestHandler<GetOneDealQuery, DealDto>
+    public class GetOneDealQueryHandler : IRequestHandler<GetOneDealQuery, DealDetailsDto>
     {
       private readonly IDapper _dapper;
       private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
         _dapper = dapper;
       }
 
-      public async Task<DealDto> Handle(
+      public async Task<DealDetailsDto> Handle(
         GetOneDealQuery request,
         CancellationToken cancellationToken)
       {
@@ -40,7 +40,7 @@ namespace Troupon.Catalog.Core.Application.Queries.Deals
             null,
             commandType: CommandType.Text));
 
-        var dealDto = _mapper.Map<DealView, DealDto>(deal);
+        var dealDto = _mapper.Map<DealView, DealDetailsDto>(deal);
 
         return await Task.FromResult(dealDto);
       }
